@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <link rel="icon" href="https://drive.google.com/thumbnail?id=1mLT6Swi2aCfWNJZV8wKXuri1Nym8aAxo&sz=w800" type="image/png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>福科國中輔導室🖤</title>
+    <style>
+        /* --- 溫暖療癒系 莫蘭迪色調變數 --- */
+        :root {
+            --primary-color: #6C9A8B;    /* 寧靜綠 */
+            --secondary-color: #E8998D;  /* 溫暖粉橘 */
+            --accent-color: #F3C68F;     /* 陽光柔黃 */
+            --bg-color: #F9F7F1;         /* 舒適米白 */
+            --text-color: #4A4A4A;       /* 深碳灰 */
+            --danger-color: #D65A31;     /* 警示紅 */
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'PingFang TC', '微軟正黑體', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.7;
+        }
+
+        /* --- 1. 頂層緊急求助安全網 --- */
+        .emergency-bar {
+            background-color: var(--danger-color);
+            color: white;
+            text-align: center;
+            padding: 10px 5%;
+            font-weight: bold;
+            font-size: 0.95rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .emergency-bar a {
+            color: #FFF2E6;
+            text-decoration: underline;
+            margin: 0 8px;
+            display: inline-block;
+        }
+
+        /* --- 2. 響應式導覽列 --- */
+        header {
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(5px);
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 41px;
+            z-index: 999;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+        }
+
+        .logo {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 22px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            transition: color 0.3s;
+            cursor: pointer;
+        }
+
+        nav a:hover, nav a.active-nav {
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+
+        .menu-toggle {
+            display: none;
+            font-size: 1.6rem;
+            cursor: pointer;
+            color: var(--primary-color);
+        }
+
+        /* --- 3. 分頁顯示與隱藏機制 --- */
+        .page {
+            display: none; /* 預設全部隱藏 */
+        }
+        .page.active-page {
+            display: block; /* 只有被加上 active-page 的才會顯示 */
+        }
+
+        /* --- 4. 首頁與英雄橫幅樣式 --- */
+        .hero {
+            background: linear-gradient(135deg, #E6EFEA 0%, #F6ECE9 100%);
+            padding: 80px 5% 60px 5%;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 2.3rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+        }
+
+        .hero p {
+            color: #777;
+            margin-bottom: 30px;
+        }
+
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 14px 32px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            color: white;
+            background-color: var(--primary-color);
+            box-shadow: 0 4px 10px rgba(108, 154, 139, 0.3);
+            transition: all 0.3s;
+        }
+
+        .btn-secondary {
+            background-color: var(--secondary-color);
+            box-shadow: 0 4px 10px rgba(232, 153, 141, 0.3);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+        }
+
+        /* --- 5. 雙重動態篩選操控台 --- */
+        .filter-section {
+            background-color: white;
+            padding: 30px 5%;
+            text-align: center;
+            border-bottom: 1px solid #EEEADF;
+        }
+
+        .filter-group {
+            margin: 10px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .filter-label {
+            font-weight: bold;
+            color: #888;
+            font-size: 0.9rem;
+        }
+
+        .filter-btn {
+            background: #F0EDE4;
+            border: none;
+            padding: 6px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+            color: var(--text-color);
+        }
+
+        .filter-btn.active {
+            background-color: var(--primary-color);
+            color: white;
+            font-weight: bold;
+        }
+
+        /* --- 6. 資源展示網格與圖卡 --- */
+        .container {
+            padding: 50px 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 30px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.04);
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+        }
+
+        .card-media {
+            width: 100%;
+            height: 180px;
+            position: relative;
+            background-color: #EEEADF;
+        }
+
+        .card-media iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .card-media img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .card-body {
+            padding: 22px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-tags { margin-bottom: 10px; }
+
+        .badge {
+            font-size: 0.75rem;
+            padding: 3px 10px;
+            border-radius: 10px;
+            color: white;
+            font-weight: bold;
+            margin-right: 5px;
+        }
+
+        .badge-identity { background-color: var(--secondary-color); }
+        .badge-topic { background-color: #9C8887; }
+
+        .card-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .card-text {
+            font-size: 0.95rem;
+            color: #666;
+            margin-bottom: 15px;
+            flex-grow: 1;
+        }
+
+        .card-link { text-align: right; }
+        .card-link a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.95rem;
+        }
+
+        /* --- 7. 【全新升級】團隊成員分頁視覺樣式 --- */
+        .team-title-section {
+            text-align: center;
+            padding: 50px 5% 20px 5%;
+        }
+        .team-title-section h2 {
+            color: var(--primary-color);
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px 5% 50px 5%;
+        }
+        .member-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px 20px;
+            text-align: center;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.03);
+            border: 1px solid #F0EDE4;
+            transition: transform 0.3s;
+        }
+        .member-card:hover {
+            transform: translateY(-5px);
+        }
+        .avatar-container {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 20px auto;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 4px solid #FFF;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            background-color: #EEEADF;
+        }
+        .avatar-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .member-title {
+            font-size: 0.9rem;
+            color: var(--secondary-color);
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+        .member-name {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: var(--text-color);
+            margin-bottom: 15px;
+        }
+        .member-job {
+            font-size: 0.95rem;
+            color: #666;
+            background: #F9F7F1;
+            padding: 10px;
+            border-radius: 10px;
+            text-align: left;
+            margin-bottom: 15px;
+            min-height: 80px;
+        }
+        .member-ext {
+            font-size: 0.85rem;
+            color: #999;
+            font-weight: 500;
+        }
+
+        /* --- 8. FAQ 分頁樣式 --- */
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 50px 5%;
+        }
+        .faq-item {
+            margin-bottom: 20px;
+            background: white;
+            padding: 25px;
+            border-radius: 16px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+        }
+        .faq-q { font-size: 1.1rem; font-weight: bold; color: var(--primary-color); margin-bottom: 10px;}
+        .faq-a { font-size: 1rem; color: #555; line-height: 1.8; }
+
+        /* --- 頁尾 --- */
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 30px 5%;
+            margin-top: 60px;
+            font-size: 0.9rem;
+        }
+
+        /* --- 手機版響應式 RWD 斷點 --- */
+        @media (max-width: 850px) {
+            header { top: 76px; }
+            nav ul {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: white;
+                padding: 20px;
+                box-shadow: 0 10px 15px rgba(0,0,0,0.05);
+            }
+            nav ul.active { display: flex; }
+            .menu-toggle { display: block; }
+        }
+        /* --- YouTube 影音預覽外觀魔法 --- */
+.video-preview-wrapper {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    display: block;
+    overflow: hidden;
+}
+
+/* 當滑鼠移到影片預覽圖上時，圖片微放大 */
+.video-preview-wrapper:hover img {
+    transform: scale(1.05);
+}
+
+.video-preview-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+/* 製作半透明遮罩 */
+.video-preview-wrapper::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.15); /* 稍微變暗讓播放鈕更明顯 */
+    transition: background 0.3s;
+}
+.video-preview-wrapper:hover::after {
+    background: rgba(0, 0, 0, 0.3); /* 滑鼠移上去時變更深一點 */
+}
+
+/* 用純 CSS 畫出一個超精美的 YouTube 風格播放按鈕 */
+.play-button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 65px;
+    height: 45px;
+    background-color: rgba(224, 43, 36, 0.9); /* YouTube 經典紅 */
+    border-radius: 12px;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+/* 三角形播放圖示 */
+.play-button::after {
+    content: '';
+    display: block;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 10px 0 10px 18px;
+    border-color: transparent transparent transparent #ffffff;
+    margin-left: 4px; /* 微調三角形正中心視覺差 */
+}
+
+/* 滑鼠移上去時，播放按鈕微微放大變亮 */
+.video-preview-wrapper:hover .play-button {
+    background-color: #ff0000;
+    transform: translate(-50%, -50%) scale(1.1);
+}
+/* 首頁標語橫幅 styling */
+.hero-banner {
+    background: linear-gradient(135deg, #e0f2fe 0%, #e0e7ff 100%);
+    padding: 40px 20px;
+    text-align: center;
+    border-radius: 16px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+.hero-slogan {
+    font-size: 1.2rem;
+    color: #334155;
+    margin: 12px 0;
+    font-weight: 500;
+    letter-spacing: 1px;
+}
+
+/* 滿版彈出視窗 */
+.welcome-modal {
+    display: none; 
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh; /* 滿版設定 */
+    z-index: 9999;
+    
+    /* 這裡換成妳的溫暖背景圖網址 👇 */
+    background-image: url('https://drive.google.com/thumbnail?id=1IqswNZjTqgD7jxzuRTWEqsxgvmABIsYQ&sz=w800'); 
+    background-size: cover;
+    background-position: center;
+    
+    justify-content: center;
+    align-items: center;
+}
+
+/* 加上一層微透明的溫暖遮罩，讓字體更清楚 */
+.modal-overlay {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(255, 248, 240, 0.85); /* 溫暖的米白色遮罩 */
+    backdrop-filter: blur(4px);
+}
+
+.modal-content {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    padding: 20px;
+    animation: modalPop 0.8s ease;
+}
+
+.modal-title {
+    color: #8b5a2b; /* 溫暖的大地色 */
+    font-size: 2.8rem; /* 字體大升級 */
+    margin-bottom: 30px;
+    font-weight: bold;
+}
+
+.modal-slogan {
+    font-size: 1.8rem; /* 字體大升級 */
+    color: #5c4b51;
+    margin: 20px 0;
+    line-height: 1.6;
+}
+
+.modal-close-btn {
+    margin-top: 40px;
+    background: #d4a373; /* 溫暖的奶茶色按鈕 */
+    color: white;
+    border: none;
+    padding: 15px 40px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: all 0.3s;
+}
+.modal-close-btn:hover { background: #bc8f5f; transform: scale(1.05); }
+
+@keyframes modalPop {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+    </style>
+</head>
+<body>
+<!-- 彈出視窗 -->
+<div id="welcomeModal" class="welcome-modal">
+    <div class="modal-overlay"></div>
+    <div class="modal-content">
+        <div class="modal-title">歡迎來到福科輔導室 ✨</div>
+        <div class="modal-slogan">🌿 讓輔導走進日常－深耕校園環境陶冶</div>
+        <div class="modal-slogan">🕸️ 讓專業協力織網－連結社區專業資源</div>
+        <div class="modal-slogan">🛡️ 輔導不止於晤談－全方位建構校園防護網</div>
+        <button class="modal-close-btn" onclick="closeModal()">輕輕推開門</button>
+    </div>
+</div>
+</div>
+
+
+    <div class="emergency-bar">
+        🚨 深夜情緒低落、遭遇危機？福科拉你一把：
+        <a href="tel:1925">安心專線 1925</a> | 
+        <a href="tel:1995">生命線 1995</a> | 
+        <a href="tel:1980">張老師 1980</a> (支援手機直撥)
+    </div>
+
+    <header>
+        <div class="logo" onclick="switchPage('home')">🌻 福科國中輔導室</div>
+        <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+        <nav>
+            <ul id="nav-menu">
+                <li><a id="nav-home" class="active-nav" onclick="switchPage('home')">首頁與資源寶庫</a></li>
+                <li><a id="nav-team" onclick="switchPage('team')">認識團隊與職掌</a></li>
+                <li><a id="nav-faq" onclick="switchPage('faq')">迷思破解 Q&A</a></li>
+            </ul>
+        </nav>
+    </header>
+
+
+    <div id="page-home" class="page active-page">
+        <section class="hero">
+            <h1>福科國中輔導室</h1>
+            <div style="text-align: center; margin: 50px 20px 30px 20px;">
+    <h3 style="color: #d4a373; font-size: 1.6rem; margin-bottom: 25px; line-height: 1.5;">
+        在這裡，你的聲音會被聽見。<br>不論是悄悄話、想放鬆，還是尋求資源，我們永遠陪伴你。
+    </h3>
+    <div style="font-size: 1.1rem; color: #888; margin-bottom: 8px;">✨ 讓輔導走進日常－深耕校園環境陶冶</div>
+    <div style="font-size: 1.1rem; color: #888; margin-bottom: 8px;">🤝 讓專業協力織網－連結社區專業資源</div>
+    <div style="font-size: 1.1rem; color: #888; margin-bottom: 30px;">🛡️ 輔導不止於晤談－全方位建構校園防護網</div>
+</div>
+            
+            <div class="action-buttons">
+                <a href="https://a1021502.github.io/mood/index.html" target="_blank" class="btn">🔑 FMTH 福科心靈樹洞 (匿名傾訴)</a>
+                <a href="https://a1021502.github.io/take.care.of.yourself/" target="_blank" class="btn btn-secondary">🧘 SAFE SPACE (心靈充電站)</a>
+            </div>
+        </section>
+
+        <section class="filter-section">
+            <h2 style="color: var(--primary-color); margin-bottom: 15px;">🔍 依照需求快速搜尋</h2>
+            <div class="filter-group">
+                <span class="filter-label">我是誰：</span>
+                <button class="filter-btn active" onclick="filterData('identity', 'all', this)">全部身分</button>
+                <button class="filter-btn" onclick="filterData('identity', 'student', this)">學生專區</button>
+                <button class="filter-btn" onclick="filterData('identity', 'parent', this)">家長專區</button>
+                <button class="filter-btn" onclick="filterData('identity', 'teacher', this)">教師專區</button>
+            </div>
+            <div class="filter-group">
+                <span class="filter-label">我想聊：</span>
+                <button class="filter-btn active" onclick="filterData('topic', 'all', this)">所有議題</button>
+                <button class="filter-btn" onclick="filterData('topic', 'relation', this)">人際困擾</button>
+                <button class="filter-btn" onclick="filterData('topic', 'career', this)">生涯發展</button>
+                <button class="filter-btn" onclick="filterData('topic', 'emotion', this)">情緒調適</button>
+                <button class="filter-btn" onclick="filterData('topic', 'social', this)">社群與影音</button>
+            </div>
+        </section>
+
+        <div class="container">
+            <div class="grid" id="card-grid">
+                
+                <div class="card" data-identity="student parent teacher" data-topic="emotion social">
+    <div class="card-media">
+        <a href="https://www.youtube.com/playlist?list=PLkqAD3KmD8OuUvpt1f9p9xT8z7C11VcIO" target="_blank" class="video-preview-wrapper">
+            <div class="play-button"></div>
+            <img src="https://drive.google.com/thumbnail?id=1VMIjCMrF4fnfnmKSwbXNLTdVoS8CDGL9&sz=w800" alt="心衛知識加油站">
+        </a>
+    </div>
+    <div class="card-body">
+        <div class="card-tags">
+            <span class="badge badge-identity">親師生</span>
+            <span class="badge badge-topic">心衛知識加油站</span>
+        </div>
+        <div class="card-title">🎬 影音專區：心衛知識加油站</div>
+        <div class="card-text">由福科國中輔導室精心整理、製作的心理健康系列影音。陪伴你認識壓力、調適情緒，隨時為心靈加滿油！</div>
+        <div class="card-link"><a href="https://www.youtube.com/playlist?list=PLkqAD3KmD8OuUvpt1f9p9xT8z7C11VcIO" target="_blank">前往 YT 頻道 ➔</a></div>
+    </div>
+</div>
+<div class="card" data-identity="student parent" data-topic="relation career social">
+    <div class="card-media">
+        <a href="https://www.youtube.com/playlist?list=PLkqAD3KmD8OuBvUJvLy2_5vx7RzdFVL8m" target="_blank" class="video-preview-wrapper">
+            <div class="play-button"></div>
+            <img src="https://drive.google.com/thumbnail?id=1GmH44JyzetnAHuMt8pEWrkn-WQb1VbfB&sz=w800" alt="福科電台">
+        </a>
+    </div>
+    <div class="card-body">
+        <div class="card-tags">
+            <span class="badge badge-identity">學生/家長</span>
+            <span class="badge badge-topic">福科電台</span>
+        </div>
+        <div class="card-title">🎙️ 精彩收聽：福科電台</div>
+        <div class="card-text">聆聽福科師生的聲音！這裡有關於校園生活、生涯探索與人際關係的溫馨訪談與分享，用聲音溫暖你的心。</div>
+        <div class="card-link"><a href="https://www.youtube.com/playlist?list=PLkqAD3KmD8OuBvUJvLy2_5vx7RzdFVL8m" target="_blank">前往收聽 ➔</a></div>
+    </div>
+</div>
+
+                <div class="card" data-identity="student parent teacher" data-topic="social">
+                    <div class="card-media">
+                        <img src="https://drive.google.com/thumbnail?id=1LlQD0tUC8vdhycH3Zkl_mAFVN3AY5njo&sz=w800" alt="FB粉專">
+                    </div>
+                    <div class="card-body">
+                        <div class="card-tags">
+                            <span class="badge badge-identity">親師生</span>
+                            <span class="badge badge-topic">社群追蹤</span>
+                        </div>
+                        <div class="card-title">📱 Facebook 粉絲專頁</div>
+                        <div class="card-text">最即時的輔導室活動公告、親職教育講座資訊、精美圖文懶人包，歡迎按讚追蹤「福科國中輔導室」！</div>
+                        <div class="card-link"><a href="https://www.facebook.com/fcjhguidance" target="_blank">點我前往 FB ➔</a></div>
+                    </div>
+                </div>
+
+                <div class="card" data-identity="student" data-topic="social">
+                    <div class="card-media">
+                        <img src="https://drive.google.com/thumbnail?id=1mLT6Swi2aCfWNJZV8wKXuri1Nym8aAxo&sz=w800" alt="IG專區">
+                    </div>
+                    <div class="card-body">
+                        <div class="card-tags">
+                            <span class="badge badge-identity">學生專區</span>
+                            <span class="badge badge-topic">社群互動</span>
+                        </div>
+                        <div class="card-title">📸 Instagram 官方帳號</div>
+                        <div class="card-text">貼近學生的圖文心情點評、限時動態小互動、心理健康週活動花絮。趕快拿起手機追蹤「福科國中輔導室」！</div>
+                        <div class="card-link"><a href="https://www.instagram.com/fcjhguidance/" target="_blank">點我追蹤 IG ➔</a></div>
+                    </div>
+                </div>
+
+                <div class="card" data-identity="parent teacher" data-topic="career relation">
+                    <div class="card-media">
+                        <img src=https://drive.google.com/thumbnail?id=1eGHsIBxU5KdEJoylmX0ZOlmYauQ5Ewgk&sz=w800 alt="成果相簿">
+                    </div>
+                    <div class="card-body">
+                        <div class="card-tags">
+                            <span class="badge badge-identity">家長/教師</span>
+                            <span class="badge badge-topic">活動花絮</span>
+                        </div>
+                        <div class="card-title">🖼️ 各項活動成果相簿中心</div>
+                        <div class="card-text">想回顧親職教育講座、生涯輔導參訪或全校性宣導活動的精彩瞬間嗎？活動照片皆完整儲存於官方雲端硬碟。</div>
+                        <div class="card-link"><a href="https://drive.google.com/drive/folders/1hbupZ1MMX38P39uuIPQIA07vz0HXrCfy?usp=drive_link" target="_blank">進入相簿倉庫 ➔</a></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <div id="page-team" class="page">
+        <div class="team-title-section">
+            <h2>👥 我們的溫暖團隊</h2>
+            <p>福科國中輔導室由專業的夥伴組成，在各自的崗位上提供妳最安心、堅實的支持網絡。</p>
+        </div>
+
+    
+            
+            <div class="team-grid">
+    
+    <!-- === 輔導室長官 === -->
+    <div class="member-card">
+        <div class="avatar-container">
+            <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=150&q=80" alt="輔導主任大頭照">
+        </div>
+        <div class="member-title">Leadership</div>
+        <div class="member-name">輔導主任：賴妙芬</div>
+        <div class="member-job">
+            加強學生的生活輔導工作。<br>
+            定期舉辦各種教育與心理測驗。<br>
+            推動特殊教育實驗研究，照顧弱勢。<br>
+            落實親職教育功能，強化親職教育影響。<br>
+            規劃教師的進修活動，以增進教師專業知能。<br>
+            提供師生心理上或行為上的各種輔導及諮詢服務。
+        </div>
+        <div class="member-ext">📞 學校分機：601</div>
+    </div>
+
+    <!-- === 輔導組 === -->
+    <div class="member-card">
+        <div class="avatar-container"><img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=150&q=80" alt="大頭照"></div>
+        <div class="member-title">Counseling</div>
+        <div class="member-name">輔導組長：林俶敏</div>
+        <div class="member-job">訂定各種輔導章則。<br>
+            訂定及執行輔導工作。<br>
+            實施個別輔導團體輔導及查閱紀錄。<br>
+            推行全體教師參與輔導。<br>
+            規劃並協助教師實施班級輔導。<br>
+            中途輟學學生之輔導。<br>
+            輔導學生升學及就業事項。<br>
+            辦理親職教育 班親會實施計畫性騷擾及性侵犯處理與防治實施要點。<br>
+            各項輔導專案資料之建立管理。
+</div>
+        <div class="member-ext">📞 學校分機：748</div>
+    </div>
+    
+    <div class="member-card">
+        <div class="avatar-container"><img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=150&q=80" alt="大頭照"></div>
+        <div class="member-title">Counselor</div>
+        <div class="member-name">專任輔導教師：賀湘邦</div>
+        <div class="member-job">• 專任輔導教師業務</div>
+        <div class="member-ext">📞 學校分機：744</div>
+    </div>
+
+    <div class="member-card">
+        <div class="avatar-container"><img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=150&q=80" alt="大頭照"></div>
+        <div class="member-title">Counselor</div>
+        <div class="member-name">專任輔導教師：湯佳偉</div>
+        <div class="member-job">• 專任輔導教師業務</div>
+        <div class="member-ext">📞 學校分機：747</div>
+    </div>
+
+    <div class="member-card">
+        <div class="avatar-container"><img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=150&q=80" alt="大頭照"></div>
+        <div class="member-title">Counselor</div>
+        <div class="member-name">專任輔導教師：呂冠霖</div>
+        <div class="member-job">• 專任輔導教師業務</div>
+        <div class="member-ext">📞 學校分機：793</div>
+    </div>
+<div class="member-card">
+                <div class="avatar-container">
+                    <img src="https://drive.google.com/thumbnail?id=1IqswNZjTqgD7jxzuRTWEqsxgvmABIsYQ&sz=w800" alt="專輔老師大頭照">
+                </div>
+                <div class="member-title">Counselor</div>
+                <div class="member-name">專任輔導教師：杜智平</div>
+                <div class="member-job">
+                    【人生就像講電話，不是你先掛，就是我先掛。】<br>
+                    • 執行學生個別諮商與深度晤談<br>
+                    • 帶領小團體輔導、辦理心理測驗實施與解釋<br>
+                    • 提供親師專業輔導諮詢
+                </div>
+                <div class="member-ext">📞 學校分機：742</div>
+            </div>
+
+    <!-- === 資料組 === -->
+    <div class="member-card">
+        <div class="avatar-container"><img src="預設大頭照網址.jpg" alt="大頭照"></div>
+        <div class="member-title">Data Management</div>
+        <div class="member-name">資料組長：王曉玲</div>
+        <div class="member-job">各類心理測驗及問卷調查之實施及應用。<br>
+            學生資料之建立、分析、保管並提供教師參考。<br>
+            學生輔導資料之轉移等事項 學生學習態度測驗辦法。<br>
+            畢業生追蹤調查輔導事項。<br>
+            充實及管理輔導叢書、測驗資料、錄影帶及其他設備。<br>
+            辦理技藝教育事項。
+</div>
+        <div class="member-ext">📞 學校分機：749</div>
+    </div>
+
+    <!-- === 特教組 === -->
+    <div class="member-card">
+        <div class="avatar-container"><img src="預設大頭照網址.jpg" alt="大頭照"></div>
+        <div class="member-title">Special Education</div>
+        <div class="member-name">特教組長：徐匡賢</div>
+        <div class="member-job">
+            擬訂學校特殊教育實施計畫。<br>
+            辦理特殊班級新生報到事宜。<br>
+            進行特殊班級學生的個別與團體輔導。<br>
+            辦理各種特殊學生調查、鑑定、十二年就學安置及轉銜、追蹤輔導工作。<br>
+            推動特殊教育班級課程及教學活動。<br>
+            從事特殊教育的實驗研究。<br>
+            實施特殊教育諮詢。<br>
+            參與特殊教育各項研討會。<br>
+            協助身心障礙學生申請各項補助款。<br>
+            參與各項特殊教育競賽活動。<br>
+            實施特殊班級戶外教學活動。<br>
+            其他有關特殊教育工作事宜。<br>
+            交辦事項。
+
+        </div>
+        <div class="member-ext">📞 學校分機：743</div>
+    </div>
+
+    <div class="member-card">
+        <div class="avatar-container"><img src="預設大頭照網址.jpg" alt="大頭照"></div>
+        <div class="member-title">Special Ed Teacher</div>
+        <div class="member-name">特教老師：鄭依佳</div>
+        <div class="member-job">• 特教老師業務</div>
+        <div class="member-ext">📞 學校分機：769</div>
+    </div>
+
+    <div class="member-card">
+        <div class="avatar-container"><img src="預設大頭照網址.jpg" alt="大頭照"></div>
+        <div class="member-title">Special Ed Teacher</div>
+        <div class="member-name">特教老師：孫彩瑄</div>
+        <div class="member-job">• 特教老師業務</div>
+        <div class="member-ext">📞 學校分機：746</div>
+    </div>
+
+    <div class="member-card">
+        <div class="avatar-container"><img src="預設大頭照網址.jpg" alt="大頭照"></div>
+        <div class="member-title">Special Ed Teacher</div>
+        <div class="member-name">特教老師：蘇以安</div>
+        <div class="member-job">• 特教老師業務</div>
+        <div class="member-ext">📞 學校分機：未提供</div>
+    </div>
+
+    <div class="member-card">
+        <div class="avatar-container"><img src="預設大頭照網址.jpg" alt="大頭照"></div>
+        <div class="member-title">Special Ed Teacher</div>
+        <div class="member-name">特教老師：郭芙吟</div>
+        <div class="member-job">• 特教老師業務</div>
+        <div class="member-ext">📞 學校分機：791</div>
+    </div>
+
+    <div class="member-card">
+        <div class="avatar-container"><img src="預設大頭照網址.jpg" alt="大頭照"></div>
+        <div class="member-title">Special Ed Teacher</div>
+        <div class="member-name">特教老師：蔣若穎</div>
+        <div class="member-job">• 特教老師業務</div>
+        <div class="member-ext">📞 學校分機：737</div>
+    </div>
+
+    <div class="member-card">
+        <div class="avatar-container"><img src="預設大頭照網址.jpg" alt="大頭照"></div>
+        <div class="member-title">Special Ed Teacher</div>
+        <div class="member-name">特教老師：李建承</div>
+        <div class="member-job">• 特教老師業務</div>
+        <div class="member-ext">📞 學校分機：745</div>
+    </div>
+
+    <div class="member-card">
+        <div class="avatar-container"><img src="預設大頭照網址.jpg" alt="大頭照"></div>
+        <div class="member-title">Special Ed Teacher</div>
+        <div class="member-name">特教老師：蔡依蓉</div>
+        <div class="member-job">• 特教老師業務</div>
+        <div class="member-ext">📞 學校分機：740</div>
+    </div>
+
+    <div class="member-card">
+        <div class="avatar-container"><img src="預設大頭照網址.jpg" alt="大頭照"></div>
+        <div class="member-title">Special Ed Teacher</div>
+        <div class="member-name">特教老師：蕭友維</div>
+        <div class="member-job">• 特教老師業務</div>
+        <div class="member-ext">📞 學校分機：752</div>
+    </div>
+
+    <div class="member-card">
+        <div class="avatar-container"><img src="預設大頭照網址.jpg" alt="大頭照"></div>
+        <div class="member-title">Special Ed Teacher</div>
+        <div class="member-name">特教老師：胡慧敏</div>
+        <div class="member-job">• 特教老師業務</div>
+        <div class="member-ext">📞 學校分機：未提供</div>
+    </div>
+
+    <div class="member-card">
+        <div class="avatar-container"><img src="預設大頭照網址.jpg" alt="大頭照"></div>
+        <div class="member-title">Special Ed Teacher</div>
+        <div class="member-name">特教老師：張簡嘉琳</div>
+        <div class="member-job">• 特教老師業務</div>
+        <div class="member-ext">📞 學校分機：未提供</div>
+    </div>
+
+</div>
+        </div>
+    </div>
+
+
+    <div id="page-faq" class="page">
+        <div class="team-title-section">
+            <h2>🔍 輔導室迷思大破解</h2>
+            <p>別擔心！走進輔導室一點也不可怕，讓我們為妳解答心中的疑惑。</p>
+        </div>
+
+        <div class="faq-container">
+            <div class="faq-item">
+                <div class="faq-q">Q1. 去輔導室會被同學當成有問題的怪人嗎？</div>
+                <div class="faq-a">A：完全不會！福科國中輔導室是一個安全、讓人放鬆的溫暖空間。很多同學下課也會來聊天、玩桌遊。任何生活不順心、感情受挫，或者只是當天心情有點灰灰的，都隨時歡迎妳走進來休息。</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-q">Q2. 我跟輔導老師說的秘密，會被偷偷告訴導師或爸媽嗎？</div>
+                <div class="faq-a">A：輔導老師嚴格遵守法律與專業的「保密原則」。妳在這裡訴說的心事都不會對外公開。除非內容涉及「傷害自己、傷害他人或重大违規法律事件」，為了守護妳的生命安全，老師才會啟動保密例外，以最溫柔的方式通知相關人保護妳。</div>
+            </div>
+        </div>
+    </div>
+
+
+    <footer>
+        <p>© 2026 福科國中輔導室 版權所有</p>
+        <p style="font-size: 0.8rem; margin-top: 5px; color: #D1E0DB;">校址：407臺中市西屯區福林里福林路333號 | 聯絡電話：04-24618112</p>
+    </footer>
+
+
+    <script>
+        // 🌟 1. 【全新升級】無縫切換獨立分頁功能
+        function switchPage(pageId) {
+            // 隱藏所有分頁
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => page.classList.remove('active-page'));
+
+            // 移除所有導覽列按鈕的 active 狀態
+            const navLinks = document.querySelectorAll('nav a');
+            navLinks.forEach(link => link.classList.remove('active-nav'));
+
+            // 顯示目標分頁
+            document.getElementById(`page-${pageId}`).classList.add('active-page');
+
+            // 讓導覽列對應的按鈕變亮 (如果不是點選logo的話)
+            const activeNavLink = document.getElementById(`nav-${pageId}`);
+            if (activeNavLink) {
+                activeNavLink.classList.add('active-nav');
+            }
+
+            // 頂部導覽防呆：手機版切換分頁後自動把漢堡選單收起來
+            document.getElementById("nav-menu").classList.remove("active");
+            
+            // 頁面切換後自動滾動回最頂端
+            window.scrollTo(0, 0);
+        }
+
+        // 手機版漢堡選單切換
+        function toggleMenu() {
+            const menu = document.getElementById("nav-menu");
+            menu.classList.toggle("active");
+        }
+
+        // 🌟 2. 雙重條件聯動篩選 JavaScript 魔法
+        let currentFilters = { identity: 'all', topic: 'all' };
+
+        function filterData(type, value, buttonElement) {
+            // 切換按鈕 active 樣式
+            const siblings = buttonElement.parentElement.querySelectorAll('.filter-btn');
+            siblings.forEach(btn => btn.classList.remove('active'));
+            buttonElement.classList.add('active');
+
+            // 更新篩選條件
+            currentFilters[type] = value;
+
+            // 篩選卡片
+            const cards = document.querySelectorAll('#card-grid .card');
+            cards.forEach(card => {
+                const cardIdentities = card.getAttribute('data-identity').split(' ');
+                const cardTopic = card.getAttribute('data-topic').split(' ');
+
+                const matchIdentity = (currentFilters.identity === 'all' || cardIdentities.includes(currentFilters.identity));
+                const matchTopic = (currentFilters.topic === 'all' || cardTopic.includes(currentFilters.topic));
+
+                if (matchIdentity && matchTopic) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+        // 網頁載入完成後自動彈出視窗
+window.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('welcomeModal').style.display = 'flex';
+});
+
+// 關閉視窗的功能
+function closeModal() {
+    document.getElementById('welcomeModal').style.display = 'none';
+}
+    </script>
+</body>
+</html>
