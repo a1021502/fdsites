@@ -50,11 +50,11 @@
             display: inline-block;
         }
 
-        /* --- 2. 響應式導覽列 --- */
+        /* --- 2. 響應式導覽列 (調小間距以容納新獨立頁面) --- */
         header {
             background-color: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(5px);
-            padding: 15px 5%;
+            padding: 15px 3%;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -65,27 +65,31 @@
         }
 
         .logo {
-            font-size: 1.4rem;
+            font-size: 1.3rem;
             font-weight: bold;
             color: var(--primary-color);
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
             cursor: pointer;
+            white-space: nowrap;
         }
 
         nav ul {
             list-style: none;
             display: flex;
-            gap: 22px;
+            gap: 14px;
+            flex-wrap: wrap;
         }
 
         nav a {
             text-decoration: none;
             color: var(--text-color);
             font-weight: 500;
+            font-size: 0.95rem;
             transition: color 0.3s;
             cursor: pointer;
+            white-space: nowrap;
         }
 
         nav a:hover, nav a.active-nav {
@@ -102,16 +106,22 @@
 
         /* --- 3. 分頁顯示與隱藏機制 --- */
         .page {
-            display: none; /* 預設全部隱藏 */
+            display: none; 
+            animation: fadeIn 0.5s;
         }
         .page.active-page {
-            display: block; /* 只有被加上 active-page 的才會顯示 */
+            display: block; 
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         /* --- 4. 首頁與英雄橫幅樣式 --- */
         .hero {
             background: linear-gradient(135deg, #E6EFEA 0%, #F6ECE9 100%);
-            padding: 80px 5% 60px 5%;
+            padding: 70px 5% 50px 5%;
             text-align: center;
         }
 
@@ -120,11 +130,6 @@
             color: var(--primary-color);
             margin-bottom: 15px;
             letter-spacing: 1px;
-        }
-
-        .hero p {
-            color: #777;
-            margin-bottom: 30px;
         }
 
         .action-buttons {
@@ -156,12 +161,96 @@
             box-shadow: 0 6px 15px rgba(0,0,0,0.1);
         }
 
-        /* --- 5. 雙重動態篩選操控台 --- */
-        .filter-section {
+        /* --- 5. 首頁最新消息區塊 --- */
+        .news-section {
+            max-width: 1000px;
+            margin: -30px auto 40px auto;
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.05);
+            position: relative;
+            z-index: 10;
+        }
+        .news-section h2 {
+            color: var(--danger-color);
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-bottom: 2px solid #F0EDE4;
+            padding-bottom: 10px;
+        }
+        .news-list {
+            list-style: none;
+        }
+        .news-item {
+            display: flex;
+            gap: 15px;
+            padding: 12px 0;
+            border-bottom: 1px dashed #EEEADF;
+            align-items: center;
+        }
+        .news-item:last-child {
+            border-bottom: none;
+        }
+        .news-date {
+            background: var(--accent-color);
+            color: #6b5233;
+            padding: 4px 12px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+        .news-title-link {
+            color: var(--text-color);
+            font-size: 1.05rem;
+            text-decoration: none;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        .news-title-link:hover {
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+
+        /* --- ✨ 新增：智慧關鍵字搜尋欄外觀 --- */
+        .search-wrapper {
+            max-width: 600px;
+            margin: 20px auto 10px auto;
+            position: relative;
+        }
+        .search-input {
+            width: 100%;
+            padding: 14px 25px 14px 50px;
+            border: 2px solid #E1DDD5;
+            border-radius: 50px;
+            font-size: 1rem;
+            outline: none;
             background-color: white;
-            padding: 30px 5%;
+            transition: all 0.3s;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+        }
+        .search-input:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 4px 15px rgba(108, 154, 139, 0.15);
+        }
+        .search-icon {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.2rem;
+            color: #aaa;
+        }
+
+        /* --- 6. 雙重動態篩選操控台 --- */
+        .filter-section {
+            background-color: transparent;
+            padding: 10px 5% 30px 5%;
             text-align: center;
-            border-bottom: 1px solid #EEEADF;
         }
 
         .filter-group {
@@ -196,9 +285,9 @@
             font-weight: bold;
         }
 
-        /* --- 6. 資源展示網格與圖卡 --- */
+        /* --- 7. 資源展示網格與圖卡 --- */
         .container {
-            padding: 50px 5%;
+            padding: 0 5% 50px 5%;
             max-width: 1200px;
             margin: 0 auto;
         }
@@ -217,6 +306,7 @@
             display: flex;
             flex-direction: column;
             transition: transform 0.3s, box-shadow 0.3s;
+            animation: fadeIn 0.5s;
         }
 
         .card:hover {
@@ -229,12 +319,6 @@
             height: 180px;
             position: relative;
             background-color: #EEEADF;
-        }
-
-        .card-media iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
         }
 
         .card-media img {
@@ -286,23 +370,150 @@
             font-size: 0.95rem;
         }
 
-        /* --- 7. 【全新升級】團隊成員分頁視覺樣式 --- */
+        /* --- 8. 團隊成員與獨立專區外觀 --- */
         .team-title-section {
             text-align: center;
-            padding: 50px 5% 20px 5%;
+            padding: 50px 5% 30px 5%;
+            background: linear-gradient(180deg, #F0EDE4 0%, var(--bg-color) 100%);
         }
         .team-title-section h2 {
             color: var(--primary-color);
             font-size: 2rem;
             margin-bottom: 10px;
         }
+        
+        .team-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        .team-tab-btn {
+            padding: 10px 25px;
+            border-radius: 30px;
+            border: none;
+            background: #F0EDE4;
+            color: var(--text-color);
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        .team-tab-btn.active {
+            background: var(--primary-color);
+            color: white;
+            box-shadow: 0 4px 10px rgba(108, 154, 139, 0.3);
+        }
+        
+        .team-group-content {
+            display: none; 
+            animation: fadeIn 0.4s;
+        }
+        .team-group-content.active {
+            display: block; 
+        }
+
+        /* 各組專屬資訊佈告欄 */
+        .group-announcement-box {
+            max-width: 1000px;
+            margin: 0 auto 30px auto;
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 25px 35px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            border-left: 6px solid var(--secondary-color);
+        }
+        .group-announcement-box h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+        .group-announcement-list {
+            list-style: none;
+            padding-left: 0;
+        }
+        .group-announcement-list li {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 10px;
+            color: #555;
+        }
+        .group-announcement-list li::before {
+            content: '📌';
+            position: absolute;
+            left: 0;
+            top: 2px;
+            font-size: 0.9rem;
+        }
+        .group-announcement-list span {
+            color: var(--secondary-color);
+            font-weight: bold;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .group-announcement-list span:hover {
+            text-decoration: underline;
+        }
+
+        /* ✨ 新增：業務職掌與常用表單下載卡片樣式 */
+        .group-info-wrapper {
+            max-width: 1000px;
+            margin: 0 auto 40px auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            padding: 0 20px;
+        }
+        @media (max-width: 768px) {
+            .group-info-wrapper { grid-template-columns: 1fr; }
+        }
+        .info-block {
+            background: white;
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+            border: 1px solid #EEEADF;
+        }
+        .info-block h4 {
+            color: var(--primary-color);
+            font-size: 1.15rem;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #F9F7F1;
+            padding-bottom: 8px;
+        }
+        .info-block ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        .info-block li {
+            margin-bottom: 10px;
+            position: relative;
+            padding-left: 18px;
+        }
+        .info-block li::before {
+            content: "•";
+            color: var(--secondary-color);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+            font-size: 1.2rem;
+            top: -2px;
+        }
+        .download-link {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .download-link:hover { text-decoration: underline; }
+
         .team-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 30px;
             max-width: 1000px;
             margin: 0 auto;
-            padding: 20px 5% 50px 5%;
+            padding: 0 5% 50px 5%;
         }
         .member-card {
             background: white;
@@ -313,9 +524,8 @@
             border: 1px solid #F0EDE4;
             transition: transform 0.3s;
         }
-        .member-card:hover {
-            transform: translateY(-5px);
-        }
+        .member-card:hover { transform: translateY(-5px); }
+        
         .avatar-container {
             width: 120px;
             height: 120px;
@@ -326,247 +536,120 @@
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
             background-color: #EEEADF;
         }
-        .avatar-container img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        .member-title {
-            font-size: 0.9rem;
-            color: var(--secondary-color);
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 5px;
-        }
-        .member-name {
-            font-size: 1.4rem;
-            font-weight: bold;
-            color: var(--text-color);
-            margin-bottom: 15px;
-        }
-        .member-job {
-            font-size: 0.95rem;
-            color: #666;
-            background: #F9F7F1;
-            padding: 10px;
-            border-radius: 10px;
-            text-align: left;
-            margin-bottom: 15px;
-            min-height: 80px;
-        }
-        .member-ext {
-            font-size: 0.85rem;
-            color: #999;
-            font-weight: 500;
-        }
+        .avatar-container img { width: 100%; height: 100%; object-fit: contain; background-color: transparent;}
+        .member-title { font-size: 0.9rem; color: var(--secondary-color); font-weight: bold; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px; }
+        .member-name { font-size: 1.4rem; font-weight: bold; color: var(--text-color); margin-bottom: 15px; }
+        .member-job { font-size: 0.95rem; color: #666; background: #F9F7F1; padding: 10px; border-radius: 10px; text-align: left; margin-bottom: 15px; min-height: 80px; }
+        .member-ext { font-size: 0.85rem; color: #999; font-weight: 500; }
 
-        /* --- 8. FAQ 分頁樣式 --- */
-        .faq-container {
-            max-width: 800px;
+        /* --- 9. 資源地圖樣式 --- */
+        .resource-list {
+            max-width: 1000px;
             margin: 0 auto;
-            padding: 50px 5%;
+            padding: 20px 5% 50px 5%;
         }
-        .faq-item {
-            margin-bottom: 20px;
+        .resource-category {
             background: white;
-            padding: 25px;
             border-radius: 16px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            border-top: 5px solid var(--primary-color);
         }
+        .resource-category h3 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-size: 1.4rem;
+            border-bottom: 1px dashed #EEEADF;
+            padding-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .resource-item {
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+        }
+        .resource-item:not(:last-child) { border-bottom: 1px solid #F9F7F1; }
+        .resource-name { font-weight: bold; font-size: 1.15rem; color: #333; margin-bottom: 5px;}
+        .resource-info { font-size: 0.95rem; color: #666; margin-bottom: 8px; line-height: 1.6;}
+        .resource-link { color: var(--secondary-color); text-decoration: none; font-weight: bold; display: inline-block;}
+        .resource-link:hover { text-decoration: underline; }
+
+        /* --- 10. FAQ 分頁樣式 --- */
+        .faq-container { max-width: 800px; margin: 0 auto; padding: 50px 5%; }
+        .faq-item { margin-bottom: 20px; background: white; padding: 25px; border-radius: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.02); }
         .faq-q { font-size: 1.1rem; font-weight: bold; color: var(--primary-color); margin-bottom: 10px;}
         .faq-a { font-size: 1rem; color: #555; line-height: 1.8; }
 
         /* --- 頁尾 --- */
-        footer {
-            background-color: var(--primary-color);
-            color: white;
-            text-align: center;
-            padding: 30px 5%;
-            margin-top: 60px;
-            font-size: 0.9rem;
-        }
+        footer { background-color: var(--primary-color); color: white; text-align: center; padding: 30px 5%; margin-top: 60px; font-size: 0.9rem; }
 
-        /* --- 手機版響應式 RWD 斷點 --- */
-        @media (max-width: 850px) {
+        /* --- 手機版響應式 RWD --- */
+        @media (max-width: 950px) {
             header { top: 76px; }
             nav ul {
                 display: none;
                 flex-direction: column;
                 position: absolute;
-                top: 100%;
-                left: 0;
-                width: 100%;
-                background-color: white;
-                padding: 20px;
+                top: 100%; left: 0; width: 100%;
+                background-color: white; padding: 20px;
                 box-shadow: 0 10px 15px rgba(0,0,0,0.05);
             }
             nav ul.active { display: flex; }
             .menu-toggle { display: block; }
+            .news-section { margin: -20px 20px 30px 20px; padding: 20px; }
+            .group-announcement-box { margin: 0 20px 30px 20px;}
         }
-        /* --- YouTube 影音預覽外觀魔法 --- */
-.video-preview-wrapper {
-    width: 100%;
-    height: 100%;
-    position: relative;
-    display: block;
-    overflow: hidden;
-}
 
-/* 當滑鼠移到影片預覽圖上時，圖片微放大 */
-.video-preview-wrapper:hover img {
-    transform: scale(1.05);
-}
+        /* --- YouTube 預覽外觀魔法 --- */
+        .video-preview-wrapper { width: 100%; height: 100%; position: relative; display: block; overflow: hidden; }
+        .video-preview-wrapper:hover img { transform: scale(1.05); }
+        .video-preview-wrapper img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease; }
+        .video-preview-wrapper::after { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.15); transition: background 0.3s; }
+        .video-preview-wrapper:hover::after { background: rgba(0, 0, 0, 0.3); }
+        .play-button { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 65px; height: 45px; background-color: rgba(224, 43, 36, 0.9); border-radius: 12px; z-index: 10; display: flex; justify-content: center; align-items: center; transition: background-color 0.3s, transform 0.2s; }
+        .play-button::after { content: ''; display: block; width: 0; height: 0; border-style: solid; border-width: 10px 0 10px 18px; border-color: transparent transparent transparent #ffffff; margin-left: 4px; }
+        .video-preview-wrapper:hover .play-button { background-color: #ff0000; transform: translate(-50%, -50%) scale(1.1); }
 
-.video-preview-wrapper img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.3s ease;
-}
+        /* --- 滿版彈出視窗 --- */
+        .welcome-modal { display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 9999; background-image: url('https://drive.google.com/thumbnail?id=1IqswNZjTqgD7jxzuRTWEqsxgvmABIsYQ&sz=w800'); background-size: cover; background-position: center; justify-content: center; align-items: center; }
+        .modal-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255, 248, 240, 0.85); backdrop-filter: blur(4px); }
+        .modal-content { position: relative; z-index: 10; text-align: center; padding: 20px; animation: modalPop 0.8s ease; }
+        .modal-title { color: #8b5a2b; font-size: 2.8rem; margin-bottom: 30px; font-weight: bold; }
+        .modal-slogan { font-size: 1.8rem; color: #5c4b51; margin: 20px 0; line-height: 1.6; }
+        .modal-close-btn { margin-top: 40px; background: #d4a373; color: white; border: none; padding: 15px 40px; border-radius: 30px; cursor: pointer; font-size: 1.2rem; transition: all 0.3s; }
+        .modal-close-btn:hover { background: #bc8f5f; transform: scale(1.05); }
 
-/* 製作半透明遮罩 */
-.video-preview-wrapper::after {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(0, 0, 0, 0.15); /* 稍微變暗讓播放鈕更明顯 */
-    transition: background 0.3s;
-}
-.video-preview-wrapper:hover::after {
-    background: rgba(0, 0, 0, 0.3); /* 滑鼠移上去時變更深一點 */
-}
-
-/* 用純 CSS 畫出一個超精美的 YouTube 風格播放按鈕 */
-.play-button {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 65px;
-    height: 45px;
-    background-color: rgba(224, 43, 36, 0.9); /* YouTube 經典紅 */
-    border-radius: 12px;
-    z-index: 10;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: background-color 0.3s, transform 0.2s;
-}
-
-/* 三角形播放圖示 */
-.play-button::after {
-    content: '';
-    display: block;
-    width: 0;
-    height: 0;
-    border-style: solid;
-    border-width: 10px 0 10px 18px;
-    border-color: transparent transparent transparent #ffffff;
-    margin-left: 4px; /* 微調三角形正中心視覺差 */
-}
-
-/* 滑鼠移上去時，播放按鈕微微放大變亮 */
-.video-preview-wrapper:hover .play-button {
-    background-color: #ff0000;
-    transform: translate(-50%, -50%) scale(1.1);
-}
-/* 首頁標語橫幅 styling */
-.hero-banner {
-    background: linear-gradient(135deg, #e0f2fe 0%, #e0e7ff 100%);
-    padding: 40px 20px;
-    text-align: center;
-    border-radius: 16px;
-    margin-bottom: 30px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-}
-.hero-slogan {
-    font-size: 1.2rem;
-    color: #334155;
-    margin: 12px 0;
-    font-weight: 500;
-    letter-spacing: 1px;
-}
-
-/* 滿版彈出視窗 */
-.welcome-modal {
-    display: none; 
-    position: fixed;
-    top: 0; left: 0; width: 100vw; height: 100vh; /* 滿版設定 */
-    z-index: 9999;
-    
-    /* 這裡換成妳的溫暖背景圖網址 👇 */
-    background-image: url('https://drive.google.com/thumbnail?id=1IqswNZjTqgD7jxzuRTWEqsxgvmABIsYQ&sz=w800'); 
-    background-size: cover;
-    background-position: center;
-    
-    justify-content: center;
-    align-items: center;
-}
-
-/* 加上一層微透明的溫暖遮罩，讓字體更清楚 */
-.modal-overlay {
-    position: absolute;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(255, 248, 240, 0.85); /* 溫暖的米白色遮罩 */
-    backdrop-filter: blur(4px);
-}
-
-.modal-content {
-    position: relative;
-    z-index: 10;
-    text-align: center;
-    padding: 20px;
-    animation: modalPop 0.8s ease;
-}
-
-.modal-title {
-    color: #8b5a2b; /* 溫暖的大地色 */
-    font-size: 2.8rem; /* 字體大升級 */
-    margin-bottom: 30px;
-    font-weight: bold;
-}
-
-.modal-slogan {
-    font-size: 1.8rem; /* 字體大升級 */
-    color: #5c4b51;
-    margin: 20px 0;
-    line-height: 1.6;
-}
-
-.modal-close-btn {
-    margin-top: 40px;
-    background: #d4a373; /* 溫暖的奶茶色按鈕 */
-    color: white;
-    border: none;
-    padding: 15px 40px;
-    border-radius: 30px;
-    cursor: pointer;
-    font-size: 1.2rem;
-    transition: all 0.3s;
-}
-.modal-close-btn:hover { background: #bc8f5f; transform: scale(1.05); }
-
-@keyframes modalPop {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-}
+        /* --- ✨ 新增：最新消息詳細內容彈出視窗外觀 --- */
+        .news-modal { display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 10000; justify-content: center; align-items: center; }
+        .news-modal-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.4); backdrop-filter: blur(3px); }
+        .news-modal-content { position: relative; z-index: 10; background: white; padding: 35px; border-radius: 16px; max-width: 600px; width: 90%; max-height: 80vh; overflow-y: auto; box-shadow: 0 10px 30px rgba(0,0,0,0.15); animation: modalPop 0.3s ease; }
+        .news-modal-close { position: absolute; top: 15px; right: 20px; font-size: 1.8rem; cursor: pointer; color: #999; transition: color 0.3s; }
+        .news-modal-close:hover { color: #333; }
     </style>
 </head>
 <body>
-<!-- 彈出視窗 -->
-<div id="welcomeModal" class="welcome-modal">
-    <div class="modal-overlay"></div>
-    <div class="modal-content">
-        <div class="modal-title">歡迎來到福科輔導室 ✨</div>
-        <div class="modal-slogan">🌿 讓輔導走進日常－深耕校園環境陶冶</div>
-        <div class="modal-slogan">🕸️ 讓專業協力織網－連結社區專業資源</div>
-        <div class="modal-slogan">🛡️ 輔導不止於晤談－全方位建構校園防護網</div>
-        <button class="modal-close-btn" onclick="closeModal()">輕輕推開門</button>
+    <div id="welcomeModal" class="welcome-modal">
+        <div class="modal-overlay"></div>
+        <div class="modal-content">
+            <div class="modal-title">歡迎來到福科輔導室 ✨</div>
+            <div class="modal-slogan">🌿 讓輔導走進日常－深耕校園環境陶冶</div>
+            <div class="modal-slogan">🕸️ 讓專業協力織網－連結社區專業資源</div>
+            <div class="modal-slogan">🛡️ 輔導不止於晤談－全方位建構校園防護網</div>
+            <button class="modal-close-btn" onclick="closeModal()">輕輕推開門</button>
+        </div>
     </div>
-</div>
-</div>
 
+    <div id="newsDetailModal" class="news-modal">
+        <div class="news-modal-overlay" onclick="closeNewsModal()"></div>
+        <div class="news-modal-content">
+            <span class="news-modal-close" onclick="closeNewsModal()">×</span>
+            <span id="modal-news-date" class="news-date"></span>
+            <h3 id="modal-news-title" style="margin: 20px 0 15px 0; color: var(--primary-color); font-size: 1.4rem; line-height: 1.4;"></h3>
+            <div id="modal-news-content" style="color: #555; line-height: 1.8; white-space: pre-wrap; font-size: 1.05rem;"></div>
+        </div>
+    </div>
 
     <div class="emergency-bar">
         🚨 深夜情緒低落、遭遇危機？福科拉你一把：
@@ -581,24 +664,27 @@
         <nav>
             <ul id="nav-menu">
                 <li><a id="nav-home" class="active-nav" onclick="switchPage('home')">首頁與資源寶庫</a></li>
-                <li><a id="nav-team" onclick="switchPage('team')">認識團隊與職掌</a></li>
+                <li><a id="nav-team" onclick="switchPage('team')">行政團隊職掌</a></li>
+                <li><a id="nav-counseling-group" onclick="switchPage('counseling-group')">輔導組專區</a></li>
+                <li><a id="nav-data-group" onclick="switchPage('data-group')">資料組專區</a></li>
+                <li><a id="nav-special-group" onclick="switchPage('special-group')">特教組專區</a></li>
+                <li><a id="nav-resource" onclick="switchPage('resource')">資源與支持網絡</a></li>
                 <li><a id="nav-faq" onclick="switchPage('faq')">迷思破解 Q&A</a></li>
             </ul>
         </nav>
     </header>
 
-
     <div id="page-home" class="page active-page">
         <section class="hero">
             <h1>福科國中輔導室</h1>
-            <div style="text-align: center; margin: 50px 20px 30px 20px;">
-    <h3 style="color: #d4a373; font-size: 1.6rem; margin-bottom: 25px; line-height: 1.5;">
-        在這裡，你的聲音會被聽見。<br>不論是悄悄話、想放鬆，還是尋求資源，我們永遠陪伴你。
-    </h3>
-    <div style="font-size: 1.1rem; color: #888; margin-bottom: 8px;">✨ 讓輔導走進日常－深耕校園環境陶冶</div>
-    <div style="font-size: 1.1rem; color: #888; margin-bottom: 8px;">🤝 讓專業協力織網－連結社區專業資源</div>
-    <div style="font-size: 1.1rem; color: #888; margin-bottom: 30px;">🛡️ 輔導不止於晤談－全方位建構校園防護網</div>
-</div>
+            <div style="text-align: center; margin: 30px 20px 40px 20px;">
+                <h3 style="color: #d4a373; font-size: 1.6rem; margin-bottom: 25px; line-height: 1.5;">
+                    在這裡，你的聲音會被聽見。<br>不論是悄悄話、想放鬆，還是尋求資源，我們永遠陪伴你。
+                </h3>
+                <div style="font-size: 1.1rem; color: #888; margin-bottom: 8px;">✨ 讓輔導走進日常－深耕校園環境陶冶</div>
+                <div style="font-size: 1.1rem; color: #888; margin-bottom: 8px;">🤝 讓專業協力織網－連結社區專業資源</div>
+                <div style="font-size: 1.1rem; color: #888; margin-bottom: 30px;">🛡️ 輔導不止於晤談－全方位建構校園防護網</div>
+            </div>
             
             <div class="action-buttons">
                 <a href="https://a1021502.github.io/mood/index.html" target="_blank" class="btn">🔑 FMTH 福科心靈樹洞 (匿名傾訴)</a>
@@ -606,8 +692,20 @@
             </div>
         </section>
 
+        <div class="news-section">
+            <h2>📢 輔導室最新公告</h2>
+            <ul class="news-list" id="home-news-container">
+                </ul>
+        </div>
+
         <section class="filter-section">
-            <h2 style="color: var(--primary-color); margin-bottom: 15px;">🔍 依照需求快速搜尋</h2>
+            <h2 style="color: var(--primary-color); margin-bottom: 5px;">🔍 資源百寶箱</h2>
+            
+            <div class="search-wrapper">
+                <span class="search-icon">🔍</span>
+                <input type="text" id="global-search" class="search-input" placeholder="輸入關鍵字搜尋資源卡片... (例如：電台、IG、家長)" oninput="handleSearch()">
+            </div>
+
             <div class="filter-group">
                 <span class="filter-label">我是誰：</span>
                 <button class="filter-btn active" onclick="filterData('identity', 'all', this)">全部身分</button>
@@ -626,297 +724,422 @@
         </section>
 
         <div class="container">
-            <div class="grid" id="card-grid">
-                
-                <div class="card" data-identity="student parent teacher" data-topic="emotion social">
-    <div class="card-media">
-        <a href="https://www.youtube.com/playlist?list=PLkqAD3KmD8OuUvpt1f9p9xT8z7C11VcIO" target="_blank" class="video-preview-wrapper">
-            <div class="play-button"></div>
-            <img src="https://drive.google.com/thumbnail?id=1VMIjCMrF4fnfnmKSwbXNLTdVoS8CDGL9&sz=w800" alt="心衛知識加油站">
-        </a>
-    </div>
-    <div class="card-body">
-        <div class="card-tags">
-            <span class="badge badge-identity">親師生</span>
-            <span class="badge badge-topic">心衛知識加油站</span>
-        </div>
-        <div class="card-title">🎬 影音專區：心衛知識加油站</div>
-        <div class="card-text">由福科國中輔導室精心整理、製作的心理健康系列影音。陪伴你認識壓力、調適情緒，隨時為心靈加滿油！</div>
-        <div class="card-link"><a href="https://www.youtube.com/playlist?list=PLkqAD3KmD8OuUvpt1f9p9xT8z7C11VcIO" target="_blank">前往 YT 頻道 ➔</a></div>
-    </div>
-</div>
-<div class="card" data-identity="student parent" data-topic="relation career social">
-    <div class="card-media">
-        <a href="https://www.youtube.com/playlist?list=PLkqAD3KmD8OuBvUJvLy2_5vx7RzdFVL8m" target="_blank" class="video-preview-wrapper">
-            <div class="play-button"></div>
-            <img src="https://drive.google.com/thumbnail?id=1GmH44JyzetnAHuMt8pEWrkn-WQb1VbfB&sz=w800" alt="福科電台">
-        </a>
-    </div>
-    <div class="card-body">
-        <div class="card-tags">
-            <span class="badge badge-identity">學生/家長</span>
-            <span class="badge badge-topic">福科電台</span>
-        </div>
-        <div class="card-title">🎙️ 精彩收聽：福科電台</div>
-        <div class="card-text">聆聽福科師生的聲音！這裡有關於校園生活、生涯探索與人際關係的溫馨訪談與分享，用聲音溫暖你的心。</div>
-        <div class="card-link"><a href="https://www.youtube.com/playlist?list=PLkqAD3KmD8OuBvUJvLy2_5vx7RzdFVL8m" target="_blank">前往收聽 ➔</a></div>
-    </div>
-</div>
-
-                <div class="card" data-identity="student parent teacher" data-topic="social">
-                    <div class="card-media">
-                        <img src="https://drive.google.com/thumbnail?id=1LlQD0tUC8vdhycH3Zkl_mAFVN3AY5njo&sz=w800" alt="FB粉專">
-                    </div>
-                    <div class="card-body">
-                        <div class="card-tags">
-                            <span class="badge badge-identity">親師生</span>
-                            <span class="badge badge-topic">社群追蹤</span>
-                        </div>
-                        <div class="card-title">📱 Facebook 粉絲專頁</div>
-                        <div class="card-text">最即時的輔導室活動公告、親職教育講座資訊、精美圖文懶人包，歡迎按讚追蹤「福科國中輔導室」！</div>
-                        <div class="card-link"><a href="https://www.facebook.com/fcjhguidance" target="_blank">點我前往 FB ➔</a></div>
-                    </div>
-                </div>
-
-                <div class="card" data-identity="student" data-topic="social">
-                    <div class="card-media">
-                        <img src="https://drive.google.com/thumbnail?id=1mLT6Swi2aCfWNJZV8wKXuri1Nym8aAxo&sz=w800" alt="IG專區">
-                    </div>
-                    <div class="card-body">
-                        <div class="card-tags">
-                            <span class="badge badge-identity">學生專區</span>
-                            <span class="badge badge-topic">社群互動</span>
-                        </div>
-                        <div class="card-title">📸 Instagram 官方帳號</div>
-                        <div class="card-text">貼近學生的圖文心情點評、限時動態小互動、心理健康週活動花絮。趕快拿起手機追蹤「福科國中輔導室」！</div>
-                        <div class="card-link"><a href="https://www.instagram.com/fcjhguidance/" target="_blank">點我追蹤 IG ➔</a></div>
-                    </div>
-                </div>
-
-                <div class="card" data-identity="parent teacher" data-topic="career relation">
-                    <div class="card-media">
-                        <img src=https://drive.google.com/thumbnail?id=1eGHsIBxU5KdEJoylmX0ZOlmYauQ5Ewgk&sz=w800 alt="成果相簿">
-                    </div>
-                    <div class="card-body">
-                        <div class="card-tags">
-                            <span class="badge badge-identity">家長/教師</span>
-                            <span class="badge badge-topic">活動花絮</span>
-                        </div>
-                        <div class="card-title">🖼️ 各項活動成果相簿中心</div>
-                        <div class="card-text">想回顧親職教育講座、生涯輔導參訪或全校性宣導活動的精彩瞬間嗎？活動照片皆完整儲存於官方雲端硬碟。</div>
-                        <div class="card-link"><a href="https://drive.google.com/drive/folders/1hbupZ1MMX38P39uuIPQIA07vz0HXrCfy?usp=drive_link" target="_blank">進入相簿倉庫 ➔</a></div>
-                    </div>
-                </div>
-
-            </div>
+            <div class="grid" id="card-grid"></div>
         </div>
     </div>
 
 
     <div id="page-team" class="page">
         <div class="team-title-section">
-            <h2>👥 我們的溫暖團隊</h2>
-            <p>福科國中輔導室由專業的夥伴組成，在各自的崗位上提供妳最安心、堅實的支持網絡。</p>
+            <h2>👥 行政團隊與職掌總覽</h2>
+            <p>專業的分工，共同支撐起整個福科校園的友善輔導環境。</p>
         </div>
 
-    
+        <div class="team-tabs">
+            <button class="team-tab-btn active" onclick="switchTeamTab('counseling')">輔導組</button>
+            <button class="team-tab-btn" onclick="switchTeamTab('data')">資料組</button>
+            <button class="team-tab-btn" onclick="switchTeamTab('special')">特教組</button>
+        </div>
             
+        <div id="team-counseling" class="team-group-content active">
             <div class="team-grid">
-    
-    <!-- === 輔導室長官 === -->
-    <div class="member-card">
-        <div class="avatar-container">
-            <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=150&q=80" alt="輔導主任大頭照">
-        </div>
-        <div class="member-title">Leadership</div>
-        <div class="member-name">輔導主任：賴妙芬</div>
-        <div class="member-job">
-            加強學生的生活輔導工作。<br>
-            定期舉辦各種教育與心理測驗。<br>
-            推動特殊教育實驗研究，照顧弱勢。<br>
-            落實親職教育功能，強化親職教育影響。<br>
-            規劃教師的進修活動，以增進教師專業知能。<br>
-            提供師生心理上或行為上的各種輔導及諮詢服務。
-        </div>
-        <div class="member-ext">📞 學校分機：601</div>
-    </div>
-
-    <!-- === 輔導組 === -->
-    <div class="member-card">
-        <div class="avatar-container"><img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=150&q=80" alt="大頭照"></div>
-        <div class="member-title">Counseling</div>
-        <div class="member-name">輔導組長：林俶敏</div>
-        <div class="member-job">訂定各種輔導章則。<br>
-            訂定及執行輔導工作。<br>
-            實施個別輔導團體輔導及查閱紀錄。<br>
-            推行全體教師參與輔導。<br>
-            規劃並協助教師實施班級輔導。<br>
-            中途輟學學生之輔導。<br>
-            輔導學生升學及就業事項。<br>
-            辦理親職教育 班親會實施計畫性騷擾及性侵犯處理與防治實施要點。<br>
-            各項輔導專案資料之建立管理。
-</div>
-        <div class="member-ext">📞 學校分機：748</div>
-    </div>
-    
-    <div class="member-card">
-        <div class="avatar-container"><img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=150&q=80" alt="大頭照"></div>
-        <div class="member-title">Counselor</div>
-        <div class="member-name">專任輔導教師：賀湘邦</div>
-        <div class="member-job">• 專任輔導教師業務</div>
-        <div class="member-ext">📞 學校分機：744</div>
-    </div>
-
-    <div class="member-card">
-        <div class="avatar-container"><img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=150&q=80" alt="大頭照"></div>
-        <div class="member-title">Counselor</div>
-        <div class="member-name">專任輔導教師：湯佳偉</div>
-        <div class="member-job">• 專任輔導教師業務</div>
-        <div class="member-ext">📞 學校分機：747</div>
-    </div>
-
-    <div class="member-card">
-        <div class="avatar-container"><img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=150&q=80" alt="大頭照"></div>
-        <div class="member-title">Counselor</div>
-        <div class="member-name">專任輔導教師：呂冠霖</div>
-        <div class="member-job">• 專任輔導教師業務</div>
-        <div class="member-ext">📞 學校分機：793</div>
-    </div>
-<div class="member-card">
-                <div class="avatar-container">
-                    <img src="https://drive.google.com/thumbnail?id=1IqswNZjTqgD7jxzuRTWEqsxgvmABIsYQ&sz=w800" alt="專輔老師大頭照">
+                <div class="member-card">
+                    <div class="avatar-container"><img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=150&q=80" alt="照片"></div>
+                    <div class="member-title">Leadership</div>
+                    <div class="member-name">輔導主任：賴妙芬</div>
+                    <div class="member-job">統籌輔導室各項業務、推動特殊教育、落實親職教育與提供師生諮詢服務。</div>
+                    <div class="member-ext">📞 學校分機：601</div>
                 </div>
+                <div class="member-card">
+                    <div class="avatar-container"><img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=150&q=80" alt="照片"></div>
+                    <div class="member-title">Counseling</div>
+                    <div class="member-name">輔導組長：林俶敏</div>
+                    <div class="member-job">訂定輔導計畫、實施個/團輔、中輟生輔導、性平防治及專案建立管理。</div>
+                    <div class="member-ext">📞 學校分機：748</div>
+                </div>
+                <div class="member-card">
+                    <div class="avatar-container"><img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=150&q=80" alt="大頭照"></div>
+                    <div class="member-title">Counselor</div>
+                    <div class="member-name">專任輔導教師：賀湘邦</div>
+                    <div class="member-job">全校一、二、三級輔導與深度諮商、個案管理及親師溝通專業諮詢。</div>
+                    <div class="member-ext">📞 學校分機：744</div>
+                </div>
+                <div class="member-card">
+                    <div class="avatar-container"><img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=150&q=80" alt="大頭照"></div>
+                    <div class="member-title">Counselor</div>
+                    <div class="member-name">專任輔導教師：湯佳偉</div>
+                    <div class="member-job">個別諮商、心理衛生推廣活動、小團體帶領及輔導專案策劃。</div>
+                    <div class="member-ext">📞 學校分機：747</div>
+                </div>
+                <div class="member-card">
+                    <div class="avatar-container"><img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=150&q=80" alt="大頭照"></div>
+                    <div class="member-title">Counselor</div>
+                    <div class="member-name">專任輔導教師：呂冠霖</div>
+                    <div class="member-job">執行個別心理諮商、危機處理安心減壓、辦理心理健康推廣講座。</div>
+                    <div class="member-ext">📞 學校分機：793</div>
+                </div>
+                <div class="member-card">
+                    <div class="avatar-container"><img src="https://drive.google.com/thumbnail?id=1IqswNZjTqgD7jxzuRTWEqsxgvmABIsYQ&sz=w800" alt="照片"></div>
+                    <div class="member-title">Counselor</div>
+                    <div class="member-name">專任輔導教師：杜智平</div>
+                    <div class="member-job">【人生就像講電話，不是你先掛，就是我先掛。】<br>個別晤談、專業個案評估與追蹤、親師諮詢。</div>
+                    <div class="member-ext">📞 學校分機：742</div>
+                </div>
+            </div>
+        </div>
+
+        <div id="team-data" class="team-group-content">
+            <div class="team-grid">
+                <div class="member-card">
+                    <div class="avatar-container"><img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=150&q=80" alt="大頭照"></div>
+                    <div class="member-title">Data Management</div>
+                    <div class="member-name">資料組長：王曉玲</div>
+                    <div class="member-job">心理測驗實施、學生資料建立與移轉、畢業生追蹤調查及辦理技藝教育事項。</div>
+                    <div class="member-ext">📞 學校分機：749</div>
+                </div>
+            </div>
+        </div>
+
+        <div id="team-special" class="team-group-content">
+            <div class="team-grid">
+                <div class="member-card">
+                    <div class="avatar-container"><img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=150&q=80" alt="大頭照"></div>
+                    <div class="member-title">Special Education</div>
+                    <div class="member-name">特教組長：徐匡賢</div>
+                    <div class="member-job">辦理特教班新生報到、鑑定安置、轉銜輔導，推動特教課程與各項補助申請。</div>
+                    <div class="member-ext">📞 學校分機：743</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="page-counseling-group" class="page">
+        <div class="team-title-section">
+            <h2>🌿 輔導組專區</h2>
+            <p>專注於學生身心適應、危機介入、個別諮商、性別平等教育及生命教育，提供最安心的港灣。</p>
+        </div>
+
+        <div class="group-announcement-box">
+            <h3>📢 輔導組 最新業務公告</h3>
+            <ul class="group-announcement-list" id="counseling-news-container"></ul>
+        </div>
+
+        <div class="group-info-wrapper">
+            <div class="info-block">
+                <h4>📌 核心業務與推動重點</h4>
+                <ul>
+                    <li>一、二、三級學生個案諮商與家庭晤談</li>
+                    <li>推動性別平等教育、生命教育與校園危機安心減壓</li>
+                    <li>中輟復學追蹤、家庭暴力與兒少保護網絡通報</li>
+                    <li>辦理小團體輔導、班級輔導與親職教育講座</li>
+                </ul>
+            </div>
+            <div class="info-block">
+                <h4>💾 常用表單下載中心</h4>
+                <ul>
+                    <li><a href="#" class="download-link">📄 學生個案晤談/諮商轉介需求申請表.pdf</a></li>
+                    <li><a href="#" class="download-link">📄 學生個別諮商親師同意書 (法定格式).docx</a></li>
+                    <li><a href="#" class="download-link">📄 危機校安事件與家庭暴力校內通報流程圖.pdf</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <h3 style="text-align:center; color:var(--primary-color); margin-bottom:20px;">👥 輔導組專業團隊</h3>
+        <div class="team-grid">
+            <div class="member-card">
+                <div class="avatar-container"><img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=150&q=80"></div>
+                <div class="member-title">Leadership</div>
+                <div class="member-name">輔導主任：賴妙芬</div>
+                <div class="member-job">統籌輔導室各項業務、落實親職教育與提供師生諮詢服務。</div>
+                <div class="member-ext">📞 學校分機：601</div>
+            </div>
+            <div class="member-card">
+                <div class="avatar-container"><img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=150&q=80"></div>
+                <div class="member-title">Counseling</div>
+                <div class="member-name">輔導組長：林俶敏</div>
+                <div class="member-job">訂定輔導計畫、實施個/團輔、中輟生輔導、性平防治及專案管理。</div>
+                <div class="member-ext">📞 學校分機：748</div>
+            </div>
+            <div class="member-card">
+                <div class="avatar-container"><img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=150&q=80"></div>
+                <div class="member-title">Counselor</div>
+                <div class="member-name">專任輔導教師：賀湘邦</div>
+                <div class="member-job">全校一、二、三級輔導與深度諮商、個案管理及親師溝通專業諮詢。</div>
+                <div class="member-ext">📞 學校分機：744</div>
+            </div>
+            <div class="member-card">
+                <div class="avatar-container"><img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=150&q=80"></div>
+                <div class="member-title">Counselor</div>
+                <div class="member-name">專任輔導教師：湯佳偉</div>
+                <div class="member-job">個別諮商、心理衛生推廣活動、小團體帶領及輔導專案策劃。</div>
+                <div class="member-ext">📞 學校分機：747</div>
+            </div>
+            <div class="member-card">
+                <div class="avatar-container"><img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=150&q=80"></div>
+                <div class="member-title">Counselor</div>
+                <div class="member-name">專任輔導教師：呂冠霖</div>
+                <div class="member-job">執行個別心理諮商、危機處理安心減壓、辦理心理健康推廣講座。</div>
+                <div class="member-ext">📞 學校分機：793</div>
+            </div>
+            <div class="member-card">
+                <div class="avatar-container"><img src="https://drive.google.com/thumbnail?id=1IqswNZjTqgD7jxzuRTWEqsxgvmABIsYQ&sz=w800"></div>
                 <div class="member-title">Counselor</div>
                 <div class="member-name">專任輔導教師：杜智平</div>
-                <div class="member-job">
-                    【人生就像講電話，不是你先掛，就是我先掛。】<br>
-                    • 執行學生個別諮商與深度晤談<br>
-                    • 帶領小團體輔導、辦理心理測驗實施與解釋<br>
-                    • 提供親師專業輔導諮詢
-                </div>
+                <div class="member-job">【人生就像講電話，不是你先掛，就是我先掛。】<br>個別晤談、專業個案評估與追蹤、親師諮詢。</div>
                 <div class="member-ext">📞 學校分機：742</div>
             </div>
-
-    <!-- === 資料組 === -->
-    <div class="member-card">
-        <div class="avatar-container"><img src="預設大頭照網址.jpg" alt="大頭照"></div>
-        <div class="member-title">Data Management</div>
-        <div class="member-name">資料組長：王曉玲</div>
-        <div class="member-job">各類心理測驗及問卷調查之實施及應用。<br>
-            學生資料之建立、分析、保管並提供教師參考。<br>
-            學生輔導資料之轉移等事項 學生學習態度測驗辦法。<br>
-            畢業生追蹤調查輔導事項。<br>
-            充實及管理輔導叢書、測驗資料、錄影帶及其他設備。<br>
-            辦理技藝教育事項。
-</div>
-        <div class="member-ext">📞 學校分機：749</div>
-    </div>
-
-    <!-- === 特教組 === -->
-    <div class="member-card">
-        <div class="avatar-container"><img src="預設大頭照網址.jpg" alt="大頭照"></div>
-        <div class="member-title">Special Education</div>
-        <div class="member-name">特教組長：徐匡賢</div>
-        <div class="member-job">
-            擬訂學校特殊教育實施計畫。<br>
-            辦理特殊班級新生報到事宜。<br>
-            進行特殊班級學生的個別與團體輔導。<br>
-            辦理各種特殊學生調查、鑑定、十二年就學安置及轉銜、追蹤輔導工作。<br>
-            推動特殊教育班級課程及教學活動。<br>
-            從事特殊教育的實驗研究。<br>
-            實施特殊教育諮詢。<br>
-            參與特殊教育各項研討會。<br>
-            協助身心障礙學生申請各項補助款。<br>
-            參與各項特殊教育競賽活動。<br>
-            實施特殊班級戶外教學活動。<br>
-            其他有關特殊教育工作事宜。<br>
-            交辦事項。
-
         </div>
-        <div class="member-ext">📞 學校分機：743</div>
     </div>
 
-    <div class="member-card">
-        <div class="avatar-container"><img src="預設大頭照網址.jpg" alt="大頭照"></div>
-        <div class="member-title">Special Ed Teacher</div>
-        <div class="member-name">特教老師：鄭依佳</div>
-        <div class="member-job">• 特教老師業務</div>
-        <div class="member-ext">📞 學校分機：769</div>
+
+    <div id="page-data-group" class="page">
+        <div class="team-title-section">
+            <h2>📊 資料組專區</h2>
+            <p>規劃適性升學、技藝教育、學生綜合資料卡AB表建置、辦理各項標準化心理測驗，引導孩子看見未來。</p>
+        </div>
+
+        <div class="group-announcement-box">
+            <h3>📢 資料組 最新業務公告</h3>
+            <ul class="group-announcement-list" id="data-news-container"></ul>
+        </div>
+
+        <div class="group-info-wrapper">
+            <div class="info-block">
+                <h4>📌 核心業務與推動重點</h4>
+                <ul>
+                    <li>學生輔導資料卡(A卡、B卡)之電子化建置、管理與移轉工作</li>
+                    <li>主辦各年級心理測驗（國中生涯興趣量表、多因素性向測驗）</li>
+                    <li>推動九年級國中技藝教育專班與抽離式技藝學程選修</li>
+                    <li>辦理適性入學宣導、生涯發展教育成果展、畢業生流向追蹤</li>
+                </ul>
+            </div>
+            <div class="info-block">
+                <h4>💾 常用表單下載中心</h4>
+                <ul>
+                    <li><a href="#" class="download-link">📄 學生綜合輔導資料調閱/轉移申請單.pdf</a></li>
+                    <li><a href="#" class="download-link">📄 九年級參加技藝教育學程家長同意書暨遴選表.docx</a></li>
+                    <li><a href="#" class="download-link">📄 國中適性入學多元管道升學手冊電子書.pdf</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <h3 style="text-align:center; color:var(--primary-color); margin-bottom:20px;">👥 資料組團隊成員</h3>
+        <div class="team-grid">
+            <div class="member-card">
+                <div class="avatar-container"><img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=150&q=80"></div>
+                <div class="member-title">Data Management</div>
+                <div class="member-name">資料組長：王曉玲</div>
+                <div class="member-job">心理測驗實施、學生資料建立與移轉、畢業生追蹤調查及辦理技藝教育事項。</div>
+                <div class="member-ext">📞 學校分機：749</div>
+            </div>
+        </div>
     </div>
 
-    <div class="member-card">
-        <div class="avatar-container"><img src="預設大頭照網址.jpg" alt="大頭照"></div>
-        <div class="member-title">Special Ed Teacher</div>
-        <div class="member-name">特教老師：孫彩瑄</div>
-        <div class="member-job">• 特教老師業務</div>
-        <div class="member-ext">📞 學校分機：746</div>
+
+    <div id="page-special-group" class="page">
+        <div class="team-title-section">
+            <h2>🦄 特教組專區</h2>
+            <p>辦理身心障礙學生鑑定安置、編寫個別化教育計畫(IEP)、申請巡迴輔導與特教助理員，創造無障礙融合校園。</p>
+        </div>
+
+        <div class="group-announcement-box">
+            <h3>📢 特教組 最新業務公告</h3>
+            <ul class="group-announcement-list" id="special-news-container"></ul>
+        </div>
+
+        <div class="group-info-wrapper">
+            <div class="info-block">
+                <h4>📌 核心業務與推動重點</h4>
+                <ul>
+                    <li>辦理特殊需求學生鑑定、安置、重新評估及升學轉銜服務</li>
+                    <li>規劃與編寫特殊需求學生個別化教育計畫（IEP）</li>
+                    <li>配置特教助理員、申辦巡迴輔導、提供輔具與無障礙環境調整</li>
+                    <li>推動融合教育入班宣導、特殊教育推行委員會、親師特教諮詢</li>
+                </ul>
+            </div>
+            <div class="info-block">
+                <h4>💾 常用表單下載中心</h4>
+                <ul>
+                    <li><a href="#" class="download-link">📄 臺中市特殊教育學生鑑定安置申請表暨家長同意書.docx</a></li>
+                    <li><a href="#" class="download-link">📄 身心障礙學生各項獎助學金與交通補助費申請須知.docx</a></li>
+                    <li><a href="#" class="download-link">📄 校園融合教育隨班觀察紀錄表.pdf</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <h3 style="text-align:center; color:var(--primary-color); margin-bottom:20px;">👥 特教組團隊與特教老師群</h3>
+        <div class="team-grid">
+            <div class="member-card">
+                <div class="avatar-container"><img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=150&q=80"></div>
+                <div class="member-title">Special Education</div>
+                <div class="member-name">特教組長：徐匡賢</div>
+                <div class="member-job">辦理特教班新生報到、鑑定安置、轉銜輔導，推動特教課程與各項補助申請。</div>
+                <div class="member-ext">📞 學校分機：743</div>
+            </div>
+            <div class="member-card"><div class="avatar-container"><img src="預設大頭照網址.jpg"></div><div class="member-title">Teacher</div><div class="member-name">特教老師：鄭依佳</div><div class="member-job">資源班國文科教學、個別化教育計畫擬定、特殊需求學生行為輔導與資源班課務經營。</div><div class="member-ext">📞 學校分機：769</div></div>
+            <div class="member-card"><div class="avatar-container"><img src="預設大頭照網址.jpg"></div><div class="member-title">Teacher</div><div class="member-name">特教老師：孫彩瑄</div><div class="member-job">資源班英文科教學、學生鑑定資料撰寫、IEP擬定與個案管理、融合教育推動。</div><div class="member-ext">📞 學校分機：746</div></div>
+            <div class="member-card"><div class="avatar-container"><img src="預設大頭照網址.jpg"></div><div class="member-title">Teacher</div><div class="member-name">特教老師：蘇以安</div><div class="member-job">特教班數學科與生活適應教學、個案管理、特殊教具研發與多感官教學。</div><div class="member-ext">📞 學校分機：未提供</div></div>
+            <div class="member-card"><div class="avatar-container"><img src="預設大頭照網址.jpg"></div><div class="member-title">Teacher</div><div class="member-name">特教老師：郭芙吟</div><div class="member-job">特教班生活適應與職業教育、特殊需求學生的親師協調溝通與教學。</div><div class="member-ext">📞 學校分機：791</div></div>
+            <div class="member-card"><div class="avatar-container"><img src="預設大頭照網址.jpg"></div><div class="member-title">Teacher</div><div class="member-name">特教老師：蔣若穎</div><div class="member-job">資源班數學科教學、學習障礙及社會適應小組、協助學生的轉銜與鑑定評估。</div><div class="member-ext">📞 學校分機：737</div></div>
+            <div class="member-card"><div class="avatar-container"><img src="預設大頭照網址.jpg"></div><div class="member-title">Teacher</div><div class="member-name">特教老師：李建承</div><div class="member-job">資源班理化科與多元適應教學、特殊教育科技輔具申請與調配、個案管理。</div><div class="member-ext">📞 學校分機：745</div></div>
+            <div class="member-card"><div class="avatar-container"><img src="預設大頭照網址.jpg"></div><div class="member-title">Teacher</div><div class="member-name">特教老師：蔡依蓉</div><div class="member-job">資源班國文科教學、ADHD與亞斯伯格學生社會技巧團體訓練與親師諮詢。</div><div class="member-ext">📞 學校分機：740</div></div>
+            <div class="member-card"><div class="avatar-container"><img src="預設大頭照網址.jpg"></div><div class="member-title">Teacher</div><div class="member-name">特教老師：蕭友維</div><div class="member-job">資源班英文科課程設計、特殊個案行為功能介入方案編寫、提供特教諮詢。</div><div class="member-ext">📞 學校分機：752</div></div>
+            <div class="member-card"><div class="avatar-container"><img src="預設大頭照網址.jpg"></div><div class="member-title">Teacher</div><div class="member-name">特教老師：胡慧敏</div><div class="member-job">資優教育課程規劃、創造力與學術性向資優班教學、主辦全校科學展覽競賽。</div><div class="member-ext">📞 學校分機：未提供</div></div>
+            <div class="member-card"><div class="avatar-container"><img src="預設大頭照網址.jpg"></div><div class="member-title">Teacher</div><div class="member-name">特教老師：張簡嘉琳</div><div class="member-job">資優教育人文社會小組、獨立研究課程指導、情意發展輔導與高層次思考訓練。</div><div class="member-ext">📞 學校分機：未提供</div></div>
+        </div>
     </div>
 
-    <div class="member-card">
-        <div class="avatar-container"><img src="預設大頭照網址.jpg" alt="大頭照"></div>
-        <div class="member-title">Special Ed Teacher</div>
-        <div class="member-name">特教老師：蘇以安</div>
-        <div class="member-job">• 特教老師業務</div>
-        <div class="member-ext">📞 學校分機：未提供</div>
-    </div>
 
-    <div class="member-card">
-        <div class="avatar-container"><img src="預設大頭照網址.jpg" alt="大頭照"></div>
-        <div class="member-title">Special Ed Teacher</div>
-        <div class="member-name">特教老師：郭芙吟</div>
-        <div class="member-job">• 特教老師業務</div>
-        <div class="member-ext">📞 學校分機：791</div>
-    </div>
+    <div id="page-resource" class="page">
+        <div class="team-title-section">
+            <h2>🌍 資源與三級支持網絡地圖</h2>
+            <p>本文件彙整福科國中週邊社政、醫療、心理諮商及線上支持資源，供師長於二三級輔導與轉介時快速查詢使用。</p>
+        </div>
+        
+        <div class="resource-list">
+            <div class="resource-category">
+                <h3>🤝 一、 跨網絡社會資源 (三級輔導、社政、司法)</h3>
+                <div class="resource-item">
+                    <div class="resource-name">臺中市學生輔導諮商中心 (中二區分區)</div>
+                    <div class="resource-info">
+                        <strong>📌 能提供的協助：</strong>受理專輔轉介之三級個案，指派心理師進駐個別/團體諮商；中輟復學、校園危機事件安心減壓。<br>
+                        <strong>📞 聯絡資訊與地址：</strong>電話：(04)2358-4979分機9 | 地址：西屯區天助街1號(安和國中)
+                    </div>
+                    <a href="https://scc.tc.edu.tw" target="_blank" class="resource-link">前往網站 ➔</a>
+                </div>
+                <div class="resource-item">
+                    <div class="resource-name">西屯區家庭福利服務中心 (社會局)</div>
+                    <div class="resource-info">
+                        <strong>📌 能提供的協助：</strong>經濟弱勢、高風險家庭評估與物資救助；兒少保護、家暴或性平事件跨網絡通報追蹤。<br>
+                        <strong>📞 聯絡資訊與地址：</strong>電話：(04)2251-2939 | 地址：西屯區市政北二路386號6樓
+                    </div>
+                    <a href="https://welfare.taichung.gov.tw" target="_blank" class="resource-link">前往網站 ➔</a>
+                </div>
+                <div class="resource-item">
+                    <div class="resource-name">臺中市衛生局心理衛生中心 (西屯分區)</div>
+                    <div class="resource-info">
+                        <strong>📌 能提供的協助：</strong>提供社區定點免費/減免心理諮商。協助疑似精神疾患個案轉介核心醫療院所鑑定與合作。<br>
+                        <strong>📞 聯絡資訊與地址：</strong>電話：(04)2515-5148
+                    </div>
+                    <a href="https://health.taichung.gov.tw" target="_blank" class="resource-link">前往網站 ➔</a>
+                </div>
+                <div class="resource-item">
+                    <div class="resource-name">臺中市少年警察隊 (少年輔導委員會)</div>
+                    <div class="resource-info">
+                        <strong>📌 能提供的協助：</strong>觸法、曝險、結交不良勢力之高危學生社區訪視與輔導；協助中輟失聯學生協尋。<br>
+                        <strong>📞 聯絡資訊與地址：</strong>電話：(04)2328-4941
+                    </div>
+                    <a href="https://police.taichung.gov.tw/youth/" target="_blank" class="resource-link">前往網站 ➔</a>
+                </div>
+            </div>
 
-    <div class="member-card">
-        <div class="avatar-container"><img src="預設大頭照網址.jpg" alt="大頭照"></div>
-        <div class="member-title">Special Ed Teacher</div>
-        <div class="member-name">特教老師：蔣若穎</div>
-        <div class="member-job">• 特教老師業務</div>
-        <div class="member-ext">📞 學校分機：737</div>
-    </div>
+            <div class="resource-category">
+                <h3>🏥 二、 醫療系統 (醫院與身心科診所：診斷、開藥、鑑定)</h3>
+                <div class="resource-item">
+                    <div class="resource-name">臺中榮民總醫院 (精神部/兒童青少年精神科)</div>
+                    <div class="resource-info">
+                        <strong>📌 能提供的協助與特色：</strong>醫療資源最完整，適合重大身心疾病(思覺失調、嚴重憂鬱、自傷危機)、自閉症或過動症之權威鑑定與住院治療。<br>
+                        <strong>📞 聯絡資訊與地址：</strong>電話：(04)2359-2525 | 地址：西屯區台灣大道四段1650號
+                    </div>
+                    <a href="https://vghtc.gov.tw" target="_blank" class="resource-link">前往網站 ➔</a>
+                </div>
+                <div class="resource-item">
+                    <div class="resource-name">澄清醫院中港院區 (身心門診)</div>
+                    <div class="resource-info">
+                        <strong>📌 能提供的協助與特色：</strong>大型區域醫院。處理青少年情緒障礙、嚴重焦慮與睡眠障礙，榮總外的就近大醫院選擇。<br>
+                        <strong>📞 聯絡資訊與地址：</strong>電話：(04)2463-2000 | 地址：西屯區台灣大道四段966號
+                    </div>
+                    <a href="https://ck.ccgh.com.tw" target="_blank" class="resource-link">前往網站 ➔</a>
+                </div>
+                <div class="resource-item">
+                    <div class="resource-name">卓大夫身心科診所</div>
+                    <div class="resource-info">
+                        <strong>📌 能提供的協助與特色：</strong>溫和社區型專科醫療，附設rTMS經顱磁刺激。適合家長對大醫院有標籤抗拒感，處理失眠或輕度憂鬱藥物評估。<br>
+                        <strong>📞 聯絡資訊與地址：</strong>電話：(04)2461-3097 | 地址：西屯區台灣大道四段770號
+                    </div>
+                    <a href="https://drchuopsy.com" target="_blank" class="resource-link">前往網站 ➔</a>
+                </div>
+                <div class="resource-item">
+                    <div class="resource-name">忘憂森林身心診所</div>
+                    <div class="resource-info">
+                        <strong>📌 能提供的協助與特色：</strong>環境讓人放鬆(像點心店)，醫師問診溫和注重隱私。適合對醫療環境容易緊張、防衛心較重的學生與家長。<br>
+                        <strong>📞 聯絡資訊與地址：</strong>電話：(04)2463-0102 | 地址：西屯區國安一路77號1樓
+                    </div>
+                </div>
+                <div class="resource-item">
+                    <div class="resource-name">中科好晴天身心診所</div>
+                    <div class="resource-info">
+                        <strong>📌 能提供的協助與特色：</strong>設有「兒童及青少年身心門診」，對拒學、過動、亞斯伯格有豐富經驗。提供TMS等非藥物治療選項。<br>
+                        <strong>📞 聯絡資訊與地址：</strong>電話：(04)2560-2337 | 地址：大雅區中清路四段15號
+                    </div>
+                    <a href="https://sogoodday.com.tw" target="_blank" class="resource-link">前往網站 ➔</a>
+                </div>
+            </div>
 
-    <div class="member-card">
-        <div class="avatar-container"><img src="預設大頭照網址.jpg" alt="大頭照"></div>
-        <div class="member-title">Special Ed Teacher</div>
-        <div class="member-name">特教老師：李建承</div>
-        <div class="member-job">• 特教老師業務</div>
-        <div class="member-ext">📞 學校分機：745</div>
-    </div>
+            <div class="resource-category">
+                <h3>🛋️ 三、 心理諮商系統 (諮商所與治療所：深度會談、療育)</h3>
+                <div class="resource-item">
+                    <div class="resource-name">葵心理諮商所</div>
+                    <div class="resource-info">
+                        <strong>📌 能提供的協助與特色：</strong>距離福科國中極近。提供個別/伴侶/家庭諮商。適合系統失調(父母嚴重衝突)之家庭動力重塑。<br>
+                        <strong>📞 聯絡資訊與地址：</strong>電話：0905-677-538 | 地址：西屯區台灣大道四段1230巷20之6號1樓
+                    </div>
+                    <a href="https://sunflowercc2023.com" target="_blank" class="resource-link">前往網站 ➔</a>
+                </div>
+                <div class="resource-item">
+                    <div class="resource-name">心煦心理治療所</div>
+                    <div class="resource-info">
+                        <strong>📌 能提供的協助與特色：</strong>提供學齡前早期療育、兒童專注力與人際團體治療。適合需要教養技巧諮詢的家長。<br>
+                        <strong>📞 聯絡資訊與地址：</strong>電話：0970-002-995 | 地址：西屯區福雅路128巷58號1-3樓
+                    </div>
+                    <a href="https://theharmonymind.com" target="_blank" class="resource-link">前往網站 ➔</a>
+                </div>
+                <div class="resource-item">
+                    <div class="resource-name">蛹之生心理諮商所 (文心館)</div>
+                    <div class="resource-info">
+                        <strong>📌 能提供的協助與特色：</strong>大型制度完善諮商所，心理師陣容龐大。有獲准執行「通訊心理諮商」，對無法出門之個案友善。<br>
+                        <strong>📞 聯絡資訊與地址：</strong>電話：(04)2389-6061 | 地址：南屯區文心路一段46之1號
+                    </div>
+                    <a href="https://morph.tw" target="_blank" class="resource-link">前往網站 ➔</a>
+                </div>
+            </div>
 
-    <div class="member-card">
-        <div class="avatar-container"><img src="預設大頭照網址.jpg" alt="大頭照"></div>
-        <div class="member-title">Special Ed Teacher</div>
-        <div class="member-name">特教老師：蔡依蓉</div>
-        <div class="member-job">• 特教老師業務</div>
-        <div class="member-ext">📞 學校分機：740</div>
-    </div>
-
-    <div class="member-card">
-        <div class="avatar-container"><img src="預設大頭照網址.jpg" alt="大頭照"></div>
-        <div class="member-title">Special Ed Teacher</div>
-        <div class="member-name">特教老師：蕭友維</div>
-        <div class="member-job">• 特教老師業務</div>
-        <div class="member-ext">📞 學校分機：752</div>
-    </div>
-
-    <div class="member-card">
-        <div class="avatar-container"><img src="預設大頭照網址.jpg" alt="大頭照"></div>
-        <div class="member-title">Special Ed Teacher</div>
-        <div class="member-name">特教老師：胡慧敏</div>
-        <div class="member-job">• 特教老師業務</div>
-        <div class="member-ext">📞 學校分機：未提供</div>
-    </div>
-
-    <div class="member-card">
-        <div class="avatar-container"><img src="預設大頭照網址.jpg" alt="大頭照"></div>
-        <div class="member-title">Special Ed Teacher</div>
-        <div class="member-name">特教老師：張簡嘉琳</div>
-        <div class="member-job">• 特教老師業務</div>
-        <div class="member-ext">📞 學校分機：未提供</div>
-    </div>
-
-</div>
+            <div class="resource-category">
+                <h3>☎️ 四、 必備線上資源與危機求助專線 (親師生共同適用)</h3>
+                <div class="resource-item">
+                    <div class="resource-name">教育部學生輔導資訊網</div>
+                    <div class="resource-info"><strong>📌 核心功能與特色：</strong>下載國中輔導工作手冊、性平/生命/人權教育官方指引，適合師長規劃班級輔導。</div>
+                    <a href="https://guide.edu.tw" target="_blank" class="resource-link">網址：guide.edu.tw ➔</a>
+                </div>
+                <div class="resource-item">
+                    <div class="resource-name">教育部學生生涯輔導網</div>
+                    <div class="resource-info"><strong>📌 核心功能與特色：</strong>提供國中生涯發展教材、家長參與生涯規劃手冊及技藝教育宣導資源。</div>
+                    <a href="https://friendlycampus.k12ea.gov.tw/Career" target="_blank" class="resource-link">網址：friendlycampus.k12ea.gov.tw/Career ➔</a>
+                </div>
+                <div class="resource-item">
+                    <div class="resource-name">董氏基金會華文心理健康網</div>
+                    <div class="resource-info"><strong>📌 核心功能與特色：</strong>內建線上憂鬱/壓力檢測量表，青少年心理健康專欄及衛教倡導影片。</div>
+                    <a href="https://etmh.org" target="_blank" class="resource-link">網址：etmh.org ➔</a>
+                </div>
+                <div class="resource-item">
+                    <div class="resource-name">臺中市家庭教育中心</div>
+                    <div class="resource-info"><strong>📌 核心功能與特色：</strong>豐富的親職教養線上資源與電子書，專線可提供家長管教困境諮詢。<strong>📞 專線：</strong>(02)412-8185</div>
+                    <a href="https://family.taichung.gov.tw" target="_blank" class="resource-link">網址：family.taichung.gov.tw ➔</a>
+                </div>
+                <div class="resource-item">
+                    <div class="resource-name">張老師基金會 (青少年輔導)</div>
+                    <div class="resource-info"><strong>📌 核心功能與特色：</strong>提供電話與網路即時信件/晤談預約，適合不習慣講電話偏好文字的青少年抒發。<strong>📞 專線：</strong>1980</div>
+                    <a href="https://1980.org.tw" target="_blank" class="resource-link">網址：1980.org.tw ➔</a>
+                </div>
+                <div class="resource-item">
+                    <div class="resource-name">衛福部安心專線 (24小時免付費)</div>
+                    <div class="resource-info"><strong>📌 核心功能與特色：</strong>親師生出現急性心理危機、自殺意念時，隨時可撥打之國家級心理危機干預窗口。<strong>📞 專線：</strong>1925</div>
+                </div>
+            </div>
+            <div style="background-color: #FFF2E6; border-left: 5px solid var(--danger-color); padding: 15px; border-radius: 8px; font-weight: 500; color: #a04000; font-size: 0.95rem;">
+                💡 提醒：轉介三級或外部資源前，請務必確認已完成一二級輔導評估並留存紀錄。如有立即性人身安全危機，請優先啟動校安通報並報警/送醫。
+            </div>
         </div>
     </div>
 
@@ -926,97 +1149,260 @@
             <h2>🔍 輔導室迷思大破解</h2>
             <p>別擔心！走進輔導室一點也不可怕，讓我們為妳解答心中的疑惑。</p>
         </div>
-
         <div class="faq-container">
             <div class="faq-item">
                 <div class="faq-q">Q1. 去輔導室會被同學當成有問題的怪人嗎？</div>
-                <div class="faq-a">A：完全不會！福科國中輔導室是一個安全、讓人放鬆的溫暖空間。很多同學下課也會來聊天、玩桌遊。任何生活不順心、感情受挫，或者只是當天心情有點灰灰的，都隨時歡迎妳走進來休息。</div>
+                <div class="faq-a">A：完全不會！福科國中輔導室是一個安全、讓人放鬆的溫暖空間。任何生活不順心、感情受挫，都歡迎妳走進來休息。</div>
             </div>
-
             <div class="faq-item">
                 <div class="faq-q">Q2. 我跟輔導老師說的秘密，會被偷偷告訴導師或爸媽嗎？</div>
-                <div class="faq-a">A：輔導老師嚴格遵守法律與專業的「保密原則」。妳在這裡訴說的心事都不會對外公開。除非內容涉及「傷害自己、傷害他人或重大违規法律事件」，為了守護妳的生命安全，老師才會啟動保密例外，以最溫柔的方式通知相關人保護妳。</div>
+                <div class="faq-a">A：輔導老師嚴格遵守法律與專業的「保密原則」。除非內容涉及「傷害自己、傷害他人或重大違規法律事件」，為了守護生命安全，才會啟動保密例外保護妳。</div>
             </div>
         </div>
     </div>
-
 
     <footer>
         <p>© 2026 福科國中輔導室 版權所有</p>
         <p style="font-size: 0.8rem; margin-top: 5px; color: #D1E0DB;">校址：407臺中市西屯區福林里福林路333號 | 聯絡電話：04-24618112</p>
     </footer>
 
-
     <script>
-        // 🌟 1. 【全新升級】無縫切換獨立分頁功能
+        // 🌟 1. 無縫切換獨立分頁功能 (支援新增的獨立專區頁面)
         function switchPage(pageId) {
-            // 隱藏所有分頁
             const pages = document.querySelectorAll('.page');
             pages.forEach(page => page.classList.remove('active-page'));
-
-            // 移除所有導覽列按鈕的 active 狀態
+            
             const navLinks = document.querySelectorAll('nav a');
             navLinks.forEach(link => link.classList.remove('active-nav'));
 
-            // 顯示目標分頁
             document.getElementById(`page-${pageId}`).classList.add('active-page');
-
-            // 讓導覽列對應的按鈕變亮 (如果不是點選logo的話)
             const activeNavLink = document.getElementById(`nav-${pageId}`);
-            if (activeNavLink) {
-                activeNavLink.classList.add('active-nav');
-            }
+            if (activeNavLink) activeNavLink.classList.add('active-nav');
 
-            // 頂部導覽防呆：手機版切換分頁後自動把漢堡選單收起來
             document.getElementById("nav-menu").classList.remove("active");
-            
-            // 頁面切換後自動滾動回最頂端
             window.scrollTo(0, 0);
         }
 
-        // 手機版漢堡選單切換
         function toggleMenu() {
-            const menu = document.getElementById("nav-menu");
-            menu.classList.toggle("active");
+            document.getElementById("nav-menu").classList.toggle("active");
         }
 
-        // 🌟 2. 雙重條件聯動篩選 JavaScript 魔法
-        let currentFilters = { identity: 'all', topic: 'all' };
+        // 🌟 2. 團隊介紹頁籤切換功能 (保留行政團隊頁面的切換功能)
+        function switchTeamTab(groupId) {
+            const buttons = document.querySelectorAll('.team-tab-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
 
+            const contents = document.querySelectorAll('.team-group-content');
+            contents.forEach(content => content.classList.remove('active'));
+            document.getElementById(`team-${groupId}`).classList.add('active');
+        }
+
+        // 🌟 3. 公告資料庫 (整合詳細描述文字 content)
+        const newsData = [
+            { id: 1, date: '2026.06.24', group: 'special', title: '【特教公告】113年度國中身心障礙學生鑑定安置作業期程與說明', content: '各位親愛的師長與家長好：\n本年度身心障礙學生鑑定安置工作正式起跑。若班上有疑似發展遲緩、學習障礙或各類身心障礙需求之同學，請導師及家長於 9/15 前至特教組填寫鑑定安置申請書暨同意書，以便安排後續的專業評估及工作會議。\n如有任何疑問，請撥打輔導室分機 743 洽特教組徐組長諮詢。' },
+            { id: 2, date: '2026.06.20', group: 'counseling', title: '【活動報名】本學期親職教育講座「陪伴青春期孩子」熱烈開跑！', content: '親愛的家長您好：\n輔導組將於 10/15 (四) 晚間 19:00 - 21:00 在本校視聽教室舉辦親職教育講座。\n我們特別邀請知名青少年諮商心理師，來與大家暢聊「如何與刺蝟期的青少年進行溫暖有效的溝通」。活動備有精美小禮物，即日起開放線上與紙本報名，名額有限，額滿為止！報名表單請洽輔導組。' },
+            { id: 3, date: '2026.06.15', group: 'special', title: '【融合教育】「認識不一樣的我們」全校入班宣導活動開放班級預約中', content: '各位導師好：\n為了營造更溫暖、平等的無障礙校園氣氛，特教組將於本學期第五週至第七週舉辦「認識不一樣的我們」融合教育班級宣導。\n活動將透過繪本導讀與身心障礙體驗遊戲，讓孩子體會資源班及特殊需求同學的日常。即日起歡迎七、八年級各班導師至特教組辦公室登記預約入班時段！' },
+            { id: 4, date: '2026.06.10', group: 'data', title: '【生涯導航】九年級抽離式技藝教育課程報名即日起至 9/20 截止', content: '九年級同學們注意：\n113學年度第一學期「九年級技藝教育班」選修招生開始囉！本學期開設餐旅、設計、電機電子等多項熱門職群，適合對動手操作、技職升學有興趣的同學參加。\n欲報名的同學請儘速至資料組領取「技藝教育學程選修意願書暨遴選表」，並請於 9/20 以前完成家長簽章後繳回資料組王組長（分機749）。' }
+        ];
+
+        // 渲染首頁與各獨立組別的最新消息
+        function renderNews() {
+            const homeContainer = document.getElementById('home-news-container');
+            const counselingContainer = document.getElementById('counseling-news-container');
+            const dataContainer = document.getElementById('data-news-container');
+            const specialContainer = document.getElementById('special-news-container');
+            
+            // 清空容器
+            homeContainer.innerHTML = '';
+            counselingContainer.innerHTML = '';
+            dataContainer.innerHTML = '';
+            specialContainer.innerHTML = '';
+
+            newsData.forEach(news => {
+                // 建立通用列表項目
+                const itemHTML = `
+                    <li class="news-item">
+                        <span class="news-date">${news.date}</span>
+                        <span class="news-title-link" onclick="openNewsModal(${news.id})">${news.title}</span>
+                    </li>
+                `;
+                
+                // 1. 首頁呈現全體公告
+                homeContainer.innerHTML += itemHTML;
+
+                // 2. 依照組別分類分流派發到各獨立專區頁面
+                if (news.group === 'counseling') counselingContainer.innerHTML += itemHTML;
+                if (news.group === 'data') dataContainer.innerHTML += itemHTML;
+                if (news.group === 'special') specialContainer.innerHTML += itemHTML;
+            });
+        }
+
+        // ✨ 新增：開啟最新消息彈出詳細內容
+        function openNewsModal(newsId) {
+            const news = newsData.find(item => item.id === newsId);
+            if (news) {
+                document.getElementById('modal-news-date').textContent = news.date;
+                document.getElementById('modal-news-title').textContent = news.title;
+                document.getElementById('modal-news-content').textContent = news.content;
+                document.getElementById('newsDetailModal').style.display = 'flex';
+            }
+        }
+
+        function closeNewsModal() {
+            document.getElementById('newsDetailModal').style.display = 'none';
+        }
+
+        // 🌟 4. 卡片資料庫 (不更動任何連結及大頭照欄位)
+        const postsData = [
+            {
+                identity: 'student parent teacher',
+                topic: 'emotion social',
+                isYoutube: true,
+                image: 'https://drive.google.com/thumbnail?id=1VMIjCMrF4fnfnmKSwbXNLTdVoS8CDGL9&sz=w800',
+                link: 'https://www.youtube.com/playlist?list=PLkqAD3KmD8OuUvpt1f9p9xT8z7C11VcIO',
+                badgeIdentity: '親師生',
+                badgeTopic: '心衛知識加油站',
+                title: '🎬 影音專區：心衛知識加油站',
+                text: '由福科國中輔導室精心整理、製作的心理健康系列影音。陪伴你認識壓力、調適情緒，隨時為心靈加滿油！',
+                linkText: '前往 YT 頻道 ➔'
+            },
+            {
+                identity: 'student parent',
+                topic: 'relation career social',
+                isYoutube: true,
+                image: 'https://drive.google.com/thumbnail?id=1GmH44JyzetnAHuMt8pEWrkn-WQb1VbfB&sz=w800',
+                link: 'https://www.youtube.com/playlist?list=PLkqAD3KmD8OuBvUJvLy2_5vx7RzdFVL8m',
+                badgeIdentity: '學生/家長',
+                badgeTopic: '福科電台',
+                title: '🎙️ 精彩收聽：福科電台',
+                text: '聆聽福科師生的聲音！這裡有關於校園生活、生涯探索與人際關係的溫馨訪談與分享，用聲音溫暖你的心。',
+                linkText: '前往收聽 ➔'
+            },
+            {
+                identity: 'student parent teacher',
+                topic: 'social',
+                isYoutube: false,
+                image: 'https://drive.google.com/thumbnail?id=1LlQD0tUC8vdhycH3Zkl_mAFVN3AY5njo&sz=w800',
+                link: 'https://www.facebook.com/fcjhguidance',
+                badgeIdentity: '親師生',
+                badgeTopic: '社群追蹤',
+                title: '📱 Facebook 粉絲專頁',
+                text: '最即時的輔導室活動公告、親職教育講座資訊、精美圖文懶人包，歡迎按讚追蹤「福科國中輔導室」！',
+                linkText: '點我前往 FB ➔'
+            },
+            {
+                identity: 'student',
+                topic: 'social',
+                isYoutube: false,
+                image: 'https://drive.google.com/thumbnail?id=1mLT6Swi2aCfWNJZV8wKXuri1Nym8aAxo&sz=w800',
+                link: 'https://www.instagram.com/fcjhguidance/',
+                badgeIdentity: '學生專區',
+                badgeTopic: '社群互動',
+                title: '📸 Instagram 官方帳號',
+                text: '貼近學生的圖文心情點評、限時動態小互動、心理健康週活動花絮。趕快拿起手機追蹤「福科國中輔導室」！',
+                linkText: '點我追蹤 IG ➔'
+            },
+            {
+                identity: 'parent teacher',
+                topic: 'career relation',
+                isYoutube: false,
+                image: 'https://drive.google.com/thumbnail?id=1eGHsIBxU5KdEJoylmX0ZOlmYauQ5Ewgk&sz=w800',
+                link: 'https://drive.google.com/drive/folders/1hbupZ1MMX38P39uuIPQIA07vz0HXrCfy?usp=drive_link',
+                badgeIdentity: '家長/教師',
+                badgeTopic: '活動花絮',
+                title: '🖼️ 各項活動成果相簿中心',
+                text: '想回顧親職教育講座、生涯輔導參訪或全校性宣導活動的精彩瞬間嗎？活動照片皆完整儲存於官方雲端硬碟。',
+                linkText: '進入相簿倉庫 ➔'
+            }
+        ];
+
+        function renderCards() {
+            const grid = document.getElementById('card-grid');
+            grid.innerHTML = ''; 
+
+            postsData.forEach(post => {
+                let mediaContent = '';
+                if(post.isYoutube) {
+                    mediaContent = `
+                        <a href="${post.link}" target="_blank" class="video-preview-wrapper">
+                            <div class="play-button"></div>
+                            <img src="${post.image}" alt="${post.title}">
+                        </a>`;
+                } else {
+                    mediaContent = `<img src="${post.image}" alt="${post.title}">`;
+                }
+
+                const cardHTML = `
+                <div class="card" data-identity="${post.identity}" data-topic="${post.topic}">
+                    <div class="card-media">${mediaContent}</div>
+                    <div class="card-body">
+                        <div class="card-tags">
+                            <span class="badge badge-identity">${post.badgeIdentity}</span>
+                            <span class="badge badge-topic">${post.badgeTopic}</span>
+                        </div>
+                        <div class="card-title">${post.title}</div>
+                        <div class="card-text">${post.text}</div>
+                        <div class="card-link"><a href="${post.link}" target="_blank">${post.linkText}</a></div>
+                    </div>
+                </div>`;
+                grid.innerHTML += cardHTML;
+            });
+        }
+
+        // 🌟 5. 三合一聯動複合式篩選功能 (結合身分、議題、智慧搜尋欄)
+        let currentFilters = { identity: 'all', topic: 'all' };
+        let searchQuery = '';
+
+        // 處理智慧搜尋欄的輸入事件
+        function handleSearch() {
+            searchQuery = document.getElementById('global-search').value.toLowerCase().trim();
+            executeCombinedFilter();
+        }
+
+        // 處理分類按鈕切換
         function filterData(type, value, buttonElement) {
-            // 切換按鈕 active 樣式
             const siblings = buttonElement.parentElement.querySelectorAll('.filter-btn');
             siblings.forEach(btn => btn.classList.remove('active'));
             buttonElement.classList.add('active');
 
-            // 更新篩選條件
             currentFilters[type] = value;
+            executeCombinedFilter();
+        }
 
-            // 篩選卡片
+        // 核心複合篩選邏輯
+        function executeCombinedFilter() {
             const cards = document.querySelectorAll('#card-grid .card');
+            
             cards.forEach(card => {
                 const cardIdentities = card.getAttribute('data-identity').split(' ');
-                const cardTopic = card.getAttribute('data-topic').split(' ');
+                const cardTopics = card.getAttribute('data-topic').split(' ');
+                const cardTitle = card.querySelector('.card-title').textContent.toLowerCase();
+                const cardText = card.querySelector('.card-text').textContent.toLowerCase();
 
+                // 檢查三個條件是否同時符合
                 const matchIdentity = (currentFilters.identity === 'all' || cardIdentities.includes(currentFilters.identity));
-                const matchTopic = (currentFilters.topic === 'all' || cardTopic.includes(currentFilters.topic));
+                const matchTopic = (currentFilters.topic === 'all' || cardTopics.includes(currentFilters.topic));
+                const matchSearch = (!searchQuery || cardTitle.includes(searchQuery) || cardText.includes(searchQuery));
 
-                if (matchIdentity && matchTopic) {
+                if (matchIdentity && matchTopic && matchSearch) {
                     card.style.display = 'flex';
                 } else {
                     card.style.display = 'none';
                 }
             });
         }
-        // 網頁載入完成後自動彈出視窗
-window.addEventListener('DOMContentLoaded', () => {
-    document.getElementById('welcomeModal').style.display = 'flex';
-});
 
-// 關閉視窗的功能
-function closeModal() {
-    document.getElementById('welcomeModal').style.display = 'none';
-}
+        // 網頁載入完成後初始化
+        window.addEventListener('DOMContentLoaded', () => {
+            renderNews();  // 派發渲染所有最新消息
+            renderCards(); // 渲染百寶箱卡片
+            document.getElementById('welcomeModal').style.display = 'flex';
+        });
+
+        function closeModal() {
+            document.getElementById('welcomeModal').style.display = 'none';
+        }
     </script>
 </body>
 </html>
