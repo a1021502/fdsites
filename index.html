@@ -50,7 +50,7 @@
             display: inline-block;
         }
 
-        /* --- 2. 響應式導覽列 (調小間距以容納新獨立頁面) --- */
+        /* --- 2. 響應式導覽列 --- */
         header {
             background-color: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(5px);
@@ -216,7 +216,7 @@
             font-weight: bold;
         }
 
-        /* --- ✨ 新增：智慧關鍵字搜尋欄外觀 --- */
+        /* --- 智慧關鍵字搜尋欄外觀 --- */
         .search-wrapper {
             max-width: 600px;
             margin: 20px auto 10px auto;
@@ -456,7 +456,7 @@
             text-decoration: underline;
         }
 
-        /* ✨ 新增：業務職掌與常用表單下載卡片樣式 */
+        /* 業務職掌與常用表單下載卡片樣式 */
         .group-info-wrapper {
             max-width: 1000px;
             margin: 0 auto 40px auto;
@@ -621,12 +621,79 @@
         .modal-close-btn { margin-top: 40px; background: #d4a373; color: white; border: none; padding: 15px 40px; border-radius: 30px; cursor: pointer; font-size: 1.2rem; transition: all 0.3s; }
         .modal-close-btn:hover { background: #bc8f5f; transform: scale(1.05); }
 
-        /* --- ✨ 新增：最新消息詳細內容彈出視窗外觀 --- */
+        /* --- 最新消息詳細內容彈出視窗外觀 --- */
         .news-modal { display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 10000; justify-content: center; align-items: center; }
         .news-modal-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.4); backdrop-filter: blur(3px); }
         .news-modal-content { position: relative; z-index: 10; background: white; padding: 35px; border-radius: 16px; max-width: 600px; width: 90%; max-height: 80vh; overflow-y: auto; box-shadow: 0 10px 30px rgba(0,0,0,0.15); animation: modalPop 0.3s ease; }
         .news-modal-close { position: absolute; top: 15px; right: 20px; font-size: 1.8rem; cursor: pointer; color: #999; transition: color 0.3s; }
         .news-modal-close:hover { color: #333; }
+
+        /* --- ✨ 新增：導盲犬 YUMA 桌寵樣式特區 --- */
+        .yuma-container {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            user-select: none;
+        }
+        .yuma-avatar {
+            font-size: 3.5rem;
+            transition: transform 0.2s ease;
+            filter: drop-shadow(0 4px 10px rgba(0,0,0,0.15));
+        }
+        .yuma-container:hover .yuma-avatar {
+            transform: scale(1.1) rotate(5deg);
+        }
+        .yuma-bubble {
+            position: absolute;
+            bottom: 80px;
+            right: 5px;
+            background: white;
+            border: 2px solid var(--primary-color);
+            padding: 12px 18px;
+            border-radius: 16px;
+            font-size: 0.95rem;
+            font-weight: bold;
+            color: var(--text-color);
+            width: 210px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            transform: translateY(10px);
+        }
+        .yuma-bubble.show {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateY(0);
+        }
+        /* 氣泡對話框小箭頭結構 */
+        .yuma-bubble::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            right: 25px;
+            border-width: 10px 10px 0;
+            border-style: solid;
+            border-color: white transparent;
+            display: block;
+            width: 0;
+        }
+        .yuma-bubble::before {
+            content: '';
+            position: absolute;
+            bottom: -13px;
+            right: 24px;
+            border-width: 11px 11px 0;
+            border-style: solid;
+            border-color: var(--primary-color) transparent;
+            display: block;
+            width: 0;
+        }
     </style>
 </head>
 <body>
@@ -982,7 +1049,7 @@
             <div class="member-card"><div class="avatar-container"><img src="預設大頭照網址.jpg"></div><div class="member-title">Teacher</div><div class="member-name">特教老師：蘇以安</div><div class="member-job">特教班數學科與生活適應教學、個案管理、特殊教具研發與多感官教學。</div><div class="member-ext">📞 學校分機：未提供</div></div>
             <div class="member-card"><div class="avatar-container"><img src="預設大頭照網址.jpg"></div><div class="member-title">Teacher</div><div class="member-name">特教老師：郭芙吟</div><div class="member-job">特教班生活適應與職業教育、特殊需求學生的親師協調溝通與教學。</div><div class="member-ext">📞 學校分機：791</div></div>
             <div class="member-card"><div class="avatar-container"><img src="預設大頭照網址.jpg"></div><div class="member-title">Teacher</div><div class="member-name">特教老師：蔣若穎</div><div class="member-job">資源班數學科教學、學習障礙及社會適應小組、協助學生的轉銜與鑑定評估。</div><div class="member-ext">📞 學校分機：737</div></div>
-            <div class="member-card"><div class="avatar-container"><img src="預設大頭照網址.jpg"></div><div class="member-title">Teacher</div><div class="member-name">特教老師：李建承</div><div class="member-job">資源班理化科與多元適應教學、特殊教育科技輔具申請與調配、個案管理。</div><div class="member-ext">📞 學校分機：745</div></div>
+            <div class="member-card"><div class="avatar-container"><img src="預設大頭照網址.jpg"></div><div class="member-title">Teacher</div><div class="member-name">特教老師：李建承</div><div class="member-job">資源班理化科與多元適應教學、特殊教育科技輔具申請與調配、個案管理.</div><div class="member-ext">📞 學校分機：745</div></div>
             <div class="member-card"><div class="avatar-container"><img src="預設大頭照網址.jpg"></div><div class="member-title">Teacher</div><div class="member-name">特教老師：蔡依蓉</div><div class="member-job">資源班國文科教學、ADHD與亞斯伯格學生社會技巧團體訓練與親師諮詢。</div><div class="member-ext">📞 學校分機：740</div></div>
             <div class="member-card"><div class="avatar-container"><img src="預設大頭照網址.jpg"></div><div class="member-title">Teacher</div><div class="member-name">特教老師：蕭友維</div><div class="member-job">資源班英文科課程設計、特殊個案行為功能介入方案編寫、提供特教諮詢。</div><div class="member-ext">📞 學校分機：752</div></div>
             <div class="member-card"><div class="avatar-container"><img src="預設大頭照網址.jpg"></div><div class="member-title">Teacher</div><div class="member-name">特教老師：胡慧敏</div><div class="member-job">資優教育課程規劃、創造力與學術性向資優班教學、主辦全校科學展覽競賽。</div><div class="member-ext">📞 學校分機：未提供</div></div>
@@ -1161,13 +1228,20 @@
         </div>
     </div>
 
+    <div class="yuma-container" onclick="interactWithYuma()">
+        <div class="yuma-bubble" id="yuma-bubble">
+            <span id="yuma-text">汪！點擊我可以跟我互動喔🐾</span>
+        </div>
+        <div class="yuma-avatar"><img src="https://drive.google.com/thumbnail?id=1UvZJJr192Zn5F23M1CWVMpHEUIXAPBmk&sz=w80"></div>
+    </div>
+
     <footer>
         <p>© 2026 福科國中輔導室 版權所有</p>
         <p style="font-size: 0.8rem; margin-top: 5px; color: #D1E0DB;">校址：407臺中市西屯區福林里福林路333號 | 聯絡電話：04-24618112</p>
     </footer>
 
     <script>
-        // 🌟 1. 無縫切換獨立分頁功能 (支援新增的獨立專區頁面)
+        // 1. 無縫切換獨立分頁功能
         function switchPage(pageId) {
             const pages = document.querySelectorAll('.page');
             pages.forEach(page => page.classList.remove('active-page'));
@@ -1187,7 +1261,7 @@
             document.getElementById("nav-menu").classList.toggle("active");
         }
 
-        // 🌟 2. 團隊介紹頁籤切換功能 (保留行政團隊頁面的切換功能)
+        // 2. 團隊介紹頁籤切換功能
         function switchTeamTab(groupId) {
             const buttons = document.querySelectorAll('.team-tab-btn');
             buttons.forEach(btn => btn.classList.remove('active'));
@@ -1198,7 +1272,7 @@
             document.getElementById(`team-${groupId}`).classList.add('active');
         }
 
-        // 🌟 3. 公告資料庫 (整合詳細描述文字 content)
+        // 3. 公告資料庫
         const newsData = [
             { id: 1, date: '2026.06.24', group: 'special', title: '【特教公告】113年度國中身心障礙學生鑑定安置作業期程與說明', content: '各位親愛的師長與家長好：\n本年度身心障礙學生鑑定安置工作正式起跑。若班上有疑似發展遲緩、學習障礙或各類身心障礙需求之同學，請導師及家長於 9/15 前至特教組填寫鑑定安置申請書暨同意書，以便安排後續的專業評估及工作會議。\n如有任何疑問，請撥打輔導室分機 743 洽特教組徐組長諮詢。' },
             { id: 2, date: '2026.06.20', group: 'counseling', title: '【活動報名】本學期親職教育講座「陪伴青春期孩子」熱烈開跑！', content: '親愛的家長您好：\n輔導組將於 10/15 (四) 晚間 19:00 - 21:00 在本校視聽教室舉辦親職教育講座。\n我們特別邀請知名青少年諮商心理師，來與大家暢聊「如何與刺蝟期的青少年進行溫暖有效的溝通」。活動備有精美小禮物，即日起開放線上與紙本報名，名額有限，額滿為止！報名表單請洽輔導組。' },
@@ -1206,21 +1280,18 @@
             { id: 4, date: '2026.06.10', group: 'data', title: '【生涯導航】九年級抽離式技藝教育課程報名即日起至 9/20 截止', content: '九年級同學們注意：\n113學年度第一學期「九年級技藝教育班」選修招生開始囉！本學期開設餐旅、設計、電機電子等多項熱門職群，適合對動手操作、技職升學有興趣的同學參加。\n欲報名的同學請儘速至資料組領取「技藝教育學程選修意願書暨遴選表」，並請於 9/20 以前完成家長簽章後繳回資料組王組長（分機749）。' }
         ];
 
-        // 渲染首頁與各獨立組別的最新消息
         function renderNews() {
             const homeContainer = document.getElementById('home-news-container');
             const counselingContainer = document.getElementById('counseling-news-container');
             const dataContainer = document.getElementById('data-news-container');
             const specialContainer = document.getElementById('special-news-container');
             
-            // 清空容器
             homeContainer.innerHTML = '';
             counselingContainer.innerHTML = '';
             dataContainer.innerHTML = '';
             specialContainer.innerHTML = '';
 
             newsData.forEach(news => {
-                // 建立通用列表項目
                 const itemHTML = `
                     <li class="news-item">
                         <span class="news-date">${news.date}</span>
@@ -1228,17 +1299,13 @@
                     </li>
                 `;
                 
-                // 1. 首頁呈現全體公告
                 homeContainer.innerHTML += itemHTML;
-
-                // 2. 依照組別分類分流派發到各獨立專區頁面
                 if (news.group === 'counseling') counselingContainer.innerHTML += itemHTML;
                 if (news.group === 'data') dataContainer.innerHTML += itemHTML;
                 if (news.group === 'special') specialContainer.innerHTML += itemHTML;
             });
         }
 
-        // ✨ 新增：開啟最新消息彈出詳細內容
         function openNewsModal(newsId) {
             const news = newsData.find(item => item.id === newsId);
             if (news) {
@@ -1253,7 +1320,7 @@
             document.getElementById('newsDetailModal').style.display = 'none';
         }
 
-        // 🌟 4. 卡片資料庫 (不更動任何連結及大頭照欄位)
+        // 4. 卡片資料庫
         const postsData = [
             {
                 identity: 'student parent teacher',
@@ -1350,17 +1417,15 @@
             });
         }
 
-        // 🌟 5. 三合一聯動複合式篩選功能 (結合身分、議題、智慧搜尋欄)
+        // 5. 三合一聯動複合式篩選功能
         let currentFilters = { identity: 'all', topic: 'all' };
         let searchQuery = '';
 
-        // 處理智慧搜尋欄的輸入事件
         function handleSearch() {
             searchQuery = document.getElementById('global-search').value.toLowerCase().trim();
             executeCombinedFilter();
         }
 
-        // 處理分類按鈕切換
         function filterData(type, value, buttonElement) {
             const siblings = buttonElement.parentElement.querySelectorAll('.filter-btn');
             siblings.forEach(btn => btn.classList.remove('active'));
@@ -1370,7 +1435,6 @@
             executeCombinedFilter();
         }
 
-        // 核心複合篩選邏輯
         function executeCombinedFilter() {
             const cards = document.querySelectorAll('#card-grid .card');
             
@@ -1380,7 +1444,6 @@
                 const cardTitle = card.querySelector('.card-title').textContent.toLowerCase();
                 const cardText = card.querySelector('.card-text').textContent.toLowerCase();
 
-                // 檢查三個條件是否同時符合
                 const matchIdentity = (currentFilters.identity === 'all' || cardIdentities.includes(currentFilters.identity));
                 const matchTopic = (currentFilters.topic === 'all' || cardTopics.includes(currentFilters.topic));
                 const matchSearch = (!searchQuery || cardTitle.includes(searchQuery) || cardText.includes(searchQuery));
@@ -1393,10 +1456,47 @@
             });
         }
 
+        // ✨ 新增：導盲犬 YUMA 互動對話邏輯核心
+        const yumaQuotes = [
+            "汪！今天過得好嗎？累了或心情不好，都歡迎來找我摸摸哦！🐾",
+            "（搖尾巴）不管今天發生什麼事，YUMA 都會一直在這裡默默陪著你！ Bones!",
+            "汪汪！聞到了沉重壓力的味道，要不要去上方的「心靈樹洞」吐吐苦水呢？",
+            "今天也是非常努力的一天呢！來，蓋一個 YUMA 專屬優秀認證戳章！✨",
+            "智平老師的「掛電話理論」聽聽就好～不開心來摸我才是正解，汪！🐶",
+            "伸個大懶腰～吸一口氣！我們一起對著天空大喊：『今天也會順利的！』🐕",
+            "汪！聽說點擊我可以獲得今日隱藏好運，恭喜你，你已經獲得了！🍀"
+        ];
+
+        let yumaTimer = null;
+        function interactWithYuma() {
+            const bubble = document.getElementById('yuma-bubble');
+            const textElement = document.getElementById('yuma-text');
+            const avatar = document.querySelector('.yuma-avatar');
+            
+            // 隨機挑選對話金句
+            const randomIndex = Math.floor(Math.random() * yumaQuotes.length);
+            textElement.textContent = yumaQuotes[randomIndex];
+            
+            // 顯示對話氣泡
+            bubble.classList.add('show');
+            
+            // 點擊狗勾時產生一下縮放與彈跳的動態反饋
+            avatar.style.transform = 'scale(0.8) translateY(12px)';
+            setTimeout(() => {
+                avatar.style.transform = '';
+            }, 150);
+
+            // 清除之前的自動隱藏計時器，並設定 4.5 秒後自動隱藏氣泡
+            clearTimeout(yumaTimer);
+            yumaTimer = setTimeout(() => {
+                bubble.classList.remove('show');
+            }, 4500);
+        }
+
         // 網頁載入完成後初始化
         window.addEventListener('DOMContentLoaded', () => {
-            renderNews();  // 派發渲染所有最新消息
-            renderCards(); // 渲染百寶箱卡片
+            renderNews();  
+            renderCards(); 
             document.getElementById('welcomeModal').style.display = 'flex';
         });
 
