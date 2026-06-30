@@ -6,32 +6,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>來福島，歇會ㄦ！－福科輔導</title>
     <style>
-        /* --- ✨ 自訂字體 (隨峰體) 載入 --- */
+        /* --- ✨ 1. 自訂字體 (隨峰體) 載入 --- */
         @font-face {
             font-family: 'SuiFeng';
             src: url('SuiFeng.ttf') format('truetype'); 
-            font-display: swap; 
+            font-display: swap; /* 確保字體載入時平滑過渡 */
         }
 
-        /* --- ✨ 莫蘭迪高級暖色調變數 (質感大躍進) --- */
+        /* --- ✨ 2. 精緻莫蘭迪色調與高級細節變數 --- */
         :root {
-            --primary-color: #61897B;    /* 溫潤莫蘭迪綠 */
-            --secondary-color: #DF8F83;  /* 柔和豆沙粉 */
-            --accent-color: #EAB97A;     /* 溫暖麥穗金 */
-            --bg-color: #FDFBF7;         /* 高級燕麥白 (超溫暖底色) */
-            --text-color: #4A4641;       /* 舒適深灰棕 (不刺眼的文字色) */
-            --text-muted: #857F75;       /* 次要描述灰 */
-            --danger-color: #C86955;     /* 柔和珊瑚紅 */
-            --border-warm: 1px solid rgba(214, 206, 191, 0.5); /* 溫暖極細邊框 */
-            --card-shadow: 0 10px 40px -10px rgba(97, 137, 123, 0.08), 0 2px 10px -2px rgba(0, 0, 0, 0.02); /* 空氣感陰影 */
-            --hover-shadow: 0 20px 50px -10px rgba(97, 137, 123, 0.15), 0 5px 15px -3px rgba(0, 0, 0, 0.04); /* 懸浮陰影 */
+            --primary-color: #5B8476;    /* 優雅文青綠（微調沉穩，提升質感） */
+            --secondary-color: #E2877A;  /* 溫柔豆沙粉 */
+            --accent-color: #EEB875;     /* 柔和麥穗金 */
+            --bg-color: #FAF8F5;         /* 高級舒適燕麥白 */
+            --text-color: #3D3D3D;       /* 舒適深灰（比純黑更溫柔，不傷眼） */
+            --text-muted: #727272;       /* 次要描述灰 */
+            --danger-color: #CD5334;     /* 警示珊瑚紅 */
+            --border-warm: 1px solid rgba(230, 224, 212, 0.7); /* 溫暖細節邊框 */
+            --card-shadow: 0 12px 35px rgba(108, 154, 139, 0.04), 0 4px 12px rgba(0, 0, 0, 0.01); /* 空氣感陰影 */
+            --hover-shadow: 0 22px 45px rgba(91, 132, 118, 0.12); /* 移過時的柔和擴散陰影 */
         }
 
-        /* --- 全局字體與舒適排版設定 --- */
+        /* --- ✨ 3. 全局雙軌字體與舒適排版設定 --- */
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
+            /* 預設內文字體：注重清晰度與防疲勞 */
             font-family: 'PingFang TC', 'Noto Sans TC', '微軟正黑體', sans-serif;
             scroll-behavior: smooth;
         }
@@ -39,19 +40,20 @@
         body {
             background-color: var(--bg-color);
             color: var(--text-color);
-            line-height: 1.85; 
-            letter-spacing: 0.03em; 
-            font-size: 1.05rem; 
+            line-height: 1.8; /* 放寬行距，大幅提升長文閱讀舒適度 */
+            letter-spacing: 0.04em; /* 微調字距，讓呼吸感更強 */
+            font-size: 1.05rem; /* 整體內文字級適度放大 */
         }
 
-        /* 針對重點標題強制套用【隨峰體】，並取消過大的字距以防斷行 */
+        /* 針對需要強烈溫暖情感、亮點的區塊，強制套用【隨峰體】 */
         h1, h2, h3, .logo, .project-name, .modal-title, .modal-slogan, 
         .door-indicator, .faq-q, .resource-category h3, .card-title, .filter-label {
             font-family: 'SuiFeng', 'PingFang TC', '微軟正黑體', sans-serif !important;
-            letter-spacing: normal; /* ✨ 已還原間距，確保一行顯示 */
+            /* ✨ 已移除過大的字距(letter-spacing)，避免標題被擠成兩行 */
+            letter-spacing: normal; 
         }
 
-        /* --- 頂層求助安全網 --- */
+        /* --- 頂層求助安全網 (精緻通知列樣式) --- */
         .emergency-bar {
             background-color: var(--danger-color);
             color: white;
@@ -62,8 +64,7 @@
             position: sticky;
             top: 0;
             z-index: 1000;
-            box-shadow: 0 4px 15px rgba(200, 105, 85, 0.2);
-            letter-spacing: 0.05em;
+            box-shadow: 0 2px 10px rgba(205, 83, 52, 0.2);
         }
         .emergency-bar a {
             color: #FFF2E6;
@@ -74,12 +75,14 @@
             transition: opacity 0.2s;
             font-weight: bold;
         }
-        .emergency-bar a:hover { opacity: 0.8; }
+        .emergency-bar a:hover {
+            opacity: 0.85;
+        }
 
         /* --- 響應式高級導覽列 --- */
         header {
-            background-color: rgba(253, 251, 247, 0.92);
-            backdrop-filter: blur(12px); 
+            background-color: rgba(250, 248, 245, 0.92);
+            backdrop-filter: blur(12px); /* 磨砂玻璃效果 */
             padding: 18px 5%;
             display: flex;
             justify-content: space-between;
@@ -88,24 +91,26 @@
             top: 45px;
             z-index: 999;
             border-bottom: var(--border-warm);
-            box-shadow: 0 4px 20px rgba(0,0,0,0.02);
         }
 
         .logo {
-            font-size: 1.45rem;
+            font-size: 1.4rem;
+            font-weight: bold;
             color: var(--primary-color);
             display: flex;
             align-items: center;
             gap: 8px;
             cursor: pointer;
-            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: transform 0.2s;
         }
-        .logo:hover { transform: scale(1.03); }
+        .logo:hover {
+            transform: scale(1.02);
+        }
 
         nav ul {
             list-style: none;
             display: flex;
-            gap: 22px;
+            gap: 20px;
             align-items: center;
         }
 
@@ -116,8 +121,7 @@
             font-size: 0.95rem;
             transition: all 0.3s ease;
             position: relative;
-            padding: 8px 0;
-            cursor: pointer;
+            padding: 6px 0;
         }
 
         nav a:hover, nav a.active-nav {
@@ -125,12 +129,14 @@
             font-weight: bold;
         }
         
+        /* 導覽列小底線微動效 */
         nav a::after {
             content: ''; position: absolute; bottom: 0; left: 50%; width: 0; height: 2px;
             background-color: var(--primary-color); transition: all 0.3s ease; transform: translateX(-50%);
-            border-radius: 2px;
         }
-        nav a:hover::after, nav a.active-nav::after { width: 100%; }
+        nav a:hover::after, nav a.active-nav::after {
+            width: 100%;
+        }
 
         .menu-toggle {
             display: none;
@@ -139,59 +145,49 @@
             color: var(--primary-color);
         }
 
-        /* ✨ 下拉式選單修復與美化 */
-        .dropdown { position: relative; }
-        
-        /* 隱形的感應橋樑，防止滑鼠經過空隙時選單消失 */
+        /* ✨ 下拉式選單美化 (已修復斷橋與跳動問題) */
+        .dropdown { 
+            position: relative; 
+        }
+        /* 新增隱形橋樑，讓滑鼠往下移時不會判定為離開按鈕 */
         .dropdown::after {
             content: '';
             position: absolute;
             width: 100%;
-            height: 20px;
-            bottom: -20px;
+            height: 15px;
+            bottom: -15px;
             left: 0;
         }
-
         .dropdown-content {
             display: none;
             position: absolute;
             background-color: white;
-            min-width: 220px;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+            min-width: 200px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.06);
             z-index: 1001;
-            border-radius: 18px; /* 更圓潤的角 */
+            border-radius: 14px;
             overflow: hidden;
-            top: calc(100% + 15px); /* 保持優雅的距離 */
+            top: calc(100% + 10px); /* 微調下拉距離 */
             left: 50%;
             transform: translateX(-50%);
             border: var(--border-warm);
-            padding: 8px 0;
+            padding: 6px 0;
         }
         .dropdown:hover .dropdown-content {
             display: block;
-            animation: fadeInMenu 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            animation: fadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        @keyframes fadeInMenu {
-            from { opacity: 0; transform: translate(-50%, 10px); }
-            to { opacity: 1; transform: translate(-50%, 0); }
-        }
-
         .dropdown-content a {
             color: var(--text-color);
-            padding: 12px 24px;
-            font-size: 0.95rem;
+            padding: 12px 22px;
+            font-size: 0.9rem;
             display: block;
-            transition: all 0.2s ease;
         }
         .dropdown-content a::after { display: none; }
-        .dropdown-content a:not(:last-child) {
-            border-bottom: 1px solid #FAF8F5;
-        }
         .dropdown-content a:hover {
-            background-color: #FDFBF7;
+            background-color: #FAF8F5;
             color: var(--primary-color);
-            padding-left: 30px; /* 移過時精緻右移效果 */
-            font-weight: bold;
+            padding-left: 26px; /* 移過時精緻右移效果 */
         }
 
         /* --- 分頁顯示隱藏動畫 --- */
@@ -199,24 +195,23 @@
         .page.active-page { display: block; }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(15px); }
+            from { opacity: 0; transform: translateY(8px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* --- 首頁橫幅 (超溫暖的漸層與網底) --- */
+        /* --- 首頁與英雄橫幅樣式 (繪本般高雅漸層) --- */
         .hero {
-            background: linear-gradient(135deg, #F3EFE6 0%, #FDFBF7 100%);
-            padding: 85px 5% 75px 5%;
+            background: linear-gradient(135deg, #ECF3F0 0%, #FAF2F0 100%);
+            padding: 85px 5% 65px 5%;
             text-align: center;
             border-bottom: var(--border-warm);
-            position: relative;
         }
 
         .hero h1 {
-            font-size: 3.2rem;
+            font-size: 2.8rem;
             color: var(--primary-color);
             margin-bottom: 20px;
-            text-shadow: 2px 2px 0px rgba(255,255,255,0.9);
+            text-shadow: 1px 1px 0px rgba(255,255,255,0.8);
         }
 
         /* 專案展示卡片美化區 (商標呈現) */
@@ -225,13 +220,13 @@
             justify-content: center;
             gap: 25px;
             flex-wrap: wrap;
-            margin-top: 25px;
+            margin-top: 15px;
         }
 
         .project-card {
             background: white;
-            border-radius: 50px; /* 膠囊狀設計，極具現代感 */
-            padding: 12px 30px 12px 12px;
+            border-radius: 20px;
+            padding: 18px 28px;
             display: flex;
             align-items: center;
             gap: 18px;
@@ -239,6 +234,7 @@
             box-shadow: var(--card-shadow);
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
             border: var(--border-warm);
+            min-width: 270px;
         }
 
         .project-card:hover {
@@ -248,62 +244,62 @@
         }
 
         .project-logo {
-            width: 60px;
-            height: 60px;
+            width: 58px;
+            height: 58px;
             border-radius: 50%;
             object-fit: cover;
-            border: 3px solid white;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            border: 2px solid white;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
         }
 
         .project-text { text-align: left; }
         .project-name {
             display: block;
+            font-weight: bold;
             color: var(--primary-color);
-            font-size: 1.3rem;
-            margin-bottom: 0px;
+            font-size: 1.25rem;
+            margin-bottom: 3px;
         }
         .project-desc {
             display: block;
             font-size: 0.85rem;
             color: var(--text-muted);
-            font-family: 'PingFang TC', sans-serif;
         }
 
         /* 搜尋欄位精緻化 */
         .search-wrapper {
-            max-width: 580px;
-            margin: 25px auto 20px auto;
+            max-width: 550px;
+            margin: 25px auto 15px auto;
             position: relative;
         }
         .search-input {
             width: 100%;
-            padding: 16px 25px 16px 55px;
-            border: 2px solid #EAE6DB;
+            padding: 14px 25px 14px 52px;
+            border: 2px solid #E6E2D8;
             border-radius: 50px;
-            font-size: 1rem;
+            font-size: 0.95rem;
             outline: none;
             background-color: white;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.01);
             color: var(--text-color);
         }
         .search-input:focus {
             border-color: var(--primary-color);
-            box-shadow: 0 6px 20px rgba(97, 137, 123, 0.15);
+            box-shadow: 0 6px 20px rgba(91, 132, 118, 0.12);
         }
         .search-icon {
             position: absolute;
-            left: 24px;
+            left: 22px;
             top: 50%;
             transform: translateY(-50%);
-            font-size: 1.2rem;
-            color: #AFAAA0;
+            font-size: 1.1rem;
+            color: #A39E93;
         }
 
         /* 篩選操控台美化 */
         .filter-section {
-            padding: 35px 5% 45px 5%;
+            padding: 25px 5% 35px 5%;
             text-align: center;
         }
 
@@ -317,34 +313,38 @@
         }
 
         .filter-label {
+            font-weight: bold;
             color: #8C867A;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             margin-right: 4px;
         }
 
         .filter-btn {
             background: #EFECE4;
             border: none;
-            padding: 8px 22px;
+            padding: 7px 18px;
             border-radius: 30px;
             cursor: pointer;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
             color: var(--text-color);
-            font-weight: bold;
+            font-weight: 500;
         }
 
-        .filter-btn:hover { background: #E5E1D7; }
+        .filter-btn:hover {
+            background: #E5E1D7;
+        }
 
         .filter-btn.active {
             background-color: var(--primary-color);
             color: white;
-            box-shadow: 0 6px 15px rgba(97, 137, 123, 0.3);
+            font-weight: bold;
+            box-shadow: 0 4px 12px rgba(91, 132, 118, 0.25);
         }
 
-        /* 資源展示圖卡 (圓角加大、陰影變柔) */
+        /* 資源網格展示 */
         .container {
-            padding: 0 5% 70px 5%;
+            padding: 0 5% 60px 5%;
             max-width: 1240px;
             margin: 0 auto;
         }
@@ -352,12 +352,12 @@
         .grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
-            gap: 40px;
+            gap: 35px;
         }
 
         .card {
             background: white;
-            border-radius: 24px; /* 更溫暖的大圓角 */
+            border-radius: 20px;
             overflow: hidden;
             box-shadow: var(--card-shadow);
             display: flex;
@@ -369,12 +369,12 @@
         .card:hover {
             transform: translateY(-8px);
             box-shadow: var(--hover-shadow);
-            border-color: rgba(97, 137, 123, 0.3);
+            border-color: rgba(91, 132, 118, 0.3);
         }
 
         .card-media {
             width: 100%;
-            height: 200px;
+            height: 190px;
             position: relative;
             background-color: #EFECE4;
             overflow: hidden;
@@ -387,38 +387,41 @@
         }
 
         .card-body {
-            padding: 28px;
+            padding: 24px;
             flex-grow: 1;
             display: flex;
             flex-direction: column;
         }
 
-        .card-tags { margin-bottom: 15px; }
+        .card-tags { margin-bottom: 12px; }
 
         .badge {
-            font-size: 0.8rem;
-            padding: 5px 14px;
+            font-size: 0.75rem;
+            padding: 4px 12px;
             border-radius: 30px;
             color: white;
             font-weight: bold;
-            margin-right: 8px;
+            margin-right: 6px;
+            letter-spacing: 0.02em;
         }
 
         .badge-identity { background-color: var(--secondary-color); }
         .badge-topic { background-color: #A3908F; }
 
         .card-title {
-            font-size: 1.45rem;
+            font-size: 1.35rem;
+            font-weight: bold;
+            margin-bottom: 12px;
             color: #2D2D2D;
-            line-height: 1.3;
+            line-height: 1.4;
         }
 
         .card-text {
-            font-size: 1rem; 
+            font-size: 0.95rem; 
             color: var(--text-muted);
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             flex-grow: 1;
-            font-family: 'PingFang TC', sans-serif; /* 內文確保清晰 */
+            line-height: 1.7;
         }
 
         .card-link { text-align: right; }
@@ -426,87 +429,113 @@
             color: var(--primary-color);
             text-decoration: none;
             font-weight: bold;
-            font-size: 1rem;
+            font-size: 0.95rem;
             transition: color 0.2s;
-            background: #F3EFE6;
-            padding: 8px 20px;
-            border-radius: 20px;
         }
         .card-link a:hover {
-            background: var(--primary-color);
-            color: white;
+            color: var(--secondary-color);
         }
 
-        /* 共用標題外觀 */
+        /* 標題與簡介區 */
         .team-title-section {
             text-align: center;
-            padding: 75px 5% 45px 5%;
+            padding: 65px 5% 40px 5%;
             background: linear-gradient(180deg, #EFECE4 0%, var(--bg-color) 100%);
             border-bottom: var(--border-warm);
         }
         .team-title-section h2 {
             color: var(--primary-color);
-            font-size: 2.5rem;
-            margin-bottom: 15px;
+            font-size: 2.3rem;
+            margin-bottom: 12px;
         }
         .team-title-section p {
             color: var(--text-muted);
             max-width: 700px;
             margin: 0 auto;
-            font-size: 1.1rem;
-            font-family: 'PingFang TC', sans-serif;
+            font-size: 1.05rem;
         }
         
-        /* 內部大資訊區塊 */
         .info-block {
             background: white;
-            border-radius: 24px;
-            padding: 45px 35px;
+            border-radius: 20px;
+            padding: 40px 30px;
             box-shadow: var(--card-shadow);
             border: var(--border-warm);
-            margin-bottom: 40px;
-            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            margin-bottom: 35px;
+            transition: transform 0.3s;
         }
-        .info-block:hover { transform: translateY(-3px); box-shadow: var(--hover-shadow); }
+        .info-block:hover {
+            transform: translateY(-2px);
+        }
 
         /* 資源地圖樣式優化 */
-        .resource-list { max-width: 1000px; margin: 0 auto; padding: 40px 5% 70px 5%; }
+        .resource-list {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 30px 5% 60px 5%;
+        }
         .resource-category {
-            background: white; border-radius: 24px; padding: 40px; margin-bottom: 40px;
-            box-shadow: var(--card-shadow); border: var(--border-warm);
-            border-top: 8px solid var(--primary-color);
+            background: white;
+            border-radius: 20px;
+            padding: 35px;
+            margin-bottom: 35px;
+            box-shadow: var(--card-shadow);
+            border: var(--border-warm);
+            border-top: 6px solid var(--primary-color);
         }
         .resource-category h3 {
-            color: var(--primary-color); margin-bottom: 30px; font-size: 1.6rem;
-            border-bottom: 2px dashed #EFECE4; padding-bottom: 15px; display: flex; align-items: center; gap: 12px;
+            color: var(--primary-color);
+            margin-bottom: 25px;
+            font-size: 1.5rem;
+            border-bottom: 2px dashed #EFECE4;
+            padding-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
-        .resource-item { margin-bottom: 30px; padding-bottom: 20px; }
+        .resource-item {
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+        }
         .resource-item:not(:last-child) { border-bottom: 1px solid #FAF8F5; }
-        .resource-name { font-weight: bold; font-size: 1.25rem; color: #2D2D2D; margin-bottom: 10px;}
-        .resource-info { font-size: 1rem; color: var(--text-muted); margin-bottom: 15px; line-height: 1.8; font-family: 'PingFang TC', sans-serif;}
+        .resource-name { font-weight: bold; font-size: 1.2rem; color: #2D2D2D; margin-bottom: 8px;}
+        .resource-info { font-size: 0.95rem; color: var(--text-color); margin-bottom: 12px; line-height: 1.75;}
         .resource-link { 
-            color: var(--secondary-color); text-decoration: none; font-weight: bold; 
-            font-size: 1rem; display: inline-block; transition: all 0.3s;
-            background: #FFF2F0; padding: 6px 18px; border-radius: 20px;
+            color: var(--secondary-color); 
+            text-decoration: none; 
+            font-weight: bold; 
+            font-size: 0.95rem;
+            display: inline-block;
+            transition: all 0.2s;
         }
-        .resource-link:hover { transform: translateX(5px); background: var(--secondary-color); color: white; }
+        .resource-link:hover { transform: translateX(3px); color: var(--primary-color); }
 
-        /* FAQ 區塊 */
-        .faq-container { max-width: 850px; margin: 0 auto; padding: 50px 5%; }
+        /* FAQ 區塊精緻繪本化 */
+        .faq-container { max-width: 850px; margin: 0 auto; padding: 40px 5%; }
         .faq-item { 
-            margin-bottom: 30px; background: white; padding: 35px; border-radius: 24px; 
-            box-shadow: var(--card-shadow); border: var(--border-warm);
-            border-left: 6px solid var(--accent-color); transition: all 0.4s;
+            margin-bottom: 25px; 
+            background: white; 
+            padding: 30px; 
+            border-radius: 20px; 
+            box-shadow: var(--card-shadow); 
+            border: var(--border-warm);
+            border-left: 5px solid var(--accent-color); /* 溫暖點綴線 */
+            transition: all 0.3s;
         }
         .faq-item:nth-child(even) { border-left-color: var(--secondary-color); }
-        .faq-item:hover { transform: translateX(6px); box-shadow: var(--hover-shadow); }
-        .faq-q { font-size: 1.4rem; color: var(--primary-color); margin-bottom: 15px;}
-        .faq-a { font-size: 1.05rem; color: var(--text-muted); font-family: 'PingFang TC', sans-serif;}
+        .faq-item:hover { transform: translateX(4px); box-shadow: var(--hover-shadow); }
+        .faq-q { font-size: 1.3rem; font-weight: bold; color: var(--primary-color); margin-bottom: 12px;}
+        .faq-a { font-size: 1rem; color: var(--text-color); line-height: 1.8; }
 
         /* 頁尾 */
         footer { 
-            background-color: var(--primary-color); color: white; text-align: center; 
-            padding: 50px 5%; margin-top: 80px; font-size: 0.95rem; border-top: 6px solid var(--accent-color);
+            background-color: var(--primary-color); 
+            color: white; 
+            text-align: center; 
+            padding: 40px 5%; 
+            margin-top: 80px; 
+            font-size: 0.9rem;
+            border-top: 4px solid var(--accent-color);
         }
         footer p { opacity: 0.9; }
 
@@ -514,47 +543,50 @@
         @media (max-width: 950px) {
             header { top: 79px; padding: 15px 4%; }
             nav ul {
-                display: none; flex-direction: column; position: absolute;
-                top: 100%; left: 0; width: 100%; background-color: rgba(253, 251, 247, 0.98); 
-                padding: 25px; box-shadow: 0 15px 30px rgba(0,0,0,0.08);
-                border-bottom: var(--border-warm); gap: 18px; backdrop-filter: blur(10px);
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%; left: 0; width: 100%;
+                background-color: white; padding: 25px;
+                box-shadow: 0 15px 30px rgba(0,0,0,0.08);
+                border-bottom: var(--border-warm);
+                gap: 15px;
             }
             nav ul.active { display: flex; }
             .menu-toggle { display: block; }
-            .hero h1 { font-size: 2.5rem; }
-            .dropdown-content { position: static; box-shadow: none; border: none; background: transparent; padding-left: 20px;}
+            .hero h1 { font-size: 2.2rem; }
         }
 
         /* YouTube 預覽播放按鈕 */
         .video-preview-wrapper { width: 100%; height: 100%; position: relative; display: block; overflow: hidden; }
-        .video-preview-wrapper:hover img { transform: scale(1.05); }
-        .video-preview-wrapper img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
+        .video-preview-wrapper:hover img { transform: scale(1.04); }
+        .video-preview-wrapper img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; }
         .video-preview-wrapper::after { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.12); transition: background 0.3s; }
         .video-preview-wrapper:hover::after { background: rgba(0, 0, 0, 0.25); }
-        .play-button { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 70px; height: 48px; background-color: rgba(224, 43, 36, 0.9); border-radius: 14px; z-index: 10; display: flex; justify-content: center; align-items: center; transition: all 0.3s; box-shadow: 0 6px 20px rgba(0,0,0,0.2); }
+        .play-button { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 65px; height: 45px; background-color: rgba(224, 43, 36, 0.9); border-radius: 14px; z-index: 10; display: flex; justify-content: center; align-items: center; transition: all 0.3s; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
         .play-button::after { content: ''; display: block; width: 0; height: 0; border-style: solid; border-width: 10px 0 10px 18px; border-color: transparent transparent transparent #ffffff; margin-left: 4px; }
-        .video-preview-wrapper:hover .play-button { background-color: #ff0000; transform: translate(-50%, -50%) scale(1.1); }
+        .video-preview-wrapper:hover .play-button { background-color: #ff0000; transform: translate(-50%, -50%) scale(1.08); }
 
         /* 門扉歡迎彈出視窗 */
         .welcome-modal { display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 9999; background-image: url('https://drive.google.com/thumbnail?id=1IqswNZjTqgD7jxzuRTWEqsxgvmABIsYQ&sz=w800'); background-size: cover; background-position: center; justify-content: center; align-items: center; }
-        .modal-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(253, 251, 247, 0.9); backdrop-filter: blur(8px); }
-        .modal-content { position: relative; z-index: 10; text-align: center; padding: 30px; animation: modalPop 0.8s cubic-bezier(0.16, 1, 0.3, 1); max-width: 650px; width: 90%; }
-        .modal-title { color: #724820; font-size: 3.5rem; margin-bottom: 25px; text-shadow: 2px 2px 0px rgba(255,255,255,0.8); }
-        .modal-slogan { font-size: 1.5rem; color: #514247; margin: 15px 0; line-height: 1.6; }
+        .modal-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(253, 251, 247, 0.88); backdrop-filter: blur(5px); }
+        .modal-content { position: relative; z-index: 10; text-align: center; padding: 25px; animation: modalPop 0.8s cubic-bezier(0.16, 1, 0.3, 1); max-width: 600px; width: 90%; }
+        .modal-title { color: #724820; font-size: 3rem; margin-bottom: 25px; font-weight: bold; }
+        .modal-slogan { font-size: 1.4rem; color: #514247; margin: 15px 0; line-height: 1.6; }
         
         /* 推門結構 */
-        .door-btn-wrapper { margin-top: 50px; display: flex; flex-direction: column; align-items: center; }
+        .door-btn-wrapper { margin-top: 40px; display: flex; flex-direction: column; align-items: center; }
         .door-indicator {
-            color: #C68E57; font-size: 1.5rem; margin-bottom: 20px;
-            animation: bounce 1.6s infinite; background: white; padding: 8px 25px;
-            border-radius: 30px; border: 2px dashed #C68E57; box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            color: #C68E57; font-size: 1.4rem; font-weight: bold; margin-bottom: 18px;
+            animation: bounce 1.6s infinite; background: white; padding: 6px 20px;
+            border-radius: 30px; border: 2px dashed #C68E57; box-shadow: 0 4px 10px rgba(0,0,0,0.03);
         }
 
         @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
 
         .door-btn {
-            display: inline-block; width: 120px; height: 160px; background: #8B5A2B; 
-            border: 6px solid #5C3A21; border-radius: 8px 8px 0 0; position: relative;
+            display: inline-block; width: 115px; height: 155px; background: #8B5A2B; 
+            border: 5px solid #5C3A21; border-radius: 6px 6px 0 0; position: relative;
             cursor: pointer; transition: transform 0.8s ease-in-out, background 0.3s; transform-origin: left;
             box-shadow: inset -5px 0 10px rgba(0,0,0,0.2), 5px 5px 15px rgba(0,0,0,0.25);
             animation: pulse-glow 2.5s infinite alternate;
@@ -562,12 +594,12 @@
 
         @keyframes pulse-glow {
             from { box-shadow: inset -5px 0 10px rgba(0,0,0,0.2), 5px 5px 15px rgba(0,0,0,0.2), 0 0 15px rgba(238, 184, 117, 0.4); }
-            to { box-shadow: inset -5px 0 10px rgba(0,0,0,0.2), 5px 5px 15px rgba(0,0,0,0.2), 0 0 45px rgba(238, 184, 117, 1); }
+            to { box-shadow: inset -5px 0 10px rgba(0,0,0,0.2), 5px 5px 15px rgba(0,0,0,0.2), 0 0 35px rgba(238, 184, 117, 0.9); }
         }
 
         .door-btn::after {
-            content: ''; position: absolute; top: 50%; right: 12px; width: 16px; height: 16px;
-            background: #D4AF37; border-radius: 50%; box-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+            content: ''; position: absolute; top: 50%; right: 12px; width: 14px; height: 14px;
+            background: #D4AF37; border-radius: 50%; box-shadow: 1px 1px 3px rgba(0,0,0,0.4);
         }
         .door-btn:hover, .door-btn:active {
             transform: perspective(600px) rotateY(-40deg); background: #9C6833; animation: none;
@@ -575,25 +607,24 @@
 
         /* 桌寵 YUMA */
         .yuma-container {
-            position: fixed; bottom: 35px; right: 35px; z-index: 9999;
+            position: fixed; bottom: 30px; right: 30px; z-index: 9999;
             display: flex; flex-direction: column; align-items: center; cursor: pointer; user-select: none;
         }
         .yuma-avatar img {
-            width: 90px; height: 90px; object-fit: cover; border-radius: 50%;
-            filter: drop-shadow(0 8px 16px rgba(0,0,0,0.15)); transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            border: 3px solid white;
+            width: 85px; height: 85px; object-fit: cover; border-radius: 50%;
+            filter: drop-shadow(0 6px 12px rgba(0,0,0,0.15)); transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
-        .yuma-container:hover .yuma-avatar img { transform: scale(1.15) rotate(5deg); }
+        .yuma-container:hover .yuma-avatar img { transform: scale(1.12) rotate(4deg); }
         .yuma-bubble {
-            position: absolute; bottom: 105px; right: 5px; background: white;
-            border: 2px solid var(--primary-color); padding: 16px 22px; border-radius: 20px;
-            font-size: 1rem; color: var(--text-color); width: 240px; font-family: 'PingFang TC', sans-serif;
-            box-shadow: 0 12px 30px rgba(0,0,0,0.15); opacity: 0; pointer-events: none;
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); transform: translateY(15px);
+            position: absolute; bottom: 95px; right: 5px; background: white;
+            border: 2px solid var(--primary-color); padding: 14px 20px; border-radius: 18px;
+            font-size: 0.95rem; font-weight: bold; color: var(--text-color); width: 220px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1); opacity: 0; pointer-events: none;
+            transition: all 0.3s ease; transform: translateY(10px);
         }
         .yuma-bubble.show { opacity: 1; pointer-events: auto; transform: translateY(0); }
-        .yuma-bubble::after { content: ''; position: absolute; bottom: -12px; right: 38px; border-width: 12px 12px 0; border-style: solid; border-color: white transparent; display: block; width: 0; }
-        .yuma-bubble::before { content: ''; position: absolute; bottom: -15px; right: 37px; border-width: 13px 13px 0; border-style: solid; border-color: var(--primary-color) transparent; display: block; width: 0; }
+        .yuma-bubble::after { content: ''; position: absolute; bottom: -10px; right: 35px; border-width: 10px 10px 0; border-style: solid; border-color: white transparent; display: block; width: 0; }
+        .yuma-bubble::before { content: ''; position: absolute; bottom: -13px; right: 34px; border-width: 11px 11px 0; border-style: solid; border-color: var(--primary-color) transparent; display: block; width: 0; }
     </style>
 </head>
 <body>
@@ -604,13 +635,14 @@
     <div id="welcomeModal" class="welcome-modal">
         <div class="modal-overlay"></div>
         <div class="modal-content">
-            <div class="modal-title">歡迎來到福科輔導室 ✨</div>
+            <div class="modal-title">歡迎來到「福島」</div>
+            <div class="modal-title">－福科輔導 ✨</div>
             <div class="modal-slogan">🌿 讓輔導走進日常－深耕校園環境陶冶</div>
             <div class="modal-slogan">🤝 讓專業協力織網－連結社區專業資源</div>
             <div class="modal-slogan">🛡️ 輔導不止於晤談－全方位建構校園防護網</div>
             
             <div class="door-btn-wrapper">
-                <div class="door-indicator">👉 點擊大門進入，開啟音樂 👈</div>
+                <div class="door-indicator">👉 點擊大門進入網頁 👈</div>
                 <div class="door-btn" onclick="closeModalAndPlayMusic()"></div>
             </div>
         </div>
@@ -620,11 +652,11 @@
         🚨 深夜情緒低落、遭遇危機？福科拉你一把：
         <a href="tel:1925">安心專線 1925</a> | 
         <a href="tel:1995">生命線 1995</a> | 
-        <a href="tel:1980">張老師 1980</a> (手機直撥)
+        <a href="tel:1980">張老師 1980</a> (支援手機直撥)
     </div>
 
     <header>
-        <div class="logo" onclick="switchPage('home')">🌻 來福島，歇會ㄦ！－福科輔導</div>
+        <div class="logo" onclick="switchPage('home')">來福島，歇會ㄦ！－福科輔導</div>
         <div class="menu-toggle" onclick="toggleMenu()">☰</div>
         <nav>
             <ul id="nav-menu">
@@ -632,12 +664,12 @@
                 <li class="dropdown">
                     <a style="cursor: default;">站點與社群 ▾</a>
                     <div class="dropdown-content">
-                        <a href="https://a1021502.github.io/mood/index.html" target="_blank">🔑 FMTH 福科心靈樹洞</a>
-                        <a href="https://a1021502.github.io/take.care.of.yourself/" target="_blank">🧘 SAFE SPACE</a>
-                        <a href="https://www.facebook.com/fcjhguidance" target="_blank">📱 FB 粉絲專頁</a>
-                        <a href="https://www.instagram.com/fcjhguidance/" target="_blank">📸 IG 官方帳號</a>
-                        <a href="https://www.youtube.com/playlist?list=PLkqAD3KmD8OuUvpt1f9p9xT8z7C11VcIO" target="_blank">🎬 YT 心衛知識</a>
-                        <a href="https://www.youtube.com/playlist?list=PLkqAD3KmD8OuBvUJvLy2_5vx7RzdFVL8m" target="_blank">🎙️ YT 福科電台</a>
+                        <a href="https://a1021502.github.io/mood/index.html" target="_blank">FMTH 福科心靈樹洞</a>
+                        <a href="https://a1021502.github.io/take.care.of.yourself/" target="_blank">SAFE SPACE</a>
+                        <a href="https://www.facebook.com/fcjhguidance" target="_blank">FB 粉絲專頁</a>
+                        <a href="https://www.instagram.com/fcjhguidance/" target="_blank">IG 官方帳號</a>
+                        <a href="https://www.youtube.com/playlist?list=PLkqAD3KmD8OuUvpt1f9p9xT8z7C11VcIO" target="_blank">YT 心衛知識</a>
+                        <a href="https://www.youtube.com/playlist?list=PLkqAD3KmD8OuBvUJvLy2_5vx7RzdFVL8m" target="_blank">YT 福科電台</a>
                     </div>
                 </li>
                 <li><a id="nav-resource" onclick="switchPage('resource')">資源與支持網絡</a></li>
@@ -649,14 +681,14 @@
 
     <div id="page-home" class="page active-page">
         <section class="hero">
-            <h1來福島，歇會ㄦ！－福科輔導></h1>
-            <div style="text-align: center; margin: 25px 20px 40px 20px;">
-                <h3 style="color: #BA8553; font-size: 1.8rem; margin-bottom: 25px; line-height: 1.5;">
+            <h1>來福島，歇會ㄦ！－福科輔導</h1>
+            <div style="text-align: center; margin: 25px 20px 35px 20px;">
+                <h3 style="color: #BA8553; font-size: 1.6rem; margin-bottom: 25px; line-height: 1.5;">
                     在這裡，你的聲音會被聽見。<br>不論是悄悄話、想放鬆，還是尋求資源，我們永遠陪伴你。
                 </h3>
-                <div style="font-size: 1.1rem; color: var(--text-muted); margin-bottom: 8px; font-family: 'PingFang TC', sans-serif;">✨ 讓輔導走進日常－深耕校園環境陶冶</div>
-                <div style="font-size: 1.1rem; color: var(--text-muted); margin-bottom: 8px; font-family: 'PingFang TC', sans-serif;">🤝 讓專業協力織網－連結社區專業資源</div>
-                <div style="font-size: 1.1rem; color: var(--text-muted); margin-bottom: 30px; font-family: 'PingFang TC', sans-serif;">🛡️ 輔導不止於晤談－全方位建構校園防護網</div>
+                <div style="font-size: 1.05rem; color: #726D64; margin-bottom: 8px;">✨ 讓輔導走進日常－深耕校園環境陶冶</div>
+                <div style="font-size: 1.05rem; color: #726D64; margin-bottom: 8px;">🤝 讓專業協力織網－連結社區專業資源</div>
+                <div style="font-size: 1.05rem; color: #726D64; margin-bottom: 30px;">🛡️ 輔導不止於晤談－全方位建構校園防護網</div>
             </div>
             
             <div class="project-showcase">
@@ -855,7 +887,7 @@
                     <div class="resource-info"><strong>📌 核心功能與特色：</strong>親師生出現急性心理危機、自殺意念時，隨時可撥打之國家級心理危機干預窗口。<strong>📞 專線：</strong>1925</div>
                 </div>
             </div>
-            <div style="background-color: #FFF3E5; border-left: 6px solid var(--danger-color); padding: 22px; border-radius: 16px; font-weight: bold; color: #9A3E1C; font-size: 1.05rem; box-shadow: 0 4px 15px rgba(200, 105, 85, 0.1);">
+            <div style="background-color: #FFF3E5; border-left: 5px solid var(--danger-color); padding: 18px; border-radius: 12px; font-weight: 500; color: #9A3E1C; font-size: 0.95rem;">
                 💡 提醒：轉介三級或外部資源前，請務必確認已完成一二級輔導評估並留存紀錄。如有立即性人身安全危機，請優先啟動校安通報並報警/送醫。
             </div>
         </div>
@@ -885,61 +917,58 @@
             <p>了解網站的誕生故事、輔導室專屬商標，以及背後的設計者。</p>
         </div>
         
-        <div class="container" style="max-width: 950px; padding-top: 20px;">
+        <div class="container" style="max-width: 900px; padding-top: 20px;">
             <div class="info-block">
-                <h3 style="color: var(--primary-color); margin-bottom: 15px; font-size: 1.5rem;">📖 網站設計緣起</h3>
-                <p style="color: var(--text-color); line-height: 1.85; font-size: 1.05rem; font-family: 'PingFang TC', sans-serif;">
+                <h3 style="color: var(--primary-color); margin-bottom: 15px; font-size: 1.4rem;">📖 網站設計緣起</h3>
+                <p style="color: var(--text-color); line-height: 1.85; font-size: 1.05rem;">
                     為了讓福科國中的師生、家長能在遇到困擾時，第一時間找到支持的力量，我們決定打造這個充滿溫度與療癒感的線上網站。透過將實體的輔導資源、心理衛生知識與求助管道數位化，我們期望能打破時空的限制，全方位建構校園心理防護網，讓每一顆受傷或迷惘的心都能在這裡找到出口。
                 </p>
             </div>
             
             <div class="info-block" style="display: flex; flex-direction: column; align-items: center; text-align: center;">
-                <h3 style="color: var(--primary-color); margin-bottom: 30px; font-size: 1.7rem;">🌻 輔導室專屬商標與設計意義</h3>
+                <h3 style="color: var(--primary-color); margin-bottom: 25px; font-size: 1.5rem;">🌻 輔導室專屬商標與設計意義</h3>
                 
-                <img src="https://drive.google.com/thumbnail?id=1mLT6Swi2aCfWNJZV8wKXuri1Nym8aAxo&sz=w800" style="width: 100%; max-width: 420px; border-radius: 30px; box-shadow: 0 15px 40px rgba(0,0,0,0.08); margin-bottom: 40px; border: var(--border-warm);">
+                <img src="https://drive.google.com/thumbnail?id=1mLT6Swi2aCfWNJZV8wKXuri1Nym8aAxo&sz=w800" style="width: 100%; max-width: 380px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); margin-bottom: 35px; border: var(--border-warm);">
                 
-                <div style="text-align: left; max-width: 800px; width: 100%; color: var(--text-color); line-height: 1.9; font-size: 1.05rem; font-family: 'PingFang TC', sans-serif;">
-                    <p style="margin-bottom: 15px; font-size: 1.25rem; color: #2D2D2D; font-weight: bold; text-align: center;">FU 等於福科的「福」與輔導的「輔」</p>
+                <div style="text-align: left; max-width: 800px; width: 100%; color: var(--text-color); line-height: 1.9; font-size: 1.05rem;">
+                    <p style="margin-bottom: 15px; font-size: 1.2rem; color: #2D2D2D; font-weight: bold;">FU等於福科的福和輔導的輔</p>
                     
-                    <div style="background: #FDFBF7; padding: 25px; border-radius: 16px; border: var(--border-warm); margin-bottom: 30px;">
-                        <p style="margin-bottom: 15px;">
-                            <strong style="color: var(--primary-color); font-size: 1.15rem;">F (Feeling / 福科)：</strong>代表「感受」。輔導的第一步，是允許每一種真實的情緒在這裡被溫柔地看見與感受。
-                        </p>
-                        <p>
-                            <strong style="color: var(--primary-color); font-size: 1.15rem;">U (Understanding / 輔導)：</strong>代表「理解」。畫面中巨大的「U」型藤蔓，象徵著輔導室是一個充滿理解與涵容的空間。
-                        </p>
-                    </div>
+                    <p style="margin-bottom: 10px;">
+                        <strong style="color: var(--primary-color);">F (Feeling / 福科)：</strong>代表「感受」。輔導的第一步，是允許每一種真實的情緒在這裡被溫柔地看見與感受。
+                    </p>
+                    <p style="margin-bottom: 25px;">
+                        <strong style="color: var(--primary-color);">U (Understanding / 輔導)：</strong>代表「理解」。畫面中巨大的「U」型藤蔓，象徵著輔導室是一個充滿理解與涵容的空間。
+                    </p>
                     
-                    <p style="margin-bottom: 15px; font-size: 1.25rem; color: #2D2D2D; font-weight: bold; text-align: center;">【 視覺符號深度分析 】</p>
-                    
+                    <p style="margin-bottom: 12px; font-size: 1.15rem; color: #2D2D2D; font-weight: bold;">【 視覺符號分析 】</p>
                     <ul style="padding-left: 0; list-style: none;">
-                        <li style="margin-bottom: 20px; position: relative; padding-left: 28px;">
-                            <span style="position: absolute; left: 0; top: 0; color: var(--secondary-color); font-weight: bold; font-size: 1.4rem;">•</span>
-                            <strong style="color: #2D2D2D; font-size: 1.1rem;">U型花圈（安全的結界）：</strong><br>藤蔓交織成一個開口向上的「U」字，就像一個安全的保護罩或心靈的避風港。它沒有封閉，代表著輔導室提供保護，但也隨時歡迎孩子自由進出，給予喘息與成長的空間。
+                        <li style="margin-bottom: 15px; position: relative; padding-left: 22px;">
+                            <span style="position: absolute; left: 0; top: 0; color: var(--secondary-color); font-weight: bold; font-size: 1.2rem;">•</span>
+                            <strong style="color: #2D2D2D;">U型花圈（安全的結界）：</strong>藤蔓交織成一個開口向上的「U」字，就像一個安全的保護罩或心靈的避風港。它沒有封閉，代表著輔導室提供保護，但也隨時歡迎孩子自由進出，給予喘息與成長的空間。
                         </li>
-                        <li style="margin-bottom: 20px; position: relative; padding-left: 28px;">
-                            <span style="position: absolute; left: 0; top: 0; color: var(--secondary-color); font-weight: bold; font-size: 1.4rem;">•</span>
-                            <strong style="color: #2D2D2D; font-size: 1.1rem;">溫柔捧起的雙手（接納與陪伴）：</strong><br>雙手沒有去「拉扯」植物強迫它長大，而是輕輕地捧著底下的土壤。這隱喻著輔導老師的角色——我們不強迫孩子立刻改變，而是提供穩定的土壤（支持系統），穩穩地「接住」每一個受傷或迷惘的心靈，陪伴他們長出自己的力量。
+                        <li style="margin-bottom: 15px; position: relative; padding-left: 22px;">
+                            <span style="position: absolute; left: 0; top: 0; color: var(--secondary-color); font-weight: bold; font-size: 1.2rem;">•</span>
+                            <strong style="color: #2D2D2D;">溫柔捧起的雙手（接納與陪伴）：</strong>雙手沒有去「拉扯」植物強迫它長大，而是輕輕地捧著底下的土壤。這隱喻著輔導老師的角色——我們不強迫孩子立刻改變，而是提供穩定的土壤（支持系統），穩穩地「接住」每一個受傷或迷惘的心靈，陪伴他們長出自己的力量。
                         </li>
-                        <li style="margin-bottom: 20px; position: relative; padding-left: 28px;">
-                            <span style="position: absolute; left: 0; top: 0; color: var(--secondary-color); font-weight: bold; font-size: 1.4rem;">•</span>
-                            <strong style="color: #2D2D2D; font-size: 1.1rem;">破土而出的小芽（內在的生命力）：</strong><br>小芽代表著每一位來到輔導室的學生，或是他們心中那個需要被照顧的「內在小孩」。即使一開始很脆弱，但在愛與理解的滋養下，終究能綻放出屬於自己的綠葉。
+                        <li style="margin-bottom: 15px; position: relative; padding-left: 22px;">
+                            <span style="position: absolute; left: 0; top: 0; color: var(--secondary-color); font-weight: bold; font-size: 1.2rem;">•</span>
+                            <strong style="color: #2D2D2D;">破土而出的小芽（內在的生命力）：</strong>小芽代表著每一位來到輔導室的學生，或是他們心中那個需要被照顧的「內在小孩」。即使一開始很脆弱，但在愛與理解的滋養下，終究能綻放出屬於自己的綠葉。
                         </li>
-                        <li style="position: relative; padding-left: 28px;">
-                            <span style="position: absolute; left: 0; top: 0; color: var(--secondary-color); font-weight: bold; font-size: 1.4rem;">•</span>
-                            <strong style="color: #2D2D2D; font-size: 1.1rem;">點綴的鵝黃色小花（希望的光芒）：</strong><br>在綠色藤蔓中開出的小花，象徵著在諮商與陪伴的過程中，那些微小卻珍貴的「頓悟」、「喜悅」與「希望」。
+                        <li style="margin-bottom: 10px; position: relative; padding-left: 22px;">
+                            <span style="position: absolute; left: 0; top: 0; color: var(--secondary-color); font-weight: bold; font-size: 1.2rem;">•</span>
+                            <strong style="color: #2D2D2D;">點綴的鵝黃色小花（希望的光芒）：</strong>在綠色藤蔓中開出的小花，象徵著在諮商與陪伴的過程中，那些微小卻珍貴的「頓悟」、「喜悅」與「希望」。
                         </li>
                     </ul>
                 </div>
             </div>
 
-            <div class="info-block" style="display: flex; gap: 35px; align-items: center; flex-wrap: wrap;">
-                <div style="flex: 0 0 180px; text-align: center; margin: 0 auto;">
-                    <img src="https://drive.google.com/thumbnail?id=1IqswNZjTqgD7jxzuRTWEqsxgvmABIsYQ&sz=w800" style="width: 100%; border-radius: 50%; border: 5px solid var(--bg-color); box-shadow: 0 10px 30px rgba(0,0,0,0.12);">
+            <div class="info-block" style="display: flex; gap: 30px; align-items: center; flex-wrap: wrap;">
+                <div style="flex: 0 0 160px; text-align: center; margin: 0 auto;">
+                    <img src="https://drive.google.com/thumbnail?id=1IqswNZjTqgD7jxzuRTWEqsxgvmABIsYQ&sz=w800" style="width: 100%; border-radius: 50%; border: 4px solid var(--bg-color); box-shadow: 0 8px 25px rgba(0,0,0,0.12);">
                 </div>
                 <div style="flex: 1; min-width: 250px;">
-                    <h3 style="color: var(--primary-color); margin-bottom: 15px; font-size: 1.5rem;">👨‍💻 網站設計者：杜智平</h3>
-                    <p style="color: var(--text-color); line-height: 1.85; font-size: 1.05rem; font-family: 'PingFang TC', sans-serif;">
+                    <h3 style="color: var(--primary-color); margin-bottom: 15px; font-size: 1.3rem;">👨‍💻 網站設計者：杜智平</h3>
+                    <p style="color: var(--text-color); line-height: 1.85; font-size: 1.05rem;">
                         專任輔導教師杜智平，致力於將輔導專業與資訊科技結合，透過程式開發與溫暖的視覺設計，打造了包含「心靈樹洞」、「SAFE SPACE」以及本官方網站等多個數位平台，期盼透過多元的管道與資源網絡，接住每一個需要幫助的孩子。
                     </p>
                 </div>
@@ -958,7 +987,7 @@
 
     <footer>
         <p>© 2026 福科國中輔導室 版權所有</p>
-        <p style="font-size: 0.85rem; margin-top: 8px; color: #DFE8E5; font-family: 'PingFang TC', sans-serif;">校址：407臺中市西屯區福林里福林路333號 | 聯絡電話：04-24618112</p>
+        <p style="font-size: 0.8rem; margin-top: 7px; color: #DFE8E5;">校址：407臺中市西屯區福林里福林路333號 | 聯絡電話：04-24618112</p>
     </footer>
 
     <script>
@@ -992,7 +1021,7 @@
                 link: 'https://www.youtube.com/playlist?list=PLkqAD3KmD8OuUvpt1f9p9xT8z7C11VcIO',
                 badgeIdentity: '親師生',
                 badgeTopic: '心衛知識加油站',
-                title: '🎬 影音專區：心衛知識加油站',
+                title: '🎬影音專區：心衛知識加油站',
                 text: '由福科國中輔導室精心整理、製作的心理健康系列影音。陪伴你認識壓力、調適情緒，隨時為心靈加滿油！',
                 linkText: '前往 YT 頻道 ➔'
             },
@@ -1143,27 +1172,26 @@
         function closeModalAndPlayMusic() {
             const bgMusic = document.getElementById('bgMusic');
             
-            // 精準跳至 137 秒
-            bgMusic.currentTime = 137; 
-            bgMusic.volume = 0; // 先設為 0 以供淡入
+            bgMusic.currentTime = 137; // ✨ 精準跳至 2:17 (137 秒)
+            bgMusic.volume = 0;        // 先將音量設為 0 以供淡入
 
             bgMusic.play().then(() => {
-                // 🎶 音量平滑淡入黑魔法
-                const targetVolume = 0.45;    // 最舒適的底噪背景音量
+                // 🎶 音量平滑淡入黑魔法 (在 2000 毫秒內平滑拉高音量)
+                const targetVolume = 0.4;     // 設定最舒適的底噪背景音量
                 const fadeDuration = 2000;    // 淡入總時長 2 秒
-                const intervalTime = 50;      
+                const intervalTime = 50;      // 每 50 毫秒調整一次音量
                 const step = targetVolume / (fadeDuration / intervalTime);
                 
                 let fadeId = setInterval(() => {
                     if (bgMusic.volume + step >= targetVolume) {
                         bgMusic.volume = targetVolume;
-                        clearInterval(fadeId); 
+                        clearInterval(fadeId); // 達到目標音量，停止計時器
                     } else {
                         bgMusic.volume += step;
                     }
                 }, intervalTime);
             }).catch(error => {
-                console.log('瀏覽器自動播放政策阻擋，請確認使用者有互動', error);
+                console.log('瀏覽器自動播放政策阻擋，使用者尚未與頁面充分互動', error);
             });
             
             setTimeout(() => {
