@@ -715,6 +715,84 @@
             text-shadow: 0 4px 15px rgba(91, 132, 118, 0.25);
             letter-spacing: 0.05em;
         }
+        /* --- ✨ 新增：全螢幕沉浸歌詞模式專屬樣式 --- */
+        #lyrics-fullscreen-wrapper {
+            position: relative;
+            background-color: transparent; 
+            border-radius: 20px;
+        }
+        #btn-fullscreen {
+            position: absolute; 
+            top: 5px; 
+            right: 5px; 
+            z-index: 10; 
+            padding: 8px 16px; 
+            font-size: 0.9rem; 
+            background: #FAF8F5; 
+            border: 1px solid #EFECE4; 
+            border-radius: 30px; 
+            cursor: pointer; 
+            color: var(--primary-color); 
+            font-weight: bold; 
+            transition: all 0.3s;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+        #btn-fullscreen:hover {
+            background: var(--primary-color);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(91, 132, 118, 0.25);
+        }
+
+        /* 進入全螢幕時的 CSS 狀態 (原生 Fullscreen API) */
+        #lyrics-fullscreen-wrapper:fullscreen {
+            background-color: var(--bg-color); /* 溫暖燕麥白背景 */
+            border-radius: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        #lyrics-fullscreen-wrapper:fullscreen .lyrics-container {
+            height: 100vh;
+            width: 100vw;
+            padding-top: 50px;
+        }
+        #lyrics-fullscreen-wrapper:fullscreen #lyrics-wrapper {
+            padding: 45vh 0; /* 讓上下留白變大，確保螢幕正中間滾動 */
+        }
+        #lyrics-fullscreen-wrapper:fullscreen #btn-fullscreen {
+            top: 30px;
+            right: 40px;
+            font-size: 1.1rem;
+            padding: 12px 24px;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(5px);
+        }
+
+        /* 針對 Safari 等 Webkit 核心瀏覽器的相容性前綴 */
+        #lyrics-fullscreen-wrapper:-webkit-full-screen {
+            background-color: var(--bg-color);
+            border-radius: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        #lyrics-fullscreen-wrapper:-webkit-full-screen .lyrics-container {
+            height: 100vh;
+            width: 100vw;
+            padding-top: 50px;
+        }
+        #lyrics-fullscreen-wrapper:-webkit-full-screen #lyrics-wrapper {
+            padding: 45vh 0;
+        }
+        #lyrics-fullscreen-wrapper:-webkit-full-screen #btn-fullscreen {
+            top: 30px;
+            right: 40px;
+            font-size: 1.1rem;
+            padding: 12px 24px;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(5px);
+        }
    </style>
 </head>
 <body>
@@ -867,9 +945,15 @@
                     福科國中輔導室 專屬校園療癒主題曲
                 </div>
                 
-<div class="lyrics-container" id="lyrics-container">
-                    <div id="lyrics-wrapper" style="padding: 150px 0;">
-                        </div>
+<div id="lyrics-fullscreen-wrapper">
+                    <button id="btn-fullscreen" onclick="toggleFullscreen()">
+                        ⛶ 沉浸全螢幕
+                    </button>
+                    
+                    <div class="lyrics-container" id="lyrics-container">
+                        <div id="lyrics-wrapper" style="padding: 150px 0;">
+                            </div>
+                    </div>
                 </div>
 
                 <div style="margin-top: 25px;">
@@ -1177,7 +1261,11 @@
                 <div style="flex: 1; min-width: 250px;">
                     <h3 style="color: var(--primary-color); margin-bottom: 15px; font-size: 1.3rem;">👨‍💻 網站設計者：杜智平</h3>
                     <p style="color: var(--text-color); line-height: 1.85; font-size: 1.05rem;">
-                        專任輔導教師杜智平，致力於將輔導專業與資訊科技結合，透過程式開發與溫暖的視覺設計，打造了包含「心靈樹洞」、「SAFE SPACE」以及本官方網站等多個數位平台，期盼透過多元的管道與資源網絡，接住每一個需要幫助的孩子。
+                        專任輔導教師杜智平，致力於將輔導專業與資訊科技結合，透過程式開發與溫暖的視覺設計，打造了包含「福科心靈樹洞」與「SAFE SPACE」等多個數位平台。
+
+ </div>褪下教師與開發者的外衣後，他的真實身份其實是一個興趣點滿的超狂斜槓野心家！他熱愛在籃球場上用速度過人、在健身房裡揮灑汗水，並用嚴格的科學營養學打理體態。他的大腦長年處於閱讀與程式創作的高速運轉狀態，而唯一的冷卻機制，就是吃下爆量濃郁的重乳酪蛋糕，以及走遍大街小巷瘋狂尋找各種類型的極品冰品。
+
+他相信人生就像一杯加了重乳酪與冰淇淋的特調——雖然成分看似衝突，但只要調配得當，就能品嚐出最獨特且豐富的滋味！ (σ`∀´)σ 
                     </p>
                 </div>
             </div>
@@ -1573,6 +1661,42 @@
                 lyricsBox.style.display = 'none';
                 toggleBtn.innerHTML = '📄 展開完整歌詞';
                 toggleBtn.classList.remove('active'); // 恢復原本顏色
+            }
+        }
+        // 12. ✨ 控制全螢幕模式的函數
+        function toggleFullscreen() {
+            const wrapper = document.getElementById('lyrics-fullscreen-wrapper');
+            const btn = document.getElementById('btn-fullscreen');
+            
+            if (!document.fullscreenElement && !document.webkitFullscreenElement) {
+                // 進入全螢幕
+                if (wrapper.requestFullscreen) {
+                    wrapper.requestFullscreen();
+                } else if (wrapper.webkitRequestFullscreen) { /* 支援 Safari */
+                    wrapper.webkitRequestFullscreen();
+                }
+                btn.innerHTML = '✖ 退出全螢幕';
+            } else {
+                // 退出全螢幕
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                } else if (document.webkitExitFullscreen) { /* 支援 Safari */
+                    document.webkitExitFullscreen();
+                }
+                btn.innerHTML = '⛶ 沉浸全螢幕';
+            }
+        }
+
+        // 監聽鍵盤 ESC 或系統原生退出全螢幕事件，同步修改按鈕文字
+        document.addEventListener('fullscreenchange', updateFullscreenButton);
+        document.addEventListener('webkitfullscreenchange', updateFullscreenButton);
+
+        function updateFullscreenButton() {
+            const btn = document.getElementById('btn-fullscreen');
+            if (!document.fullscreenElement && !document.webkitFullscreenElement) {
+                btn.innerHTML = '⛶ 沉浸全螢幕';
+            } else {
+                btn.innerHTML = '✖ 退出全螢幕';
             }
         }
     </script>
