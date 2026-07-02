@@ -674,6 +674,7 @@
                 </li>
                 <li><a id="nav-resource" onclick="switchPage('resource')">資源與支持網絡</a></li>
                 <li><a id="nav-faq" onclick="switchPage('faq')">迷思破解 Q&A</a></li>
+                <li><a id="nav-song" onclick="switchPage('song')">主題曲：歇會ㄦ！</a></li>
                 <li><a id="nav-about" onclick="switchPage('about')">關於我們</a></li>
             </ul>
         </nav>
@@ -739,7 +740,102 @@
             <div class="grid" id="card-grid"></div>
         </div>
     </div>
+<div id="page-song" class="page">
+        <div class="team-title-section">
+            <h2>🎵 專屬主題曲：《輔導室，歇會ㄦ！》</h2>
+            <p>這是一首為福科國中同學們創作的療癒之歌。當你覺得累了、壓力大到快破防，或是人際關係讓你疲憊，記得來輔導室歇會ㄦ，這裡永遠為你開機、為你充電！</p>
+        </div>
 
+        <div class="container" style="max-width: 800px; margin: 0 auto; padding-top: 25px;">
+            <div class="info-block" style="text-align: center; border-left: 6px solid var(--primary-color);">
+                <h3 style="color: var(--primary-color); margin-bottom: 12px; font-size: 1.4rem;">🎧 專屬音樂控制台</h3>
+                <p style="font-size: 0.95rem; color: var(--text-muted); margin-bottom: 20px;">
+                    點擊推開大門時背景音樂已悄悄流淌，你也可以透過下方按鈕隨時暫停或重新聆聽完整曲目。
+                </p>
+                <div style="display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;">
+                    <button class="filter-btn active" id="btn-song-play" onclick="controlPageMusic('play')" style="padding: 10px 25px; font-size: 1rem;">▶️ 播放音樂</button>
+                    <button class="filter-btn" id="btn-song-pause" onclick="controlPageMusic('pause')" style="padding: 10px 25px; font-size: 1rem;">⏸️ 暫停音樂</button>
+                    <button class="filter-btn" onclick="controlPageMusic('restart')" style="padding: 10px 25px; font-size: 1rem;">🔄 從頭播放</button>
+                </div>
+            </div>
+
+            <div class="info-block" style="background-color: white; border-radius: 20px; padding: 45px 30px; box-shadow: var(--card-shadow); text-align: center;">
+                <div style="font-family: 'SuiFeng', sans-serif; font-size: 2rem; color: var(--secondary-color); margin-bottom: 10px; font-weight: bold;">
+                    《輔導室，歇會ㄦ！》
+                </div>
+                <div style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 35px; border-bottom: 2px dashed #EFECE4; padding-bottom: 15px;">
+                    福科國中輔導室 專屬校園療癒主題曲
+                </div>
+                
+                <div class="lyrics-body" style="line-height: 2.3; font-size: 1.05rem; color: var(--text-color); letter-spacing: 0.05em;">
+                    <p>早八的鐘聲 敲醒一堆靈魂</p>
+                    <p>昨晚的限動 到底誰看了沒出聲</p>
+                    <p>段考的成績 像是一場大災難</p>
+                    <p>大人說的未來 聽起來有夠煩</p>
+                    <br>
+                    <p>是I人還E人 其實都不想當</p>
+                    <p>心態快炸裂 隨時準備要破防</p>
+                    <p>找不到防空洞 也不想滑手機</p>
+                    <p>輔導室的門沒關 隨時為你開機</p>
+                    <br>
+                    <p>走進來深呼吸 這裡絕對不打分數</p>
+                    <p>把那些鳥事 放心 全部都吐一吐</p>
+                    <br>
+                    
+                    <div style="background-color: rgba(238, 184, 117, 0.15); border-radius: 16px; padding: 25px; margin: 25px auto; max-width: 520px; border: 1px dashed var(--accent-color);">
+                        <p style="font-family: 'SuiFeng', sans-serif; font-size: 1.25rem; color: var(--danger-color); font-weight: bold; margin-bottom: 8px;">【副歌】</p>
+                        <p style="font-weight: bold; font-size: 1.1rem; color: var(--text-color);">輔導室 歇會兒！ 就算世界都在催</p>
+                        <p style="font-weight: bold; font-size: 1.1rem; color: var(--text-color);">輔導室 歇會兒！ 這裡允許你喊累</p>
+                        <p style="font-weight: bold; color: var(--text-color);">眼淚不用收 心情盡情說</p>
+                        <p style="font-family: 'SuiFeng', sans-serif; font-weight: bold; color: var(--primary-color); font-size: 1.3rem; margin: 5px 0;">陪你找回 那個閃亮的自我</p>
+                        <p style="font-weight: bold; color: var(--text-color);">輔導室 歇會兒！</p>
+                        <p style="font-weight: bold; color: var(--text-color);">輔導室 歇會兒！</p>
+                    </div>
+                    <br>
+                    
+                    <p>對話框打了又刪 怕被已讀不回</p>
+                    <p>人際關係這學分 到底要修幾回</p>
+                    <p>有時覺得自己 像個路人NPC</p>
+                    <p style="color: var(--secondary-color); font-weight: bold; font-size: 1.1rem;">但在這裡 你是唯一的主題曲</p>
+                    <br>
+                    <p>沒人懂的EMO 沒關係我們全懂</p>
+                    <p>坐上這沙發 卸下沉重的裝甲</p>
+                    <br>
+                    
+                    <div style="background-color: rgba(238, 184, 117, 0.15); border-radius: 16px; padding: 25px; margin: 25px auto; max-width: 520px; border: 1px dashed var(--accent-color);">
+                        <p style="font-family: 'SuiFeng', sans-serif; font-size: 1.25rem; color: var(--danger-color); font-weight: bold; margin-bottom: 8px;">【副歌】</p>
+                        <p style="font-weight: bold; font-size: 1.1rem; color: var(--text-color);">輔導室 歇會兒！ 就算世界都在催</p>
+                        <p style="font-weight: bold; font-size: 1.1rem; color: var(--text-color);">輔導室 歇會兒！ 這裡允許你喊累</p>
+                        <p style="font-weight: bold; color: var(--text-color);">眼淚不用收 心情盡情說</p>
+                        <p style="font-family: 'SuiFeng', sans-serif; font-weight: bold; color: var(--primary-color); font-size: 1.3rem; margin: 5px 0;">陪你找回 那個閃亮的自我</p>
+                        <p style="font-weight: bold; color: var(--text-color);">輔導室 歇會兒！</p>
+                        <p style="font-weight: bold; color: var(--text-color);">輔導室 歇會兒！</p>
+                    </div>
+                    <br>
+                    
+                    <p>先別急著逞強 先別急著偽裝</p>
+                    <p>把今天的委屈 一口氣都講光</p>
+                    <p>你不是麻煩 你只是太用力撐</p>
+                    <p>坐在這一刻 慢慢把自己安穩</p>
+                    <br>
+                    
+                    <div style="background-color: rgba(238, 184, 117, 0.15); border-radius: 16px; padding: 25px; margin: 25px auto; max-width: 520px; border: 1px dashed var(--accent-color);">
+                        <p style="font-family: 'SuiFeng', sans-serif; font-size: 1.25rem; color: var(--danger-color); font-weight: bold; margin-bottom: 8px;">【副歌】</p>
+                        <p style="font-weight: bold; font-size: 1.1rem; color: var(--text-color);">輔導室 歇會兒！ 就算世界都在催</p>
+                        <p style="font-weight: bold; font-size: 1.1rem; color: var(--text-color);">輔導室 歇會兒！ 這裡允許你喊累</p>
+                        <p style="font-weight: bold; color: var(--text-color);">眼淚不用收 心情盡情說</p>
+                        <p style="font-family: 'SuiFeng', sans-serif; font-weight: bold; color: var(--primary-color); font-size: 1.3rem; margin: 5px 0;">陪你找回 那個閃亮的自我</p>
+                        <p style="font-weight: bold; color: var(--text-color);">輔導室 歇會兒！</p>
+                        <p style="font-weight: bold; color: var(--text-color);">輔導室 歇會兒！</p>
+                    </div>
+                    <br>
+                    
+                    <p style="font-family: 'SuiFeng', sans-serif; font-size: 1.4rem; color: var(--primary-color); font-weight: bold; letter-spacing: 0.08em; margin-bottom: 8px;">歇會兒！充個電再走！</p>
+                    <p style="font-family: 'SuiFeng', sans-serif; font-size: 1.6rem; color: var(--secondary-color); font-weight: bold; letter-spacing: 0.08em;">福科輔導室~ 挺你到最後！</p>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div id="page-resource" class="page">
         <div class="team-title-section">
@@ -1197,6 +1293,29 @@
             setTimeout(() => {
                 document.getElementById('welcomeModal').style.display = 'none';
             }, 600);
+        }
+        // 7. 主題曲分頁專屬音樂控制函數
+        function controlPageMusic(action) {
+            const bgMusic = document.getElementById('bgMusic');
+            const playBtn = document.getElementById('btn-song-play');
+            const pauseBtn = document.getElementById('btn-song-pause');
+            
+            if (!bgMusic) return;
+
+            if (action === 'play') {
+                bgMusic.play();
+                if (playBtn) playBtn.classList.add('active');
+                if (pauseBtn) pauseBtn.classList.remove('active');
+            } else if (action === 'pause') {
+                bgMusic.pause();
+                if (playBtn) playBtn.classList.remove('active');
+                if (pauseBtn) pauseBtn.classList.add('active');
+            } else if (action === 'restart') {
+                bgMusic.currentTime = 0;
+                bgMusic.play();
+                if (playBtn) playBtn.classList.add('active');
+                if (pauseBtn) pauseBtn.classList.remove('active');
+            }
         }
     </script>
 </body>
