@@ -625,7 +625,97 @@
         .yuma-bubble.show { opacity: 1; pointer-events: auto; transform: translateY(0); }
         .yuma-bubble::after { content: ''; position: absolute; bottom: -10px; right: 35px; border-width: 10px 10px 0; border-style: solid; border-color: white transparent; display: block; width: 0; }
         .yuma-bubble::before { content: ''; position: absolute; bottom: -13px; right: 34px; border-width: 11px 11px 0; border-style: solid; border-color: var(--primary-color) transparent; display: block; width: 0; }
-    </style>
+   /* --- ✨ 新增：黑膠唱片與動態歌詞專屬樣式 --- */
+        .vinyl-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .vinyl-record {
+            width: 170px;
+            height: 170px;
+            border-radius: 50%;
+            background: #111;
+            border: 4px solid #2b2b2b;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.25), inset 0 0 15px rgba(255,255,255,0.15);
+            margin-bottom: 25px;
+            /* 黑膠紋路黑魔法 */
+            background-image: 
+                radial-gradient(transparent 30%, rgba(255,255,255,0.06) 32%, transparent 34%),
+                radial-gradient(transparent 45%, rgba(255,255,255,0.06) 47%, transparent 49%),
+                radial-gradient(transparent 60%, rgba(255,255,255,0.06) 62%, transparent 64%);
+            transition: transform 0.3s ease;
+        }
+
+        /* 黑膠旋轉動畫 */
+        .vinyl-record.spinning {
+            animation: spin 3.5s linear infinite;
+        }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+
+        .vinyl-label {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            background: var(--secondary-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            box-shadow: 0 0 6px rgba(0,0,0,0.6);
+            border: 2px solid #dfdfdf;
+        }
+
+        .vinyl-hole {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #FAF8F5;
+            position: absolute;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.5);
+        }
+
+        /* 動態同步歌詞視窗設定 */
+        .lyrics-container {
+            height: 400px; /* 歌詞展示窗高度 */
+            overflow-y: auto;
+            padding: 0 10px;
+            position: relative;
+            /* 邊緣淡出遮罩 (上下隱形漸層) */
+            mask-image: linear-gradient(to bottom, transparent 0%, black 20%, black 80%, transparent 100%);
+            -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 20%, black 80%, transparent 100%);
+            scrollbar-width: none; /* 隱藏卷軸 */
+        }
+        .lyrics-container::-webkit-scrollbar { display: none; }
+
+        .lyric-line {
+            font-family: 'SuiFeng', 'PingFang TC', sans-serif;
+            font-size: 1.35rem;
+            color: var(--text-muted);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            margin-bottom: 20px;
+            opacity: 0.35;
+            transform: scale(0.95);
+        }
+
+        /* 唱到這句時的高亮樣式 */
+        .lyric-line.active {
+            color: var(--primary-color);
+            font-size: 2.1rem; /* 放大顯眼 */
+            opacity: 1;
+            transform: scale(1.05);
+            font-weight: bold;
+            text-shadow: 0 4px 15px rgba(91, 132, 118, 0.25);
+            letter-spacing: 0.05em;
+        }
+   </style>
 </head>
 <body>
     <audio id="bgMusic" loop>
@@ -748,95 +838,117 @@
 
         <div class="container" style="max-width: 800px; margin: 0 auto; padding-top: 25px;">
             <div class="info-block" style="text-align: center; border-left: 6px solid var(--primary-color);">
-                <h3 style="color: var(--primary-color); margin-bottom: 12px; font-size: 1.4rem;">🎧 專屬音樂控制台</h3>
-                <p style="font-size: 0.95rem; color: var(--text-muted); margin-bottom: 20px;">
-                    點擊推開大門時背景音樂已悄悄流淌，你也可以透過下方按鈕隨時暫停或重新聆聽完整曲目。
-                </p>
-                <div style="display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;">
-                    <button class="filter-btn active" id="btn-song-play" onclick="controlPageMusic('play')" style="padding: 10px 25px; font-size: 1rem;">▶️ 播放音樂</button>
-                    <button class="filter-btn" id="btn-song-pause" onclick="controlPageMusic('pause')" style="padding: 10px 25px; font-size: 1rem;">⏸️ 暫停音樂</button>
-                    <button class="filter-btn" onclick="controlPageMusic('restart')" style="padding: 10px 25px; font-size: 1rem;">🔄 從頭播放</button>
+                <div class="vinyl-wrapper">
+                    <div class="vinyl-record spinning" id="vinyl-record">
+                        <div class="vinyl-label">
+                            <span style="font-size: 0.9rem; font-family: 'SuiFeng', sans-serif; letter-spacing: 2px;">歇會<br>ㄦ！</span>
+                        </div>
+                        <div class="vinyl-hole"></div>
+                    </div>
+                    
+                    <h3 style="color: var(--primary-color); margin-bottom: 12px; font-size: 1.4rem;">🎧 專屬音樂控制台</h3>
+                    <p style="font-size: 0.95rem; color: var(--text-muted); margin-bottom: 20px;">
+                        點擊推開大門時背景音樂已悄悄流淌，跟著下方的歌詞一起唱吧！
+                    </p>
+                    
+                    <div style="display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;">
+                        <button class="filter-btn active" id="btn-song-play" onclick="controlPageMusic('play')" style="padding: 10px 25px; font-size: 1rem;">▶️ 播放</button>
+                        <button class="filter-btn" id="btn-song-pause" onclick="controlPageMusic('pause')" style="padding: 10px 25px; font-size: 1rem;">⏸️ 暫停</button>
+                        <button class="filter-btn" onclick="controlPageMusic('restart')" style="padding: 10px 25px; font-size: 1rem;">🔄 重播</button>
+                    </div>
                 </div>
             </div>
 
-            <div class="info-block" style="background-color: white; border-radius: 20px; padding: 45px 30px; box-shadow: var(--card-shadow); text-align: center;">
-                <div style="font-family: 'SuiFeng', sans-serif; font-size: 2rem; color: var(--secondary-color); margin-bottom: 10px; font-weight: bold;">
+            <div class="info-block" style="background-color: white; border-radius: 20px; padding: 45px 20px; box-shadow: var(--card-shadow); text-align: center;">
+                <div style="font-family: 'SuiFeng', sans-serif; font-size: 2.2rem; color: var(--secondary-color); margin-bottom: 10px; font-weight: bold;">
                     《輔導室，歇會ㄦ！》
                 </div>
-                <div style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 35px; border-bottom: 2px dashed #EFECE4; padding-bottom: 15px;">
+                <div style="font-size: 0.95rem; color: var(--text-muted); margin-bottom: 15px; border-bottom: 2px dashed #EFECE4; padding-bottom: 25px;">
                     福科國中輔導室 專屬校園療癒主題曲
                 </div>
                 
-                <div class="lyrics-body" style="line-height: 2.3; font-size: 1.05rem; color: var(--text-color); letter-spacing: 0.05em;">
-                    <p>早八的鐘聲 敲醒一堆靈魂</p>
-                    <p>昨晚的限動 到底誰看了沒出聲</p>
-                    <p>段考的成績 像是一場大災難</p>
-                    <p>大人說的未來 聽起來有夠煩</p>
-                    <br>
-                    <p>是I人還E人 其實都不想當</p>
-                    <p>心態快炸裂 隨時準備要破防</p>
-                    <p>找不到防空洞 也不想滑手機</p>
-                    <p>輔導室的門沒關 隨時為你開機</p>
-                    <br>
-                    <p>走進來深呼吸 這裡絕對不打分數</p>
-                    <p>把那些鳥事 放心 全部都吐一吐</p>
-                    <br>
-                    
-                    <div style="background-color: rgba(238, 184, 117, 0.15); border-radius: 16px; padding: 25px; margin: 25px auto; max-width: 520px; border: 1px dashed var(--accent-color);">
-                        <p style="font-family: 'SuiFeng', sans-serif; font-size: 1.25rem; color: var(--danger-color); font-weight: bold; margin-bottom: 8px;">【副歌】</p>
-                        <p style="font-weight: bold; font-size: 1.1rem; color: var(--text-color);">輔導室 歇會兒！ 就算世界都在催</p>
-                        <p style="font-weight: bold; font-size: 1.1rem; color: var(--text-color);">輔導室 歇會兒！ 這裡允許你喊累</p>
-                        <p style="font-weight: bold; color: var(--text-color);">眼淚不用收 心情盡情說</p>
-                        <p style="font-family: 'SuiFeng', sans-serif; font-weight: bold; color: var(--primary-color); font-size: 1.3rem; margin: 5px 0;">陪你找回 那個閃亮的自我</p>
-                        <p style="font-weight: bold; color: var(--text-color);">輔導室 歇會兒！</p>
-                        <p style="font-weight: bold; color: var(--text-color);">輔導室 歇會兒！</p>
+<div class="lyrics-container" id="lyrics-container">
+                    <div id="lyrics-wrapper" style="padding: 150px 0;">
+                        </div>
+                </div>
+
+                <div style="margin-top: 25px;">
+                    <button class="filter-btn" id="btn-toggle-lyrics" onclick="toggleFullLyrics()" style="padding: 8px 25px; font-size: 1rem; border: 1px solid #E6E2D8;">
+                        📄 展開完整歌詞
+                    </button>
+                </div>
+
+                <div id="full-lyrics-box" style="display: none; margin-top: 30px; text-align: center; border-top: 2px dashed #EFECE4; padding-top: 35px; animation: fadeIn 0.5s;">
+                    <div class="lyrics-body" style="line-height: 2.3; font-size: 1.05rem; color: var(--text-color); letter-spacing: 0.05em;">
+                        <p>早八的鐘聲 敲醒一堆靈魂</p>
+                        <p>昨晚的限動 到底誰看了沒出聲</p>
+                        <p>段考的成績 像是一場大災難</p>
+                        <p>大人說的未來 聽起來有夠煩</p>
+                        <br>
+                        <p>是I人還E人 其實都不想當</p>
+                        <p>心態快炸裂 隨時準備要破防</p>
+                        <p>找不到防空洞 也不想滑手機</p>
+                        <p>輔導室的門沒關 隨時為你開機</p>
+                        <br>
+                        <p>走進來深呼吸 這裡絕對不打分數</p>
+                        <p>把那些鳥事 放心 全部都吐一吐</p>
+                        <br>
+                        
+                        <div style="background-color: rgba(238, 184, 117, 0.15); border-radius: 16px; padding: 25px; margin: 25px auto; max-width: 520px; border: 1px dashed var(--accent-color);">
+                            <p style="font-family: 'SuiFeng', sans-serif; font-size: 1.25rem; color: var(--danger-color); font-weight: bold; margin-bottom: 8px;">【副歌】</p>
+                            <p style="font-weight: bold; font-size: 1.1rem; color: var(--text-color);">輔導室 歇會兒！ 就算世界都在催</p>
+                            <p style="font-weight: bold; font-size: 1.1rem; color: var(--text-color);">輔導室 歇會兒！ 這裡允許你喊累</p>
+                            <p style="font-weight: bold; color: var(--text-color);">眼淚不用收 心情盡情說</p>
+                            <p style="font-family: 'SuiFeng', sans-serif; font-weight: bold; color: var(--primary-color); font-size: 1.3rem; margin: 5px 0;">陪你找回 那個閃亮的自我</p>
+                            <p style="font-weight: bold; color: var(--text-color);">輔導室 歇會兒！</p>
+                            <p style="font-weight: bold; color: var(--text-color);">輔導室 歇會兒！</p>
+                        </div>
+                        <br>
+                        
+                        <p>對話框打了又刪 怕被已讀不回</p>
+                        <p>人際關係這學分 到底要修幾回</p>
+                        <p>有時覺得自己 像個路人NPC</p>
+                        <p style="color: var(--secondary-color); font-weight: bold; font-size: 1.1rem;">但在這裡 你是唯一的主題曲</p>
+                        <br>
+                        <p>沒人懂的EMO 沒關係我們全懂</p>
+                        <p>坐上這沙發 卸下沉重的裝甲</p>
+                        <br>
+                        
+                        <div style="background-color: rgba(238, 184, 117, 0.15); border-radius: 16px; padding: 25px; margin: 25px auto; max-width: 520px; border: 1px dashed var(--accent-color);">
+                            <p style="font-family: 'SuiFeng', sans-serif; font-size: 1.25rem; color: var(--danger-color); font-weight: bold; margin-bottom: 8px;">【副歌】</p>
+                            <p style="font-weight: bold; font-size: 1.1rem; color: var(--text-color);">輔導室 歇會兒！ 就算世界都在催</p>
+                            <p style="font-weight: bold; font-size: 1.1rem; color: var(--text-color);">輔導室 歇會兒！ 這裡允許你喊累</p>
+                            <p style="font-weight: bold; color: var(--text-color);">眼淚不用收 心情盡情說</p>
+                            <p style="font-family: 'SuiFeng', sans-serif; font-weight: bold; color: var(--primary-color); font-size: 1.3rem; margin: 5px 0;">陪你找回 那個閃亮的自我</p>
+                            <p style="font-weight: bold; color: var(--text-color);">輔導室 歇會兒！</p>
+                            <p style="font-weight: bold; color: var(--text-color);">輔導室 歇會兒！</p>
+                        </div>
+                        <br>
+                        
+                        <p>先別急著逞強 先別急著偽裝</p>
+                        <p>把今天的委屈 一口氣都講光</p>
+                        <p>你不是麻煩 你只是太用力撐</p>
+                        <p>坐在這一刻 慢慢把自己安穩</p>
+                        <br>
+                        
+                        <div style="background-color: rgba(238, 184, 117, 0.15); border-radius: 16px; padding: 25px; margin: 25px auto; max-width: 520px; border: 1px dashed var(--accent-color);">
+                            <p style="font-family: 'SuiFeng', sans-serif; font-size: 1.25rem; color: var(--danger-color); font-weight: bold; margin-bottom: 8px;">【副歌】</p>
+                            <p style="font-weight: bold; font-size: 1.1rem; color: var(--text-color);">輔導室 歇會兒！ 就算世界都在催</p>
+                            <p style="font-weight: bold; font-size: 1.1rem; color: var(--text-color);">輔導室 歇會兒！ 這裡允許你喊累</p>
+                            <p style="font-weight: bold; color: var(--text-color);">眼淚不用收 心情盡情說</p>
+                            <p style="font-family: 'SuiFeng', sans-serif; font-weight: bold; color: var(--primary-color); font-size: 1.3rem; margin: 5px 0;">陪你找回 那個閃亮的自我</p>
+                            <p style="font-weight: bold; color: var(--text-color);">輔導室 歇會兒！</p>
+                            <p style="font-weight: bold; color: var(--text-color);">輔導室 歇會兒！</p>
+                        </div>
+                        <br>
+                        
+                        <p style="font-family: 'SuiFeng', sans-serif; font-size: 1.4rem; color: var(--primary-color); font-weight: bold; letter-spacing: 0.08em; margin-bottom: 8px;">歇會兒！充個電再走！</p>
+                        <p style="font-family: 'SuiFeng', sans-serif; font-size: 1.6rem; color: var(--secondary-color); font-weight: bold; letter-spacing: 0.08em;">福科輔導室~ 挺你到最後！</p>
                     </div>
-                    <br>
-                    
-                    <p>對話框打了又刪 怕被已讀不回</p>
-                    <p>人際關係這學分 到底要修幾回</p>
-                    <p>有時覺得自己 像個路人NPC</p>
-                    <p style="color: var(--secondary-color); font-weight: bold; font-size: 1.1rem;">但在這裡 你是唯一的主題曲</p>
-                    <br>
-                    <p>沒人懂的EMO 沒關係我們全懂</p>
-                    <p>坐上這沙發 卸下沉重的裝甲</p>
-                    <br>
-                    
-                    <div style="background-color: rgba(238, 184, 117, 0.15); border-radius: 16px; padding: 25px; margin: 25px auto; max-width: 520px; border: 1px dashed var(--accent-color);">
-                        <p style="font-family: 'SuiFeng', sans-serif; font-size: 1.25rem; color: var(--danger-color); font-weight: bold; margin-bottom: 8px;">【副歌】</p>
-                        <p style="font-weight: bold; font-size: 1.1rem; color: var(--text-color);">輔導室 歇會兒！ 就算世界都在催</p>
-                        <p style="font-weight: bold; font-size: 1.1rem; color: var(--text-color);">輔導室 歇會兒！ 這裡允許你喊累</p>
-                        <p style="font-weight: bold; color: var(--text-color);">眼淚不用收 心情盡情說</p>
-                        <p style="font-family: 'SuiFeng', sans-serif; font-weight: bold; color: var(--primary-color); font-size: 1.3rem; margin: 5px 0;">陪你找回 那個閃亮的自我</p>
-                        <p style="font-weight: bold; color: var(--text-color);">輔導室 歇會兒！</p>
-                        <p style="font-weight: bold; color: var(--text-color);">輔導室 歇會兒！</p>
-                    </div>
-                    <br>
-                    
-                    <p>先別急著逞強 先別急著偽裝</p>
-                    <p>把今天的委屈 一口氣都講光</p>
-                    <p>你不是麻煩 你只是太用力撐</p>
-                    <p>坐在這一刻 慢慢把自己安穩</p>
-                    <br>
-                    
-                    <div style="background-color: rgba(238, 184, 117, 0.15); border-radius: 16px; padding: 25px; margin: 25px auto; max-width: 520px; border: 1px dashed var(--accent-color);">
-                        <p style="font-family: 'SuiFeng', sans-serif; font-size: 1.25rem; color: var(--danger-color); font-weight: bold; margin-bottom: 8px;">【副歌】</p>
-                        <p style="font-weight: bold; font-size: 1.1rem; color: var(--text-color);">輔導室 歇會兒！ 就算世界都在催</p>
-                        <p style="font-weight: bold; font-size: 1.1rem; color: var(--text-color);">輔導室 歇會兒！ 這裡允許你喊累</p>
-                        <p style="font-weight: bold; color: var(--text-color);">眼淚不用收 心情盡情說</p>
-                        <p style="font-family: 'SuiFeng', sans-serif; font-weight: bold; color: var(--primary-color); font-size: 1.3rem; margin: 5px 0;">陪你找回 那個閃亮的自我</p>
-                        <p style="font-weight: bold; color: var(--text-color);">輔導室 歇會兒！</p>
-                        <p style="font-weight: bold; color: var(--text-color);">輔導室 歇會兒！</p>
-                    </div>
-                    <br>
-                    
-                    <p style="font-family: 'SuiFeng', sans-serif; font-size: 1.4rem; color: var(--primary-color); font-weight: bold; letter-spacing: 0.08em; margin-bottom: 8px;">歇會兒！充個電再走！</p>
-                    <p style="font-family: 'SuiFeng', sans-serif; font-size: 1.6rem; color: var(--secondary-color); font-weight: bold; letter-spacing: 0.08em;">福科輔導室~ 挺你到最後！</p>
                 </div>
             </div>
         </div>
     </div>
-
     <div id="page-resource" class="page">
         <div class="team-title-section">
             <h2>🌍 資源與三級支持網絡地圖</h2>
@@ -1264,41 +1376,96 @@
             document.getElementById('welcomeModal').style.display = 'flex';
         });
 
-        // ✨ 6. 進階音樂控制：從 2:17 (137秒) 開始，並優雅淡入
+// 6. 進階音樂控制：推門播放、黑膠啟動與優雅淡入
         function closeModalAndPlayMusic() {
             const bgMusic = document.getElementById('bgMusic');
-            
+            const vinyl = document.getElementById('vinyl-record');
+            const playBtn = document.getElementById('btn-song-play');
+            const pauseBtn = document.getElementById('btn-song-pause');
+
             bgMusic.currentTime = 137; // ✨ 精準跳至 2:17 (137 秒)
-            bgMusic.volume = 0;        // 先將音量設為 0 以供淡入
+            bgMusic.volume = 0;        
 
             bgMusic.play().then(() => {
-                // 🎶 音量平滑淡入黑魔法 (在 2000 毫秒內平滑拉高音量)
-                const targetVolume = 0.4;     // 設定最舒適的底噪背景音量
-                const fadeDuration = 2000;    // 淡入總時長 2 秒
-                const intervalTime = 50;      // 每 50 毫秒調整一次音量
+                // 音量淡入
+                const targetVolume = 0.4;     
+                const fadeDuration = 2000;    
+                const intervalTime = 50;      
                 const step = targetVolume / (fadeDuration / intervalTime);
                 
                 let fadeId = setInterval(() => {
                     if (bgMusic.volume + step >= targetVolume) {
                         bgMusic.volume = targetVolume;
-                        clearInterval(fadeId); // 達到目標音量，停止計時器
+                        clearInterval(fadeId); 
                     } else {
                         bgMusic.volume += step;
                     }
                 }, intervalTime);
+
+                // 啟動黑膠旋轉與按鈕狀態
+                if(vinyl) vinyl.classList.add('spinning');
+                if(playBtn) playBtn.classList.add('active');
+                if(pauseBtn) pauseBtn.classList.remove('active');
+
             }).catch(error => {
-                console.log('瀏覽器自動播放政策阻擋，使用者尚未與頁面充分互動', error);
+                console.log('瀏覽器自動播放阻擋', error);
             });
             
             setTimeout(() => {
                 document.getElementById('welcomeModal').style.display = 'none';
             }, 600);
         }
-        // 7. 主題曲分頁專屬音樂控制函數
+
+        // 7. 主題曲動態 KTV 歌詞資料庫 (由 SRT 轉換)
+        const lyricsData = [
+            { time: 9.98, text: "早八的鐘聲 敲醒一堆靈魂" },
+            { time: 15.02, text: "昨晚的限動 到底誰看了沒出聲" },
+            { time: 20.54, text: "段考的成績 像是一場大災難" },
+            { time: 23.62, text: "大人說的未來 聽起來有夠煩" },
+            { time: 26.30, text: "是I人還E人 其實都不想當" },
+            { time: 29.12, text: "心態快炸裂 隨時準備要破防" },
+            { time: 31.58, text: "找不到防空洞 也不想滑手機" },
+            { time: 34.04, text: "輔導室的門沒關 隨時為你開機" },
+            { time: 36.64, text: "走進來深呼吸 這裡絕對不打分數" },
+            { time: 39.00, text: "把那些鳥事 放心 全部都吐一吐" },
+            { time: 41.16, text: "輔導室 歇會兒！ 就算世界都在催" },
+            { time: 46.00, text: "輔導室 歇會兒！ 這裡允許你喊累" },
+            { time: 51.54, text: "眼淚不用收 心情盡情說" },
+            { time: 56.54, text: "陪你找回 那個閃亮的自我" },
+            { time: 62.00, text: "輔導室 歇會兒！" },
+            { time: 66.86, text: "輔導室 歇會兒！" },
+            { time: 73.00, text: "對話框打了又刪 怕被已讀不回" },
+            { time: 75.78, text: "人際關係這學分 到底要修幾回" },
+            { time: 78.40, text: "有時覺得自己 像個路人NPC" },
+            { time: 80.80, text: "但在這裡 你是唯一的主題曲" },
+            { time: 83.62, text: "沒人懂的EMO 沒關係我們全懂" },
+            { time: 86.36, text: "坐上這沙發 卸下沉重的裝甲" },
+            { time: 93.06, text: "輔導室 歇會兒！ 就算世界都在催" },
+            { time: 98.36, text: "輔導室 歇會兒！ 這裡允許你喊累" },
+            { time: 103.58, text: "眼淚不用收 心情盡情說" },
+            { time: 108.84, text: "陪你找回 那個閃亮的自我" },
+            { time: 114.02, text: "輔導室 歇會兒！" },
+            { time: 118.90, text: "輔導室 歇會兒！" },
+            { time: 125.20, text: "先別急著逞強 先別急著偽裝" },
+            { time: 128.28, text: "把今天的委屈 一口氣都講光" },
+            { time: 130.92, text: "你不是麻煩 你只是太用力撐" },
+            { time: 133.14, text: "坐在這一刻 慢慢把自己安穩" },
+            { time: 137.60, text: "輔導室 歇會兒！就算世界都在催" },
+            { time: 142.50, text: "輔導室 歇會兒！ 這裡允許你喊累" },
+            { time: 147.84, text: "眼淚不用收 心情盡情說" },
+            { time: 152.40, text: "陪你找回 那個閃亮的自我" },
+            { time: 158.38, text: "輔導室 歇會兒！" },
+            { time: 163.28, text: "輔導室 歇會兒！" },
+            { time: 169.02, text: "歇會兒！充個電再走！" },
+            { time: 173.30, text: "福科輔導室~ 挺你到最後！" }
+        ];
+
+        // 8. 音樂與黑膠控制函數
         function controlPageMusic(action) {
             const bgMusic = document.getElementById('bgMusic');
             const playBtn = document.getElementById('btn-song-play');
             const pauseBtn = document.getElementById('btn-song-pause');
+            const vinyl = document.getElementById('vinyl-record');
             
             if (!bgMusic) return;
 
@@ -1306,15 +1473,106 @@
                 bgMusic.play();
                 if (playBtn) playBtn.classList.add('active');
                 if (pauseBtn) pauseBtn.classList.remove('active');
+                if (vinyl) vinyl.classList.add('spinning');
             } else if (action === 'pause') {
                 bgMusic.pause();
                 if (playBtn) playBtn.classList.remove('active');
                 if (pauseBtn) pauseBtn.classList.add('active');
+                if (vinyl) vinyl.classList.remove('spinning');
             } else if (action === 'restart') {
                 bgMusic.currentTime = 0;
                 bgMusic.play();
                 if (playBtn) playBtn.classList.add('active');
                 if (pauseBtn) pauseBtn.classList.remove('active');
+                if (vinyl) vinyl.classList.add('spinning');
+            }
+        }
+
+        // 9. 初始化生成歌詞 DOM
+        window.addEventListener('DOMContentLoaded', () => {
+            const wrapper = document.getElementById('lyrics-wrapper');
+            if (wrapper) {
+                lyricsData.forEach((lyric, index) => {
+                    const p = document.createElement('p');
+                    p.className = 'lyric-line';
+                    p.id = 'lyric-' + index;
+                    p.textContent = lyric.text;
+                    wrapper.appendChild(p);
+                });
+            }
+        });
+
+        // 10. 監聽音樂進度，自動高亮與滾動歌詞
+        const audioEl = document.getElementById('bgMusic');
+        let currentLyricIndex = -1;
+
+        if (audioEl) {
+            audioEl.addEventListener('timeupdate', () => {
+                const time = audioEl.currentTime;
+                let activeIndex = -1;
+
+                // 尋找目前時間對應的歌詞陣列索引
+                for (let i = 0; i < lyricsData.length; i++) {
+                    // 提前 0.3 秒高亮，讓視覺跟得上節奏
+                    if (time >= lyricsData[i].time - 0.3) {
+                        activeIndex = i;
+                    } else {
+                        break;
+                    }
+                }
+
+                // 當歌詞行換了的時候執行更新
+                if (activeIndex !== currentLyricIndex && activeIndex !== -1) {
+                    // 移除上一句的放大效果
+                    if (currentLyricIndex !== -1) {
+                        const oldEl = document.getElementById('lyric-' + currentLyricIndex);
+                        if(oldEl) oldEl.classList.remove('active');
+                    }
+                    
+                    // 放大並高亮當前歌詞
+                    const newEl = document.getElementById('lyric-' + activeIndex);
+                    const container = document.getElementById('lyrics-container');
+                    if(newEl && container) {
+                        newEl.classList.add('active');
+                        // 讓容器自動平滑滾動，使高亮的歌詞保持在視窗中間
+                        const containerCenter = container.clientHeight / 2;
+                        const scrollPos = newEl.offsetTop - containerCenter + (newEl.clientHeight / 2);
+                        container.scrollTo({ top: scrollPos, behavior: 'smooth' });
+                    }
+                    currentLyricIndex = activeIndex;
+                }
+            });
+
+            // 音樂播完後黑膠停止旋轉
+            audioEl.addEventListener('ended', () => {
+                const vinyl = document.getElementById('vinyl-record');
+                const playBtn = document.getElementById('btn-song-play');
+                const pauseBtn = document.getElementById('btn-song-pause');
+                if (vinyl) vinyl.classList.remove('spinning');
+                if (playBtn) playBtn.classList.remove('active');
+                if (pauseBtn) pauseBtn.classList.remove('active');
+            });
+        }
+        // 11. ✨ 切換完整歌詞顯示狀態函數
+        function toggleFullLyrics() {
+            const lyricsBox = document.getElementById('full-lyrics-box');
+            const toggleBtn = document.getElementById('btn-toggle-lyrics');
+            
+            if (lyricsBox.style.display === 'none') {
+                // 展開歌詞
+                lyricsBox.style.display = 'block';
+                toggleBtn.innerHTML = '📄 收合完整歌詞';
+                toggleBtn.classList.add('active'); // 按鈕變成深綠色強調
+                
+                // 平滑滾動讓使用者看到展開的內容
+                setTimeout(() => {
+                    toggleBtn.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 100);
+            } else {
+                // 收合歌詞
+                lyricsBox.style.display = 'none';
+                toggleBtn.innerHTML = '📄 展開完整歌詞';
+                toggleBtn.classList.remove('active'); // 恢復原本顏色
             }
         }
     </script>
