@@ -4,7 +4,7 @@
     <link rel="icon" href="https://drive.google.com/thumbnail?id=1mLT6Swi2aCfWNJZV8wKXuri1Nym8aAxo&sz=w800" type="image/png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>來福導，歇會ㄦ！－福科輔導</title>
+    <title>福科輔導-來「福導」，歇會ㄦ！</title>
     <style>
         /* --- ✨ 1. 自訂字體 (隨峰體) 載入 --- */
         @font-face {
@@ -122,6 +122,7 @@
             transition: all 0.3s ease;
             position: relative;
             padding: 6px 0;
+            cursor: pointer;
         }
 
         nav a:hover, nav a.active-nav {
@@ -625,7 +626,8 @@
         .yuma-bubble.show { opacity: 1; pointer-events: auto; transform: translateY(0); }
         .yuma-bubble::after { content: ''; position: absolute; bottom: -10px; right: 35px; border-width: 10px 10px 0; border-style: solid; border-color: white transparent; display: block; width: 0; }
         .yuma-bubble::before { content: ''; position: absolute; bottom: -13px; right: 34px; border-width: 11px 11px 0; border-style: solid; border-color: var(--primary-color) transparent; display: block; width: 0; }
-   /* --- ✨ 新增：黑膠唱片與動態歌詞專屬樣式 --- */
+        
+        /* --- ✨ 新增：黑膠唱片與動態歌詞專屬樣式 --- */
         .vinyl-wrapper {
             display: flex;
             flex-direction: column;
@@ -824,33 +826,32 @@
     </div>
 
     <header>
-        <div class="logo" onclick="switchPage('home')">來福導，歇會ㄦ！－福科輔導</div>
+        <div class="logo" onclick="switchPage('home')">福科輔導-來「福導」，歇會ㄦ！</div>
         <div class="menu-toggle" onclick="toggleMenu()">☰</div>
         <nav>
             <ul id="nav-menu">
-                <li><a id="nav-home" class="active-nav" onclick="switchPage('home')">首頁與資源寶庫</a></li>
-                <li class="dropdown">
-                    <a style="cursor: default;">站點與社群 ▾</a>
-                    <div class="dropdown-content">
-                        <a href="https://a1021502.github.io/mood/index.html" target="_blank">FMTH 福科心靈樹洞</a>
-                        <a href="https://a1021502.github.io/take.care.of.yourself/" target="_blank">SAFE SPACE</a>
-                        <a href="https://www.facebook.com/fcjhguidance" target="_blank">FB 粉絲專頁</a>
-                        <a href="https://www.instagram.com/fcjhguidance/" target="_blank">IG 官方帳號</a>
-                        <a href="https://www.youtube.com/playlist?list=PLkqAD3KmD8OuUvpt1f9p9xT8z7C11VcIO" target="_blank">YT 心衛知識</a>
-                        <a href="https://www.youtube.com/playlist?list=PLkqAD3KmD8OuBvUJvLy2_5vx7RzdFVL8m" target="_blank">YT 福科電台</a>
-                    </div>
-                </li>
+                <li><a id="nav-home" class="active-nav" onclick="switchPage('home')">首頁</a></li>
+                <li><a href="https://www.youtube.com/playlist?list=PLkqAD3KmD8OuUvpt1f9p9xT8z7C11VcIO" target="_blank">心衛知識加油站</a></li>
+                <li><a href="https://www.youtube.com/playlist?list=PLkqAD3KmD8OuBvUJvLy2_5vx7RzdFVL8m" target="_blank">福科電台</a></li>
                 <li><a id="nav-resource" onclick="switchPage('resource')">資源與支持網絡</a></li>
                 <li><a id="nav-faq" onclick="switchPage('faq')">迷思破解 Q&A</a></li>
-                <li><a id="nav-song" onclick="switchPage('song')">主題曲：輔導室，歇會ㄦ！</a></li>
-                <li><a id="nav-about" onclick="switchPage('about')">關於我們</a></li>
+                <li class="dropdown">
+                    <a style="cursor: default;">關於我們 ▾</a>
+                    <div class="dropdown-content">
+                        <a href="https://www.facebook.com/fcjhguidance" target="_blank">FB 粉絲專頁</a>
+                        <a href="https://www.instagram.com/fcjhguidance/" target="_blank">IG 官方帳號</a>
+                        <a id="nav-song" onclick="switchPage('song')">主題曲</a>
+                        <a id="nav-about" onclick="switchPage('about')">關於「福導」</a>
+                    </div>
+                </li>
+                <li><a href="這裡請替換成你的Google表單連結" target="_blank">使用回饋</a></li>
             </ul>
         </nav>
     </header>
 
     <div id="page-home" class="page active-page">
         <section class="hero">
-            <h1>來福導，歇會ㄦ！－福科輔導</h1>
+            <h1>福科輔導-來「福導」，歇會ㄦ！</h1>
             <div style="text-align: center; margin: 25px 20px 35px 20px;">
                 <h3 style="color: #BA8553; font-size: 1.6rem; margin-bottom: 25px; line-height: 1.5;">
                     在這裡，你的聲音會被聽見。<br>不論是悄悄話、想放鬆，還是尋求資源，我們永遠陪伴你。
@@ -1471,7 +1472,7 @@
             const playBtn = document.getElementById('btn-song-play');
             const pauseBtn = document.getElementById('btn-song-pause');
 
-            bgMusic.currentTime = 137; // ✨ 精準跳至 2:17 (137 秒)
+            bgMusic.currentTime = 0; // ✨ 改為從頭開始播放
             bgMusic.volume = 0;        
 
             bgMusic.play().then(() => {
